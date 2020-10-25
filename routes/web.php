@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JobDeskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/{any}', [JobDeskController::class, 'index'])->where('any', '.*');;
+
+// AUTH
+Route::post('/auth/register', [AuthController::class, 'register']);
+Route::post('/auth/login', [AuthController::class, 'authenticate']);
+Route::post('/auth/logout', [AuthController::class, 'logout']);
+Route::post('/auth/get-user', [AuthController::class, 'getUser']);

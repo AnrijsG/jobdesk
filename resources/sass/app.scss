@@ -1,0 +1,30 @@
+.main {
+    &__top {
+        height: 100%;
+        max-height: 420px;
+        display: flex;
+        flex-direction: column;
+
+        &__blue {
+            background-color: #02203c;
+        }
+
+        &__red {
+            background-color: #3c0207;
+        }
+    }
+
+    &__content {
+        max-width: 1600px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-right: 16px;
+        padding-left: 16px;
+        display: inherit;
+    }
+
+    &__background {
+        height: 100%;
+    }
+};
