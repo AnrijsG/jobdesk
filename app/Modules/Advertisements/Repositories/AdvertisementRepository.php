@@ -5,6 +5,7 @@ namespace App\Modules\Advertisements\Repositories;
 
 
 use App\Models\AdvertisementModel;
+use App\Modules\Advertisements\Structures\AdvertisementQueryItem;
 use App\Repositories\BaseRepository;
 
 class AdvertisementRepository extends BaseRepository
@@ -15,16 +16,22 @@ class AdvertisementRepository extends BaseRepository
     }
 
     /**
-     * @param string $category
-     * @param int $limit
+     * @param AdvertisementQueryItem $item
      * @return AdvertisementModel[]
      */
-    public function getAll(string $category = '', int $limit = 0): array
+    public function find(AdvertisementQueryItem $item): array
     {
-        $query = $this->all(['category', 'LIKE', "$category%"], true);
+        $query = $this->all();
+        if ($item->category) {
+            $query->where('category', 'like', "%$item->category%");
+        }
 
-        if ($limit) {
-            $query->limit($limit);
+        if ($item->environmentId) {
+            $query->where(['environment_id' => $item->environmentId]);
+        }
+
+        if ($item->limit) {
+            $query->limit($item->limit);
         }
 
         return $query->get()->all();

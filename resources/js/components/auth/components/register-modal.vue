@@ -95,6 +95,7 @@ export default {
     methods: {
         async onLogin() {
             try {
+                await axios.get('/sanctum/csrf-cookie');
                 await axios.post('/auth/register', {email: this.email, password: this.password, name: this.name, role: this.role});
 
                 this.$emit('EVENT_USER_LOGGED_IN');

@@ -14,6 +14,6 @@ class UserRepository extends BaseRepository
 
     public function getUserByEmail(string $email): ?User
     {
-        return $this->all(['email' => $email])->get()->all()[0] ?? null;
+        return $this->find(['email' => $email])->get()->all()[0] ?? null;
     }
 }

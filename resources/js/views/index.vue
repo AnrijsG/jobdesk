@@ -2,7 +2,7 @@
     <div class="main__background h-100 bg-light">
         <div class="main__top" :class="backgroundClassColour">
             <div class="main__content d-flex mt-4">
-                <router-link v-if="currentUser" class="text-white" :to="{name: getRouteItem.route}">{{ getRouteItem.name }}</router-link>
+                <router-link v-if="canAccessDashboard" class="text-white" :to="{name: getRouteItem.route}">{{ getRouteItem.name }}</router-link>
                 <auth-buttons></auth-buttons>
             </div>
         </div>
@@ -15,6 +15,7 @@
 import {mapActions, mapGetters} from "vuex";
 import * as authTypes from "../components/auth/stores/auth.types";
 import AuthButtons from "../components/auth/auth-buttons";
+import {EnvironmentModel} from "../components/auth/models/environment.model";
 
 export default {
     name: 'index',
@@ -29,6 +30,7 @@ export default {
     },
     computed: {
         ...mapGetters('auth', {
+            /** @type {UserModel|*} */
             currentUser: authTypes.GET_CURRENT_USER,
         }),
         backgroundClassColour() {
@@ -50,7 +52,18 @@ export default {
                 route: 'dashboard',
                 name: 'Dashboard',
             };
-        }
+        },
+        /**
+         * @return {Boolean}
+         */
+        canAccessDashboard() {
+            const userRole = this.currentUser?.environment.role;
+            if (!userRole) {
+                return false;
+            }
+
+            return userRole === EnvironmentModel.ROLE_ADVERTISER || userRole === EnvironmentModel.ROLE_ADMIN;
+        },
     }
 }
 </script>

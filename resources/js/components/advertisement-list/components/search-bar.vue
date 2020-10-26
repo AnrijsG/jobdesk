@@ -1,13 +1,19 @@
 <template>
     <div class="d-flex" style="place-content: center">
         <input v-model="inputValue"
-            placeholder="Search for jobs"
-            class="form-control w-50 mr-2"
-            type="text"
+               @keydown.enter="search"
+               placeholder="Search for jobs"
+               class="form-control w-50 mr-2"
+               style="padding: 22px"
+               type="text"
+               :disabled="isLoading"
         >
         <button class="btn btn-danger" @click="search" :disabled="isLoading">
-            <span class="material-icons">
+            <span class="material-icons" v-if="!isLoading">
                 search
+            </span>
+            <span v-else class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
             </span>
         </button>
     </div>
@@ -24,9 +30,6 @@ export default {
             inputValue: '',
             isLoading: false,
         }
-    },
-    mounted () {
-        this.getAdvertisements();
     },
     methods: {
         async search() {

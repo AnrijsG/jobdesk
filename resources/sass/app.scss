@@ -6,11 +6,15 @@
         flex-direction: column;
 
         &__blue {
+            transition: 300ms ease-out;
             background-color: #02203c;
+            max-height: 420px;
         }
 
         &__red {
+            transition: 300ms ease-out;
             background-color: #3c0207;
+            max-height: 80px;
         }
     }
 

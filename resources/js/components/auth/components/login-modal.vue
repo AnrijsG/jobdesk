@@ -26,7 +26,9 @@
                                 <input v-model="password" class="form-control" type="password">
                             </div>
 
-                            <button @click="onLogin" class="btn btn-danger float-right" :disabled="invalid">Login</button>
+                            <button @click="onLogin" class="btn btn-danger float-right" :disabled="invalid || !canSubmit">
+                                Login
+                            </button>
                         </ValidationObserver>
                     </div>
                 </div>
@@ -37,6 +39,8 @@
 
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
+import {mapActions, mapGetters} from "vuex";
+import * as storeTypes from '../stores/auth.types';
 
 export default {
     name: 'login-modal',
@@ -52,11 +56,17 @@ export default {
     methods: {
         async onLogin() {
             try {
-                await axios.post('/auth/login', {email: this.email, password: this.password});
+                this.canSubmit = false;
+                await this.login({email: this.email, password: this.password});
 
-                this.$emit('EVENT_USER_LOGGED_IN');
+                $('#loginModal').modal('hide');
             } catch {}
+
+            this.canSubmit = true;
         },
+        ...mapActions('auth', {
+            login: storeTypes.ACTION_LOGIN,
+        }),
     },
 }
 </script>

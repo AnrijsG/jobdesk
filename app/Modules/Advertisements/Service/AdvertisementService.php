@@ -6,6 +6,7 @@ namespace App\Modules\Advertisements\Service;
 
 use App\Models\AdvertisementModel;
 use App\Modules\Advertisements\Repositories\AdvertisementRepository;
+use App\Modules\Advertisements\Structures\AdvertisementQueryItem;
 
 class AdvertisementService
 {
@@ -16,12 +17,11 @@ class AdvertisementService
     }
 
     /**
-     * @param string $category
-     * @param int $limit
+     * @param AdvertisementQueryItem $queryItem
      * @return AdvertisementModel[]
      */
-    public function find(string $category = '', int $limit = 0): array
+    public function search(AdvertisementQueryItem $queryItem): array
     {
-        return $this->repository->getAll($category, $limit);
+        return $this->repository->find($queryItem);
     }
 }

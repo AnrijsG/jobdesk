@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $content
  * @property int $city_id
+ * @property string $expiration_date
  * @property string created_at
  * @property string $updated_at
  *
@@ -29,6 +30,7 @@ class AdvertisementModel extends Model
             'category' => $this->category,
             'title' => $this->title,
             'content' => $this->content,
+            'expirationDate' => $this->expirationDate,
             'environment' => $this->environment->toRpc(),
         ];
     }

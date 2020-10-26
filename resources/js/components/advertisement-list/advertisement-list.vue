@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="w-100" style="position: absolute; margin-top: -100px">
+        <div class="w-100" style="position: absolute; margin-top: -130px">
             <search-bar class="position: relative;" />
         </div>
         <div class="main main__content mt-4" style="position: relative">

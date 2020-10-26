@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->post(
+    '/personal-advertisements',
+    [AdvertisementRpcController::class, 'getAdvertisementsByEnvironmentId']
+);
 
 Route::post('/get-advertisements', [AdvertisementRpcController::class, 'getAdvertisements']);

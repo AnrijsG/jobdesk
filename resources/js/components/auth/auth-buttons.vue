@@ -1,14 +1,18 @@
 <template>
     <span id="header" class="w-100 d-flex" style="justify-content: flex-end">
         <span v-if="!currentUser">
-            <a type="button" class="text-white" data-toggle="modal" data-target="#loginModal">Login</a>
-            <a type="button" class="text-white" data-toggle="modal" data-target="#registerModal">Register</a>
+          <a type="button" class="text-white mr-2" data-toggle="modal" data-target="#loginModal">
+            Login
+          </a>
+          <a type="button" class="text-white" data-toggle="modal" data-target="#registerModal">Register</a>
 
-            <login-modal @EVENT_USER_LOGGED_IN="onLogin"></login-modal>
+            <login-modal></login-modal>
             <register-modal></register-modal>
         </span>
         <span v-else>
-            <a type="button" @click="onLogout" class="text-white">Logout</a>
+          <a type="button" @click="onLogout" class="text-white">
+            Logout
+          </a>
         </span>
     </span>
 </template>
@@ -31,18 +35,15 @@
                     await axios.post('/auth/logout');
 
                     this.getCurrentUser();
+
+                    await this.$router.push('/');
                 } catch {}
             },
-            onLogin() {
-                $('#loginModal').modal('hide');
-
-                this.getCurrentUser();
-            }
         },
         computed: {
             ...mapGetters('auth', {
                 currentUser: storeTypes.GET_CURRENT_USER,
             }),
-        }
+        },
     }
 </script>
