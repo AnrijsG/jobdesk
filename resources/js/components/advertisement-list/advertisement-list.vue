@@ -13,7 +13,7 @@
     import SearchBar from "./components/search-bar";
     import AdvertisementItem from "./components/advertisement-item";
     import * as storeTypes from './stores/advertisement.types';
-    import {mapActions, mapGetters} from "vuex";
+    import {mapActions, mapGetters, mapMutations} from "vuex";
     import {AdvertisementQueryItemStructure} from "./structures/advertisement-query-item.structure";
 
     export default {
@@ -23,29 +23,52 @@
             isPageBottomReached: false,
         }),
         mounted() {
-            const searchItem = new AdvertisementQueryItemStructure();
-            searchItem.limit = 10;
+            this.loadItems();
 
             window.addEventListener('scroll', this.setLeftToScroll);
-
-            this.getAdvertisements(searchItem);
         },
         methods: {
             ...mapActions('advertisements', {
                 getAdvertisements: storeTypes.ACTION_GET_ADVERTISEMENTS,
+                increaseLimit: storeTypes.ACTION_INCREASE_LIMIT,
+            }),
+            ...mapMutations('advertisements', {
+                setSearchTitle: storeTypes.SET_SEARCH_TITLE,
+                setSearchCategory: storeTypes.SET_SEARCH_CATEGORY,
+                setSearchLimit: storeTypes.SET_SEARCH_LIMIT,
             }),
             setLeftToScroll() {
                 this.isPageBottomReached = $(window).scrollTop() + $(window).height() === $(document).height();
+            },
+            loadItems() {
+                this.setSearchLimit(10);
+
+                const queryParams = this.$router.currentRoute.query;
+                Object.keys(queryParams).map((key) => {
+                    switch (key) {
+                        case 'title':
+                            this.setSearchTitle(queryParams.title);
+                            break;
+                        case 'category':
+                            this.setSearchCategory(queryParams.category);
+                            break;
+                    }
+                });
+
+                this.getAdvertisements(this.searchItem);
             },
         },
         computed: {
             ...mapGetters('advertisements', {
                 advertisements: storeTypes.GET_ADVERTISEMENTS,
+                searchItem: storeTypes.GET_CURRENT_SEARCH_ITEM,
             }),
         },
         watch: {
-            isPageBottomReached() {
-                this.getAdvertisements();
+            isPageBottomReached(value) {
+                if (value) {
+                    this.increaseLimit(10);
+                }
             }
         }
     }

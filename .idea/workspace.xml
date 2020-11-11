@@ -4,42 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cba8a450-294a-428c-9eb1-3809762e84fc" name="Default Changelist" comment="Dashboard / Safer auth">
-      <change afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Repositories/JobCategoryRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/advertisement-view.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/structures/advertisement-create-item.structure.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/structures/advertisement-query-item.structure.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/components/create-advertisement-modal.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/configs/routes.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/views/advertisement.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jobdesk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jobdesk.iml" afterDir="false" />
+    <list default="true" id="cba8a450-294a-428c-9eb1-3809762e84fc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/AdvertisementModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/AdvertisementModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Controllers/AdvertisementRpcController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Controllers/AdvertisementRpcController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Repositories/AdvertisementRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Repositories/AdvertisementRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Service/AdvertisementService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Service/AdvertisementService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Structures/AdvertisementQueryItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Structures/AdvertisementQueryItem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/Auth/Repositories/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Auth/Repositories/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/Auth/Services/RegisterService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Auth/Services/RegisterService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_25_184718_create_advertisements_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_25_184718_create_advertisements_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/advertisement-list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/advertisement-list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/advertisement-item.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/advertisement-item.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/search-bar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/search-bar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/models/advertisement.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/models/advertisement.model.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.store.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/auth/components/login-modal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/auth/components/login-modal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/auth/components/register-modal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/auth/components/register-modal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/personal-advertisements/personal-advertisements-editor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/personal-advertisements-editor.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +217,7 @@
       <workItem from="1604263832426" duration="1883000" />
       <workItem from="1604422074564" duration="2000" />
       <workItem from="1604511914094" duration="118000" />
-      <workItem from="1605121510437" duration="6946000" />
+      <workItem from="1605121510437" duration="10462000" />
     </task>
     <task id="LOCAL-00001" summary="Initial auth&#10;SPA logic&#10;Some vue components&#10;Vuex stores">
       <created>1603663528550</created>
@@ -263,7 +233,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603741788296</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Refactoring &amp; More Advertisement logic">
+      <created>1605128693646</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1605128693646</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,7 +249,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial auth&#10;SPA logic&#10;Some vue components&#10;Vuex stores" />
     <MESSAGE value="Dashboard / Safer auth" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dashboard / Safer auth" />
+    <MESSAGE value="Refactoring &amp; More Advertisement logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring &amp; More Advertisement logic" />
   </component>
   <component name="WindowStateProjectService">
     <state x="918" y="373" width="878" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603051387028">
@@ -291,14 +269,14 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1010" y="459" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603631956013" />
-    <state x="889" y="273" key="CommitChangelistDialog2" timestamp="1605127568055">
+    <state x="889" y="273" key="CommitChangelistDialog2" timestamp="1605128689255">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="889" y="273" key="CommitChangelistDialog2/0.0.2560.1410@0.0.2560.1410" timestamp="1605127568055" />
-    <state x="232" y="123" key="DiffContextDialog" timestamp="1605127536898">
+    <state x="889" y="273" key="CommitChangelistDialog2/0.0.2560.1410@0.0.2560.1410" timestamp="1605128689255" />
+    <state x="232" y="123" key="DiffContextDialog" timestamp="1605128573207">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="232" y="123" key="DiffContextDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1605127536898" />
+    <state x="232" y="123" key="DiffContextDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1605128573207" />
     <state x="948" y="483" width="663" height="480" key="EditFileWatcherDialog" timestamp="1603392704997">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -327,10 +305,10 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1045" y="378" key="VCS.ChangeListViewerDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1604265709049" />
-    <state x="872" y="437" key="Vcs.Push.Dialog.v2" timestamp="1603741793075">
+    <state x="872" y="437" key="Vcs.Push.Dialog.v2" timestamp="1605128717797">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="872" y="437" key="Vcs.Push.Dialog.v2/0.0.2560.1410@0.0.2560.1410" timestamp="1603741793075" />
+    <state x="872" y="437" key="Vcs.Push.Dialog.v2/0.0.2560.1410@0.0.2560.1410" timestamp="1605128717797" />
     <state x="534" y="595" width="316" height="245" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1603053133019">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -343,10 +321,10 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="92" y="92" width="2376" height="1226" key="dock-window-1/0.0.2560.1410@0.0.2560.1410" timestamp="1603386319775" />
-    <state x="987" y="304" width="585" height="801" key="find.popup" timestamp="1605125562192">
+    <state x="987" y="304" width="585" height="801" key="find.popup" timestamp="1605131703606">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="987" y="304" width="585" height="801" key="find.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1605125562192" />
+    <state x="987" y="304" width="585" height="801" key="find.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1605131703606" />
     <state x="1080" y="606" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1603023892940">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -355,9 +333,9 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="936" y="333" key="run.anything.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1603747685149" />
-    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup" timestamp="1605127740098">
+    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup" timestamp="1605131696853">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1605127740098" />
+    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1605131696853" />
   </component>
 </project>

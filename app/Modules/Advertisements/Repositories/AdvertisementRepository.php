@@ -38,6 +38,10 @@ class AdvertisementRepository extends BaseRepository
             $query->limit($item->limit);
         }
 
+        if ($item->offset) {
+            $query->offset($item->offset);
+        }
+
         return $query->orderBy('id', 'desc')->get()->all();
     }
 
