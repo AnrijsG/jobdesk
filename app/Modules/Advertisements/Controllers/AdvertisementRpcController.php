@@ -4,23 +4,32 @@ namespace App\Modules\Advertisements\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdvertisementModel;
-use App\Modules\Advertisements\Repositories\AdvertisementRepository;
+use App\Modules\Advertisements\Repositories\JobCategoryRepository;
 use App\Modules\Advertisements\Service\AdvertisementService;
 use App\Modules\Advertisements\Structures\AdvertisementQueryItem;
 use Illuminate\Http\Request;
 
 class AdvertisementRpcController extends Controller
 {
+    private AdvertisementService $service;
+
+    public function __construct(AdvertisementService $service)
+    {
+        $this->service = $service;
+    }
+
     public function getAdvertisements(Request $request)
     {
-        $filters = $request->only('category');
-        $advertisementService = (new AdvertisementService(new AdvertisementRepository));
+        $filters = $request->only('searchItem');
 
-        $searchCriteria = new AdvertisementQueryItem;
-        $searchCriteria->category = $filters['category'] ?? '';
-        $searchCriteria->limit = 10;
+        $searchCriteria = AdvertisementQueryItem::fromArray($filters['searchItem']);
 
-        $advertisements = $advertisementService->search($searchCriteria);
+        if ($filters['searchItem']['withCurrentEnvironmentId']) {
+            $environmentId = $request->user()->environment->id;
+            $searchCriteria->environmentId = $environmentId;
+        }
+
+        $advertisements = $this->service->search($searchCriteria);
         if ($advertisements) {
             $advertisements = array_map(
                 fn($advertisement) => AdvertisementModel::fromArray(get_object_vars($advertisement))->toRpc(),
@@ -31,22 +40,18 @@ class AdvertisementRpcController extends Controller
         return $advertisements;
     }
 
-    public function getAdvertisementsByEnvironmentId(Request $request)
+    public function saveAdvertisement(Request $request)
     {
+        $advertisementData = $request->input('advertisementData');
+
         $environmentId = $request->user()->environment->id;
-        $advertisementService = (new AdvertisementService(new AdvertisementRepository));
+        $advertisementData['environmentId'] = $environmentId;
 
-        $searchCriteria = new AdvertisementQueryItem;
-        $searchCriteria->environmentId = $environmentId;
+        return $this->service->create($advertisementData);
+    }
 
-        $advertisements = $advertisementService->search($searchCriteria);
-        if ($advertisements) {
-            $advertisements = array_map(
-                fn($advertisement) => AdvertisementModel::fromArray(get_object_vars($advertisement))->toRpc(),
-                $advertisements
-            );
-        }
-
-        return $advertisements;
+    public function getJobCategories()
+    {
+        return JobCategoryRepository::ALL_CATEGORIES;
     }
 }

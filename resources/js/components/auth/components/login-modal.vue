@@ -15,7 +15,7 @@
                                 <div slot-scope="{ errors }">
                                     <div class="form-group">
                                         <label>Email:</label>
-                                        <input v-model="email" class="form-control" type="text">
+                                        <input @keydown.enter="onLogin" v-model="email" class="form-control" type="text">
                                     </div>
 
                                     <p class="text-danger">{{ errors[0] }}</p>
@@ -23,7 +23,7 @@
                             </ValidationProvider>
                             <div class="form-group">
                                 <label>Password:</label>
-                                <input v-model="password" class="form-control" type="password">
+                                <input @keydown.enter="onLogin" v-model="password" class="form-control" type="password">
                             </div>
 
                             <button @click="onLogin" class="btn btn-danger float-right" :disabled="invalid || !canSubmit">

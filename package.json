@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.12.1",
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
         "axios": "^0.19.2",
         "cross-env": "^7.0",
         "laravel-mix": "^5.0.1",
@@ -26,6 +27,7 @@
     },
     "dependencies": {
         "bootstrap": "^4.5.3",
-        "bootstrap-vue": "^2.18.1"
+        "bootstrap-vue": "^2.18.1",
+        "sweetalert2": "^10.8.1"
     }
 }

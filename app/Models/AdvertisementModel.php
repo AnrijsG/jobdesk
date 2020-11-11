@@ -14,7 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $category
  * @property string $title
  * @property string $content
- * @property int $city_id
+ * @property int $location
+ * @property string $apply_url
+ * @property int $salary_from
+ * @property int $salary_to
  * @property string $expiration_date
  * @property string created_at
  * @property string $updated_at
@@ -23,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AdvertisementModel extends Model
 {
+    protected $table = 'advertisements';
+
     public function toRpc(): array
     {
         return [
@@ -30,7 +35,11 @@ class AdvertisementModel extends Model
             'category' => $this->category,
             'title' => $this->title,
             'content' => $this->content,
-            'expirationDate' => $this->expirationDate,
+            'location' => $this->location,
+            'applyUrl' => $this->apply_url,
+            'salaryFrom' => $this->salary_from,
+            'salaryTo' => $this->salary_to,
+            'expirationDate' => $this->expiration_date,
             'environment' => $this->environment->toRpc(),
         ];
     }
@@ -38,14 +47,21 @@ class AdvertisementModel extends Model
     public static function fromArray(array $attributes): AdvertisementModel
     {
         $advertisement = new AdvertisementModel;
-        $advertisement->id = $attributes['id'];
-        $advertisement->environment_id = $attributes['environment_id'];
+        if (!empty($attributes['id'])) {
+            $advertisement->id = $attributes['id'];
+        }
+
+        $advertisement->environment_id = $attributes['environment_id'] ?? $attributes['environmentId'];
         $advertisement->category = $attributes['category'];
         $advertisement->title = $attributes['title'];
         $advertisement->content = $attributes['content'];
-        $advertisement->city_id = $attributes['city_id'] ?? 0;
-        $advertisement->created_at = $attributes['created_at'];
-        $advertisement->updated_at = $attributes['updated_at'];
+        $advertisement->location = $attributes['location'] ?? $attributes['location'] ?? 0;
+        $advertisement->apply_url = $attributes['apply_url'] ?? $attributes['applyUrl'] ?? null;
+        $advertisement->salary_from = $attributes['salary_from'] ?? $attributes['salaryFrom'] ?? null;
+        $advertisement->salary_to = $attributes['salary_to'] ?? $attributes['salaryTo'] ?? null;
+        $advertisement->expiration_date = $attributes['expiration_date'] ?? $attributes['expirationDate'] ?? now();
+        $advertisement->created_at = $attributes['created_at'] ?? $attributes['createdAt'] ?? now();
+        $advertisement->updated_at = $attributes['updated_at'] ?? $attributes['updatedAt'] ?? now();
 
         return $advertisement;
     }

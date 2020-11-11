@@ -2,7 +2,12 @@
     <div class="main__background h-100 bg-light">
         <div class="main__top" :class="backgroundClassColour">
             <div class="main__content d-flex mt-4">
-                <router-link v-if="canAccessDashboard" class="text-white" :to="{name: getRouteItem.route}">{{ getRouteItem.name }}</router-link>
+                <router-link v-if="($route.name !== 'homepage')" class="text-white mr-2" :to="{name: 'homepage'}">
+                    <span class="material-icons">
+                        first_page
+                    </span>
+                </router-link>
+                <router-link v-if="canAccessDashboard && $route.name !== 'dashboard'" class="text-white" :to="{name: 'dashboard'}">Dashboard</router-link>
                 <auth-buttons></auth-buttons>
             </div>
         </div>
@@ -38,20 +43,11 @@ export default {
                 return 'main__top__red';
             }
 
-            return 'main__top__blue';
-        },
-        getRouteItem() {
-            if (this.$route.path === '/dashboard') {
-                return {
-                    route: 'homepage',
-                    name: 'Homepage',
-                };
+            if (this.$route.name === 'advertisement') {
+                return 'main__top__purple';
             }
 
-            return {
-                route: 'dashboard',
-                name: 'Dashboard',
-            };
+            return 'main__top__blue';
         },
         /**
          * @return {Boolean}

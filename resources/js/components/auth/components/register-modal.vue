@@ -10,62 +10,60 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <ValidationObserver v-slot="{ invalid }">
-                            <ValidationProvider name="name" rules="required">
-                                <div slot-scope="{ errors }">
-                                    <div class="form-group">
-                                        <label>Name:</label>
-                                        <input v-model="name" class="form-control" type="text">
-                                    </div>
-
-                                    <p class="text-danger">{{ errors[0] }}</p>
+                        <ValidationObserver v-slot="{ invalid, validated }">
+                            <ValidationProvider rules="required" v-slot="{errors}">
+                                <div class="form-group">
+                                    <label>Name:</label>
+                                    <input v-model="name" class="form-control" type="text">
                                 </div>
-                            </ValidationProvider>
-
-                            <ValidationProvider name="email" rules="required|email">
-                                <div slot-scope="{ errors }">
-                                    <div class="form-group">
-                                        <label>Email:</label>
-                                        <input v-model="email" class="form-control" type="text">
-                                    </div>
-
-                                    <p class="text-danger">{{ errors[0] }}</p>
-                                </div>
-                            </ValidationProvider>
-
-                            <ValidationProvider name="email" rules="required|min:8">
-                                <div slot-scope="{ errors }">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <label>Password:</label>
-                                            <input v-model="password" class="form-control" type="password">
-                                        </div>
-                                    </div>
 
                                 <p class="text-danger">{{ errors[0] }}</p>
+                            </ValidationProvider>
+
+                            <ValidationProvider rules="required|email" v-slot="{errors}">
+                                <div class="form-group">
+                                    <label>Email:</label>
+                                    <input v-model="email" class="form-control" type="text">
+                                </div>
+
+                                <p class="text-danger">{{ errors[0] }}</p>
+                            </ValidationProvider>
+
+                            <ValidationProvider :bails="false" rules="required|min:8" v-slot="{errors}">
+                                <div class="form-group">
+                                    <label>Password:</label>
+                                    <input v-model="password" class="form-control" name="password" type="password">
+                                </div>
+
+                                <p class="text-danger">{{ errors[0] }}</p>
+                            </ValidationProvider>
+
+                            <ValidationProvider rules="required" v-slot="{errors}">
+                                <div class="form-group">
+                                    <label>Select role</label>
+                                    <select v-model="role" class="form-control">
+                                        <option disabled value="" disabled>Select role</option>
+                                        <option v-for="(role, index) in roles" :value="role" :key="index">
+                                            {{ getRoleDisplayText(role) }}
+                                        </option>
+                                    </select>
+
+                                    <p class="text-danger">{{ errors[0] }}</p>
                                 </div>
                             </ValidationProvider>
 
-                            <div class="form-group">
-                                <label>Select role</label>
-                                <select v-model="role" class="form-control">
-                                    <option disabled value="">Select role</option>
-                                    <option v-for="(role, index) in roles" :value="role" :key="index">{{ getRoleDisplayText(role) }}</option>
-                                </select>
-                            </div>
-
-                            <ValidationProvider name="email" rules="required|min:8">
-                                <div slot-scope="{ errors }">
-                                    <div class="form-group" v-if="role === 'advertiser'">
+                            <span v-if="role === 'advertiser'">
+                                <ValidationProvider v-if="role === 'advertiser'" rules="required" v-slot="{errors}">
+                                    <div class="form-group">
                                         <label>Company name:</label>
                                         <input v-model="additionalData.companyName" class="form-control" type="text">
                                     </div>
 
                                     <p class="text-danger">{{ errors[0] }}</p>
-                                </div>
-                            </ValidationProvider>
+                                </ValidationProvider>
+                            </span>
 
-                            <button class="btn btn-danger float-right" :disabled="invalid">Register</button>
+                            <button class="btn btn-danger float-right" :disabled="invalid || !validated" @click="onRegister">Register</button>
                         </ValidationObserver>
                     </div>
                 </div>
@@ -77,6 +75,8 @@
 <script>
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import {EnvironmentModel} from "../models/environment.model";
+import {mapActions} from "vuex";
+import * as authTypes from '../stores/auth.types';
 
 export default {
     name: 'register-modal',
@@ -93,12 +93,12 @@ export default {
         roles: EnvironmentModel.PUBLIC_ROLES,
     }),
     methods: {
-        async onLogin() {
+        async onRegister() {
             try {
                 await axios.get('/sanctum/csrf-cookie');
-                await axios.post('/auth/register', {email: this.email, password: this.password, name: this.name, role: this.role});
+                await axios.post('/auth/register', {email: this.email, password: this.password, name: this.name, role: this.role, additionalData: this.additionalData});
 
-                this.$emit('EVENT_USER_LOGGED_IN');
+                this.getUser();
             } catch {}
         },
         getRoleDisplayText(role) {
@@ -109,6 +109,9 @@ export default {
                     return 'Job Applier';
             }
         },
+        ...mapActions('auth', {
+            getUser: authTypes.ACTION_GET_CURRENT_USER,
+        }),
     },
 }
 </script>

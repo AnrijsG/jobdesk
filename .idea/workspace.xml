@@ -4,38 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cba8a450-294a-428c-9eb1-3809762e84fc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Structures/AdvertisementQueryItem.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Modules/Dashboard/Controllers/DashboardRpcController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/components/advertisements-table.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/personal-advertisements-editor.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.store.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="cba8a450-294a-428c-9eb1-3809762e84fc" name="Default Changelist" comment="Dashboard / Safer auth">
+      <change afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Repositories/JobCategoryRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/advertisement-view.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/structures/advertisement-create-item.structure.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/structures/advertisement-query-item.structure.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/components/create-advertisement-modal.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/configs/routes.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/views/advertisement.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/jobdesk.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jobdesk.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/AdvertisementModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/AdvertisementModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Controllers/AdvertisementRpcController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Controllers/AdvertisementRpcController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Repositories/AdvertisementRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Repositories/AdvertisementRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Service/AdvertisementService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Service/AdvertisementService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Structures/AdvertisementQueryItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Structures/AdvertisementQueryItem.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Modules/Auth/Repositories/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Auth/Repositories/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Auth/Services/RegisterService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Auth/Services/RegisterService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_25_184718_create_advertisements_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_25_184718_create_advertisements_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/advertisement-list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/advertisement-list.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/advertisement-item.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/advertisement-item.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/search-bar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/search-bar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/auth/auth-buttons.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/auth/auth-buttons.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/models/advertisement.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/models/advertisement.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.types.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/auth/components/login-modal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/auth/components/login-modal.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/auth/components/register-modal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/auth/components/register-modal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/auth/stores/auth.store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/auth/stores/auth.store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/auth/stores/auth.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/auth/stores/auth.types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/personal-advertisements/personal-advertisements-editor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/personal-advertisements-editor.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/personal-advertisements/stores/personal-advertisements.types.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/views/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/dashboard.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/views/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
@@ -55,8 +55,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Vue Single File Component" />
         <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
       </list>
     </option>
   </component>
@@ -199,17 +199,17 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components/auth" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.HTML" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
     <property name="ts.external.directory.path" value="C:\Users\Anrijs\AppData\Local\JetBrains\Toolbox\apps\PhpStorm\ch-0\202.7660.42\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\jobdesk\resources\js\components\auth" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\jobdesk\resources\js\views" />
       <recent name="D:\jobdesk\resources\js\components\auth\components" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\jobdesk\resources\js\components\auth" />
     </key>
   </component>
   <component name="RunManager">
@@ -237,7 +237,17 @@
       <workItem from="1603652491243" duration="14664000" />
       <workItem from="1603667653717" duration="2007000" />
       <workItem from="1603707754668" duration="1324000" />
-      <workItem from="1603729562649" duration="11990000" />
+      <workItem from="1603729562649" duration="14600000" />
+      <workItem from="1603745946014" duration="4117000" />
+      <workItem from="1603820766966" duration="9340000" />
+      <workItem from="1604001146234" duration="9164000" />
+      <workItem from="1604010376287" duration="276000" />
+      <workItem from="1604010711623" duration="631000" />
+      <workItem from="1604239842357" duration="658000" />
+      <workItem from="1604263832426" duration="1883000" />
+      <workItem from="1604422074564" duration="2000" />
+      <workItem from="1604511914094" duration="118000" />
+      <workItem from="1605121510437" duration="6946000" />
     </task>
     <task id="LOCAL-00001" summary="Initial auth&#10;SPA logic&#10;Some vue components&#10;Vuex stores">
       <created>1603663528550</created>
@@ -246,7 +256,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603663528550</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Dashboard / Safer auth">
+      <created>1603741788296</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1603741788296</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,7 +271,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial auth&#10;SPA logic&#10;Some vue components&#10;Vuex stores" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial auth&#10;SPA logic&#10;Some vue components&#10;Vuex stores" />
+    <MESSAGE value="Dashboard / Safer auth" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dashboard / Safer auth" />
   </component>
   <component name="WindowStateProjectService">
     <state x="918" y="373" width="878" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603051387028">
@@ -273,22 +291,26 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1010" y="459" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603631956013" />
-    <state x="889" y="273" key="CommitChangelistDialog2" timestamp="1603663522896">
+    <state x="889" y="273" key="CommitChangelistDialog2" timestamp="1605127568055">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="889" y="273" key="CommitChangelistDialog2/0.0.2560.1410@0.0.2560.1410" timestamp="1603663522896" />
+    <state x="889" y="273" key="CommitChangelistDialog2/0.0.2560.1410@0.0.2560.1410" timestamp="1605127568055" />
+    <state x="232" y="123" key="DiffContextDialog" timestamp="1605127536898">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="232" y="123" key="DiffContextDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1605127536898" />
     <state x="948" y="483" width="663" height="480" key="EditFileWatcherDialog" timestamp="1603392704997">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="948" y="483" width="663" height="480" key="EditFileWatcherDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603392704997" />
-    <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1603025349919">
+    <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1605124136767">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410@0.0.2560.1410" timestamp="1603025349919" />
-    <state x="1090" y="427" key="NewPhpClassDialog" timestamp="1603735298519">
+    <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410@0.0.2560.1410" timestamp="1605124136767" />
+    <state x="1090" y="427" key="NewPhpClassDialog" timestamp="1603821230607">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="1090" y="427" key="NewPhpClassDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603735298519" />
+    <state x="1090" y="427" key="NewPhpClassDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603821230607" />
     <state x="1115" y="628" key="NewPhpFileDialog" timestamp="1603387715146">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -297,37 +319,45 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1149" y="407" key="RollbackChangesDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603392759165" />
-    <state x="781" y="349" key="SettingsEditor" timestamp="1603665100513">
+    <state x="781" y="349" key="SettingsEditor" timestamp="1604003268166">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="781" y="349" key="SettingsEditor/0.0.2560.1410@0.0.2560.1410" timestamp="1603665100513" />
-    <state x="872" y="437" key="Vcs.Push.Dialog.v2" timestamp="1603663532361">
+    <state x="781" y="349" key="SettingsEditor/0.0.2560.1410@0.0.2560.1410" timestamp="1604003268166" />
+    <state x="1045" y="378" key="VCS.ChangeListViewerDialog" timestamp="1604265709049">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="872" y="437" key="Vcs.Push.Dialog.v2/0.0.2560.1410@0.0.2560.1410" timestamp="1603663532361" />
+    <state x="1045" y="378" key="VCS.ChangeListViewerDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1604265709049" />
+    <state x="872" y="437" key="Vcs.Push.Dialog.v2" timestamp="1603741793075">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="872" y="437" key="Vcs.Push.Dialog.v2/0.0.2560.1410@0.0.2560.1410" timestamp="1603741793075" />
     <state x="534" y="595" width="316" height="245" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1603053133019">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="534" y="595" width="316" height="245" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.2560.1410@0.0.2560.1410" timestamp="1603053133019" />
+    <state x="786" y="445" width="905" height="679" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1604264306490">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="786" y="445" width="905" height="679" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1604264306490" />
     <state x="92" y="92" width="2376" height="1226" key="dock-window-1" timestamp="1603386319775">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="92" y="92" width="2376" height="1226" key="dock-window-1/0.0.2560.1410@0.0.2560.1410" timestamp="1603386319775" />
-    <state x="987" y="304" width="585" height="801" key="find.popup" timestamp="1603741029005">
+    <state x="987" y="304" width="585" height="801" key="find.popup" timestamp="1605125562192">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="987" y="304" width="585" height="801" key="find.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1603741029005" />
+    <state x="987" y="304" width="585" height="801" key="find.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1605125562192" />
     <state x="1080" y="606" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1603023892940">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1080" y="606" key="git4idea.remote.GitConfigureRemotesDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603023892940" />
-    <state x="936" y="333" key="run.anything.popup" timestamp="1603643650563">
+    <state x="936" y="333" key="run.anything.popup" timestamp="1603747685149">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="936" y="333" key="run.anything.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1603643650563" />
-    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup" timestamp="1603741577862">
+    <state x="936" y="333" key="run.anything.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1603747685149" />
+    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup" timestamp="1605127740098">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1603741577862" />
+    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1605127740098" />
   </component>
 </project>

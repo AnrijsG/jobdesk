@@ -1,7 +1,6 @@
 <?php
 
 use App\Modules\Advertisements\Controllers\AdvertisementRpcController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->post(
     '/personal-advertisements',
-    [AdvertisementRpcController::class, 'getAdvertisementsByEnvironmentId']
+    [AdvertisementRpcController::class, 'getAdvertisements']
 );
 
+Route::middleware('auth:sanctum')->post(
+    '/save-advertisement',
+    [AdvertisementRpcController::class, 'saveAdvertisement']
+);
+
+// Advertisements
 Route::post('/get-advertisements', [AdvertisementRpcController::class, 'getAdvertisements']);
+Route::get('/get-categories', [AdvertisementRpcController::class, 'getJobCategories']);

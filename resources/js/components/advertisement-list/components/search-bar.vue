@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex" style="place-content: center">
-        <input v-model="inputValue"
+        <input v-model="inputTitle"
                @keydown.enter="search"
                placeholder="Search for jobs"
                class="form-control w-50 mr-2"
@@ -22,19 +22,25 @@
 <script>
 import {mapActions} from "vuex";
 import * as storeTypes from '../stores/advertisement.types';
+import {AdvertisementQueryItemStructure} from "../structures/advertisement-query-item.structure";
 
 export default {
     name: 'search-bar',
     data () {
         return {
-            inputValue: '',
+            inputTitle: '',
+            inputCategory: '',
             isLoading: false,
         }
     },
     methods: {
         async search() {
             this.isLoading = true;
-            await this.getAdvertisements(this.inputValue);
+
+            await this.$router.push({name: 'homepage', query: {title: this.inputTitle}});
+            const searchItem = new AdvertisementQueryItemStructure(this.inputTitle, this.inputCategory, 10);
+
+            await this.getAdvertisements(searchItem);
             this.isLoading = false;
         },
         ...mapActions('advertisements', {

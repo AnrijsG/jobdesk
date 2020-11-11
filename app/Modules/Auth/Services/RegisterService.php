@@ -5,6 +5,7 @@ namespace App\Modules\Auth\Services;
 
 
 use App\Exceptions\InvalidEnvironmentRoleException;
+use App\Exceptions\InvalidNewUserPropertiesException;
 use App\Models\Environment;
 use App\Models\User;
 use App\Modules\Auth\Factories\EnvironmentFactory;
@@ -62,7 +63,7 @@ class RegisterService
     {
         $user = $this->userRepository->getUserByEmail($email);
         if ($user) {
-            throw new InvalidEnvironmentRoleException();
+            throw new InvalidNewUserPropertiesException('Email taken');
         }
     }
 

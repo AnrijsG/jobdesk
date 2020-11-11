@@ -23,7 +23,11 @@ class AdvertisementRepository extends BaseRepository
     {
         $query = $this->all();
         if ($item->category) {
-            $query->where('category', 'like', "%$item->category%");
+            $query->where(['category' => $item->category]);
+        }
+
+        if ($item->title) {
+            $query->where('title', 'like', "%$item->title%");
         }
 
         if ($item->environmentId) {
@@ -34,6 +38,11 @@ class AdvertisementRepository extends BaseRepository
             $query->limit($item->limit);
         }
 
-        return $query->get()->all();
+        return $query->orderBy('id', 'desc')->get()->all();
+    }
+
+    public function save(AdvertisementModel $advertisementModel)
+    {
+        return $advertisementModel->save();
     }
 }

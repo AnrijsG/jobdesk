@@ -1,13 +1,29 @@
 <template>
     <div class="card p-4 shadow">
-        <h5 class="text-center">Personal advertisements</h5>
+        <div v-if="advertisements.length">
+            <h5 class="text-center">Personal advertisements</h5>
 
-        <hr>
+            <hr>
 
-        <advertisements-table />
+            <advertisements-table />
+        </div>
+        <div v-else>
+            <h3 class="text-center">
+            <span class="material-icons">
+                history
+            </span>
+            </h3>
+            <p class="text-center">
+                No advertisements found, use this panel to start creating
+            </p>
+        </div>
 
-        <a type="button"
-           style="width: fit-content; background-color: #3c0207!important; place-self: flex-end" class="btn text-white shadow">
+        <create-advertisement-modal />
+
+        <a @click="showModal"
+           type="button"
+           style="background-color: #3c0207!important;"
+           class="btn text-white shadow w-100 w-lg-auto">
             Create new
         </a>
     </div>
@@ -15,19 +31,33 @@
 
 <script>
 import AdvertisementsTable from "./components/advertisements-table";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import * as storeTypes from './stores/personal-advertisements.types';
+import * as advertisementStoreTypes from '../advertisement-list/stores/advertisement.types';
+import CreateAdvertisementModal from "./components/create-advertisement-modal";
 
 export default {
     name: "personal-advertisements-editor",
-    components: {AdvertisementsTable},
+    components: {CreateAdvertisementModal, AdvertisementsTable},
     mounted() {
         this.getAdvertisements();
+        this.getCategories();
     },
     methods: {
         ...mapActions('personalAdvertisements', {
             getAdvertisements: storeTypes.ACTION_GET_ENVIRONMENT_ADVERTISEMENTS,
         }),
+        ...mapActions('advertisements', {
+            getCategories: advertisementStoreTypes.ACTION_GET_CATEGORIES,
+        }),
+        ...mapMutations('personalAdvertisements', {
+            showModal: storeTypes.TOGGLE_CREATE_ADVERTISEMENT_MODAL,
+        }),
+    },
+    computed: {
+        ...mapGetters('personalAdvertisements', {
+            advertisements: storeTypes.GET_ENVIRONMENT_ADVERTISEMENTS,
+        })
     }
 }
 </script>

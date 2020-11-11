@@ -1,5 +1,5 @@
 <template>
-    <a type="button" class="w-100">
+    <router-link type="button" class="w-100" :to="`/advertisement/${advertisement.advertisementId}`">
         <div class="card mb-4 shadow advertisement-item">
             <div class="card-body">
                 <div class="card-title">
@@ -13,7 +13,7 @@
                 </h6>
             </div>
         </div>
-    </a>
+    </router-link>
 </template>
 
 <script>

@@ -24,4 +24,16 @@ class AdvertisementService
     {
         return $this->repository->find($queryItem);
     }
+
+    /**
+     * @param array $newItemData
+     * @return AdvertisementModel
+     */
+    public function create(array $newItemData): AdvertisementModel
+    {
+        $newItem = AdvertisementModel::fromArray($newItemData);
+        $this->repository->save($newItem);
+
+        return $newItem;
+    }
 }

@@ -16,6 +16,12 @@
             background-color: #3c0207;
             max-height: 80px;
         }
+
+        &__purple {
+            transition: 300ms ease-out;
+            background-color: #31023c;
+            max-height: 80px;
+        }
     }
 
     &__content {

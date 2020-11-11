@@ -9,6 +9,14 @@ export class AdvertisementModel {
     title = '';
     /** @type {String} */
     content = '';
+    /** @type {String} */
+    location = '';
+    /** @type {String|null} */
+    applyUrl = null;
+    /** @type {Number|null} */
+    salaryFrom = null;
+    /** @type {Number|null} */
+    salaryTo = null;
     /** @type {EnvironmentModel} */
     environment = new EnvironmentModel;
 
