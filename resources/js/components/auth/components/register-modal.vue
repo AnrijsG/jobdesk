@@ -38,7 +38,19 @@
                                 <p class="text-danger">{{ errors[0] }}</p>
                             </ValidationProvider>
 
-                            <ValidationProvider rules="required" v-slot="{errors}">
+                            <p>Are you a member of a registered company?</p>
+                            <div class="form-group">
+                                <label class="mr-2">
+                                    <input v-model="isExistingEnvironment" type="radio" name="isExistingEnvironment" :value="true">
+                                    Yes
+                                </label>
+                                <label>
+                                    <input v-model="isExistingEnvironment" type="radio" name="isExistingEnvironment" :value="false">
+                                    No
+                                </label>
+                            </div>
+
+                            <ValidationProvider v-if="!isExistingEnvironment" rules="required" v-slot="{errors}">
                                 <div class="form-group">
                                     <label>Select role</label>
                                     <select v-model="role" class="form-control">
@@ -52,11 +64,22 @@
                                 </div>
                             </ValidationProvider>
 
-                            <span v-if="role === 'advertiser'">
+                            <span v-if="shouldDisplayRoleDropdown">
                                 <ValidationProvider v-if="role === 'advertiser'" rules="required" v-slot="{errors}">
                                     <div class="form-group">
                                         <label>Company name:</label>
                                         <input v-model="additionalData.companyName" class="form-control" type="text">
+                                    </div>
+
+                                    <p class="text-danger">{{ errors[0] }}</p>
+                                </ValidationProvider>
+                            </span>
+
+                            <span v-if="isExistingEnvironment">
+                                <ValidationProvider rules="required" v-slot="{errors}">
+                                    <div class="form-group">
+                                        <label>Registration Hash:</label>
+                                        <input v-model="additionalData.registrationHash" class="form-control" type="text">
                                     </div>
 
                                     <p class="text-danger">{{ errors[0] }}</p>
@@ -91,6 +114,7 @@ export default {
         role: '',
         additionalData: {},
         roles: EnvironmentModel.PUBLIC_ROLES,
+        isExistingEnvironment: false,
     }),
     methods: {
         async onRegister() {
@@ -112,6 +136,11 @@ export default {
         ...mapActions('auth', {
             getUser: authTypes.ACTION_GET_CURRENT_USER,
         }),
+    },
+    computed: {
+        shouldDisplayRoleDropdown() {
+            return this.role === 'advertiser' && !this.isExistingEnvironment;
+        },
     },
 }
 </script>

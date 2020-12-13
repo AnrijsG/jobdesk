@@ -10,7 +10,11 @@
             <register-modal></register-modal>
         </span>
         <span v-else>
-            <a type="button" @click="onLogout" class="text-white">
+            <span class="text-white">
+                Welcome, {{ currentUser.name }}!<br>
+            </span>
+
+            <a type="button" @click="onLogout" class="w-100 text-white text-right">
                 Logout
             </a>
         </span>

@@ -1,11 +1,11 @@
 <template>
     <div class="main__background h-100 bg-light">
         <div class="main__top" :class="backgroundClassColour">
-            <div class="main__content d-flex mt-4">
+            <div class="main__content d-flex mt-4" style="align-items: center">
                 <router-link v-if="($route.name !== 'homepage')" class="text-white mr-2" :to="{name: 'homepage'}">
-                    <span class="material-icons">
+                    <i class="material-icons" style="font-size: 32px">
                         first_page
-                    </span>
+                    </i>
                 </router-link>
                 <router-link v-if="canAccessDashboard && $route.name !== 'dashboard'" class="text-white" :to="{name: 'dashboard'}">Dashboard</router-link>
                 <auth-buttons></auth-buttons>

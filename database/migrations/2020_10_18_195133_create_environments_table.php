@@ -15,6 +15,7 @@ class CreateEnvironmentsTable extends Migration
     {
         Schema::create('environments', function (Blueprint $table) {
             $table->id();
+            $table->string('registration_hash')->nullable()->unique();
             $table->enum('role', ['applier', 'advertiser', 'admin']);
             $table->string('company_name')->nullable();
             $table->timestamp('created_at')->useCurrent();

@@ -9,6 +9,7 @@ use App\Exceptions\InvalidNewUserPropertiesException;
 use App\Models\Environment;
 use App\Models\User;
 use App\Modules\Auth\Factories\EnvironmentFactory;
+use App\Modules\Auth\Repositories\EnvironmentRepository;
 use App\Modules\Auth\Repositories\UserRepository;
 use App\Modules\Auth\Structures\NewUserStructure;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +17,12 @@ use Illuminate\Support\Facades\DB;
 class RegisterService
 {
     private UserRepository $userRepository;
+    private EnvironmentRepository $environmentRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, EnvironmentRepository $environmentRepository)
     {
         $this->userRepository = $userRepository;
+        $this->environmentRepository = $environmentRepository;
     }
 
     public function register(NewUserStructure $user): User
@@ -31,15 +34,17 @@ class RegisterService
         try {
             DB::beginTransaction();
 
-            switch ($user->role) {
-                case Environment::ROLE_ADVERTISER:
-                    $environment = EnvironmentFactory::getEnvironment($user->role, $user->additionalData['companyName']);
-                    break;
-                default:
-                    $environment = EnvironmentFactory::getEnvironment($user->role);
+            $environment = null;
+
+            $registrationHash = $user->additionalData['registrationHash'] ?? null;
+            if ($registrationHash) {
+                $environment = $this->environmentRepository->getByRegistrationHash($registrationHash);
             }
 
-            $environment->save();
+            if (!$environment) {
+                $environment = $this->generateNewEnvironment($user);
+            }
+
 
             $newUser = new User;
             $newUser->name = $user->name;
@@ -56,6 +61,10 @@ class RegisterService
 
         DB::commit();
 
+        $newUser->refresh();
+
+        $this->afterRegister($environment, $registrationHash);
+
         return $newUser;
     }
 
@@ -71,6 +80,39 @@ class RegisterService
     {
         if (!in_array($role, Environment::PUBLIC_ROLES)) {
             throw new InvalidEnvironmentRoleException();
+        }
+    }
+
+    /**
+     * @param NewUserStructure $user
+     * @return Environment
+     */
+    private function generateNewEnvironment(NewUserStructure $user): Environment
+    {
+        switch ($user->role) {
+            case Environment::ROLE_ADVERTISER:
+                $environment = EnvironmentFactory::getEnvironment($user->role, $user->additionalData['companyName']);
+                break;
+            default:
+                $environment = EnvironmentFactory::getEnvironment($user->role);
+        }
+
+        $environment->save();
+
+        return $environment;
+    }
+
+    /**
+     * @param Environment|null $environment
+     * @param string $registrationHash
+     */
+    private function afterRegister(?Environment $environment, string $registrationHash): void
+    {
+        // Clean up registration hash if used
+        if ($environment->registration_hash === $registrationHash) {
+            $environment->registration_hash = null;
+
+            $environment->update();
         }
     }
 }

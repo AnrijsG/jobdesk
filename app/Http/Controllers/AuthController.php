@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Modules\Auth\Services\EnvironmentService;
 use App\Modules\Auth\Services\RegisterService;
 use App\Modules\Auth\Structures\NewUserStructure;
 use Illuminate\Auth\AuthenticationException;
@@ -12,10 +13,12 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     private RegisterService $registerService;
+    private EnvironmentService $environmentService;
 
-    public function __construct(RegisterService $registerService)
+    public function __construct(RegisterService $registerService, EnvironmentService $environmentService)
     {
         $this->registerService = $registerService;
+        $this->environmentService = $environmentService;
     }
 
     public function authenticate(Request $request)
@@ -44,11 +47,34 @@ class AuthController extends Controller
         Auth::logout();
     }
 
-    public function getUser()
+    public function getUser(Request $request)
     {
-        /** @var User $user */
-        $user = Auth::user();
+        $user = $request->user();
 
         return $user ? $user->toRpc() : null;
+    }
+
+    public function getEnvironmentUsers(Request $request)
+    {
+        $user = $request->user();
+        if (!$user) {
+            return null;
+        }
+
+        return array_map(fn(User $user) => $user->toRpc(), $user->environment->users->all());
+    }
+
+    public function resetRegistrationHash(Request $request)
+    {
+        $user = $request->user();
+
+        return $this->environmentService->resetRegistrationHash($user->environment);
+    }
+
+    public function getRegistrationHash(Request $request)
+    {
+        $user = $request->user();
+
+        return $user->environment->registration_hash;
     }
 }

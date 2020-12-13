@@ -6,7 +6,7 @@
             </div>
             <div class="col-12 col-lg mt-4">
                 <div class="card p-4 shadow">
-                    Placeholder for environment info / users
+                    <environment-tools />
                 </div>
             </div>
         </div>
@@ -15,9 +15,10 @@
 
 <script>
 import PersonalAdvertisementsEditor from "../components/personal-advertisements/personal-advertisements-editor";
+import EnvironmentTools from "../components/environment-tools/environment-tools";
 export default {
     name: 'dashboard',
-    components: {PersonalAdvertisementsEditor}
+    components: {EnvironmentTools, PersonalAdvertisementsEditor}
 }
 </script>
 

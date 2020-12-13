@@ -1,10 +1,9 @@
 <?php
 
-
 namespace App\Modules\Auth\Structures;
 
-
 use App\Exceptions\InvalidNewUserPropertiesException;
+use App\Models\Environment;
 
 class NewUserStructure
 {
@@ -21,7 +20,7 @@ class NewUserStructure
             $obj->name = $newUserArray['name'];
             $obj->email = $newUserArray['email'];
             $obj->password = $newUserArray['password'];
-            $obj->role = $newUserArray['role'];
+            $obj->role = $newUserArray['role'] ?? Environment::ROLE_APPLIER;
             $obj->additionalData = $newUserArray['additionalData'] ?? [];
 
             return $obj;

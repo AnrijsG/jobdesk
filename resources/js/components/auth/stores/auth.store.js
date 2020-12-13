@@ -7,7 +7,10 @@ const auth = {
     state: {
         /** @type {UserModel|null} */
         currentUser: null,
+        /** @type {Array<UserModel>} */
+        environmentUsers: [],
         canAccessDashboard: false,
+        registrationHash: '',
     },
     actions: {
         async [authTypes.ACTION_GET_CURRENT_USER](store) {
@@ -26,6 +29,21 @@ const auth = {
             const canAccessDashboard = userRole === EnvironmentModel.ROLE_ADVERTISER || userRole === EnvironmentModel.ROLE_ADMIN;
 
             store.commit(authTypes.SET_CAN_ACCESS_DASHBOARD, canAccessDashboard);
+        },
+        async [authTypes.ACTION_GET_ENVIRONMENT_USERS]({commit}) {
+            const response = await axios.post('/auth/get-environment-users');
+
+            commit(authTypes.SET_ENVIRONMENT_USERS, response.data);
+        },
+        async [authTypes.ACTION_RESET_REGISTRATION_HASH]({dispatch}) {
+            await axios.post('/auth/reset-registration-hash');
+
+            dispatch(authTypes.ACTION_GET_REGISTRATION_HASH);
+        },
+        async [authTypes.ACTION_GET_REGISTRATION_HASH]({commit}) {
+            const response = await axios.post('/auth/get-registration-hash');
+
+            commit(authTypes.SET_REGISTRATION_HASH, response.data);
         },
         /**
          * @param store
@@ -48,10 +66,14 @@ const auth = {
             state.currentUser = currentUser
         },
         [authTypes.SET_CAN_ACCESS_DASHBOARD]: (state, canAccessDashboard) => state.canAccessDashboard = canAccessDashboard,
+        [authTypes.SET_ENVIRONMENT_USERS]: (state, environmentUsers) => state.environmentUsers = environmentUsers,
+        [authTypes.SET_REGISTRATION_HASH]: (state, registrationHash) => state.registrationHash = registrationHash,
     },
     getters: {
         [authTypes.GET_CURRENT_USER]: (state) => state.currentUser,
         [authTypes.GET_CAN_ACCESS_DASHBOARD]: (state) => state.canAccessDashboard,
+        [authTypes.GET_ENVIRONMENT_USERS]: (state) => state.environmentUsers,
+        [authTypes.GET_REGISTRATION_HASH]: (state) => state.registrationHash,
     },
 };
 

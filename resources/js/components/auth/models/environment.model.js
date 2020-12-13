@@ -10,6 +10,8 @@ export class EnvironmentModel {
 
     /** @type {Number} */
     environmentId = -1;
+    /** @type {String|null} */
+    registrationHash = null;
     /** @type {String} */
     role = '';
     /** @type {String} */
