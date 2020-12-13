@@ -47,6 +47,10 @@ class AdvertisementRepository extends BaseRepository
 
     public function save(AdvertisementModel $advertisementModel)
     {
+        if ($advertisementModel->id) {
+            return $advertisementModel->update();
+        }
+
         return $advertisementModel->save();
     }
 }

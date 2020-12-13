@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import * as storeTypes from './personal-advertisements.types';
 import {AdvertisementModel} from "../../advertisement-list/models/advertisement.model";
 import {AdvertisementQueryItemStructure} from "../../advertisement-list/structures/advertisement-query-item.structure";
+import {AdvertisementCreateItemStructure} from "../../advertisement-list/structures/advertisement-create-item.structure";
 
 Vue.use(Vuex)
 
@@ -10,6 +11,7 @@ const personalAdvertisements = {
     namespaced: true,
     state: {
         advertisements: [],
+        currentAdvertisement: new AdvertisementCreateItemStructure,
         showCreateModal: false,
     },
     actions: {
@@ -34,11 +36,20 @@ const personalAdvertisements = {
     },
     mutations: {
         [storeTypes.SET_ENVIRONMENT_ADVERTISEMENTS]: (state, advertisements) => state.advertisements = advertisements,
-        [storeTypes.TOGGLE_CREATE_ADVERTISEMENT_MODAL]: (state) => state.showCreateModal = !state.showCreateModal,
+        [storeTypes.TOGGLE_CREATE_ADVERTISEMENT_MODAL](state, data) {
+            if (data.ID) {
+                state.currentAdvertisement = state.advertisements.find(advertisement => advertisement.advertisementId === data.ID);
+            } else {
+                state.currentAdvertisement = new AdvertisementCreateItemStructure;
+            }
+
+            state.showCreateModal = !state.showCreateModal;
+        },
     },
     getters: {
         [storeTypes.GET_ENVIRONMENT_ADVERTISEMENTS]: (state) => state.advertisements,
         [storeTypes.GET_SHOW_MODAL]: (state) => state.showCreateModal,
+        [storeTypes.GET_CURRENT_ADVERTISEMENT]: (state) => state.currentAdvertisement,
     },
 };
 

@@ -1,21 +1,30 @@
 <template>
     <div class="card p-4 shadow">
-        <div v-if="advertisements.length">
+        <div v-if="isLoading">
             <h5 class="text-center">Personal advertisements</h5>
-
             <hr>
-
-            <advertisements-table />
+            <b-skeleton-table
+                :rows="5"
+                :columns="4"
+                :table-props="{ bordered: false, striped: false }"
+            ></b-skeleton-table>
         </div>
         <div v-else>
-            <h3 class="text-center">
+            <div v-if="advertisements.length">
+                <h5 class="text-center">Personal advertisements</h5>
+                <hr>
+                <advertisements-table />
+            </div>
+            <div v-else>
+                <h3 class="text-center">
             <span class="material-icons">
                 history
             </span>
-            </h3>
-            <p class="text-center">
-                No advertisements found, use this panel to start creating
-            </p>
+                </h3>
+                <p class="text-center">
+                    No advertisements found, use this panel to start creating
+                </p>
+            </div>
         </div>
 
         <create-advertisement-modal />
@@ -39,8 +48,11 @@ import CreateAdvertisementModal from "./components/create-advertisement-modal";
 export default {
     name: "personal-advertisements-editor",
     components: {CreateAdvertisementModal, AdvertisementsTable},
+    data: () => ({
+       isLoading: false,
+    }),
     mounted() {
-        this.getAdvertisements();
+        this.loadAdvertisements();
         this.getCategories();
     },
     methods: {
@@ -53,11 +65,17 @@ export default {
         ...mapMutations('personalAdvertisements', {
             showModal: storeTypes.TOGGLE_CREATE_ADVERTISEMENT_MODAL,
         }),
+        async loadAdvertisements() {
+            this.isLoading = true;
+            await this.getAdvertisements();
+
+            this.isLoading = false;
+        }
     },
     computed: {
         ...mapGetters('personalAdvertisements', {
             advertisements: storeTypes.GET_ENVIRONMENT_ADVERTISEMENTS,
         })
-    }
+    },
 }
 </script>

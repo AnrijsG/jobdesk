@@ -10,9 +10,9 @@
             <register-modal></register-modal>
         </span>
         <span v-else>
-          <a type="button" @click="onLogout" class="text-white">
-            Logout
-          </a>
+            <a type="button" @click="onLogout" class="text-white">
+                Logout
+            </a>
         </span>
     </span>
 </template>
@@ -28,6 +28,7 @@
         components: {RegisterModal, LoginModal},
         methods: {
             ...mapActions('auth', {
+                /** @type {UserModel|*} */
                 getCurrentUser: storeTypes.ACTION_GET_CURRENT_USER,
             }),
             async onLogout() {

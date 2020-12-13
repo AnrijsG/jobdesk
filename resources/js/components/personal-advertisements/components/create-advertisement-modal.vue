@@ -7,13 +7,13 @@
             <ValidationObserver v-slot="{ invalid }">
                 <ValidationProvider name="advertisementTitle" v-slot="{errors}" rules="required" >
                     <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Job title" label-for="advertisementTitle">
-                        <b-form-input id="advertisementTitle" :state="isInputEmpty(newAdvertisementItem.title)" v-model="newAdvertisementItem.title"></b-form-input>
+                        <b-form-input id="advertisementTitle" :state="isInputEmpty(advertisementItem.title)" v-model="advertisementItem.title"></b-form-input>
                     </b-form-group>
                     <p class="text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
 
                 <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Job category" label-for="advertisementCategory">
-                    <b-form-select :options="categories" v-model="newAdvertisementItem.category" id="advertisementCategory">
+                    <b-form-select :options="categories" v-model="advertisementItem.category" id="advertisementCategory">
                         <template #first>
                             <b-form-select-option :value="null" disabled>-- Please select a category --</b-form-select-option>
                         </template>
@@ -22,8 +22,8 @@
 
                 <ValidationProvider name="advertisementContent" v-slot="{errors}" rules="required">
                     <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Content" label-for="advertisementContent">
-                        <b-form-textarea v-model="newAdvertisementItem.content"
-                                         :state="isInputEmpty(newAdvertisementItem.content)"
+                        <b-form-textarea v-model="advertisementItem.content"
+                                         :state="isInputEmpty(advertisementItem.content)"
                                          rows="8"
                                          id="advertisementContent"
                         />
@@ -33,24 +33,24 @@
 
                 <ValidationProvider name="advertisementLocation" v-slot="{errors}" rules="required">
                     <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Location" label-for="advertisementLocation">
-                        <b-form-input id="advertisementLocation" :state="isInputEmpty(newAdvertisementItem.location)" v-model="newAdvertisementItem.location"></b-form-input>
+                        <b-form-input id="advertisementLocation" :state="isInputEmpty(advertisementItem.location)" v-model="advertisementItem.location"></b-form-input>
                     </b-form-group>
                     <p class="text-danger">{{ errors[0] }}</p>
                 </ValidationProvider>
 
                 <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Should add salary information" label-for="advertisementSalaryCheckbox">
                     <b-form-checkbox
-                        v-model="newAdvertisementItem.shouldDefineSalary"
+                        v-model="advertisementItem.shouldDefineSalary"
                         id="advertisementSalaryCheckbox"
                         switch
                     ></b-form-checkbox>
                 </b-form-group>
 
-                <div v-if="newAdvertisementItem.shouldDefineSalary">
+                <div v-if="advertisementItem.shouldDefineSalary">
                     <ValidationProvider name="advertisementSalaryRangeFrom" v-slot="{dirty, errors}" rules="required|max_value:@advertisementSalaryRangeTo">
                         <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Salary from (Euros)" label-for="advertisementSalaryRangeFrom">
                             <b-form-input id="advertisementSalaryRangeFrom"
-                                          v-model="newAdvertisementItem.salaryFrom"
+                                          v-model="advertisementItem.salaryFrom"
                                           type="number"
                                           min="0"
                                           :state="dirty && !errors.length"
@@ -61,9 +61,9 @@
                     <ValidationProvider name="advertisementSalaryRangeTo" v-slot="{dirty, errors}" rules="required|min_value:@advertisementSalaryRangeFrom">
                         <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Salary to (Euros)" label-for="advertisementSalaryRangeTo">
                             <b-form-input id="advertisementSalaryRangeTo"
-                                          v-model="newAdvertisementItem.salaryTo"
+                                          v-model="advertisementItem.salaryTo"
                                           type="number"
-                                          :min="newAdvertisementItem.salaryFrom"
+                                          :min="advertisementItem.salaryFrom"
                                           :state="dirty && !errors.length"
                             />
                         </b-form-group>
@@ -72,7 +72,7 @@
                 </div>
 
                 <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Expiration date" label-for="expirationDate">
-                    <b-form-datepicker name="expirationDate" v-model="newAdvertisementItem.expirationDate" class="mb-2"></b-form-datepicker>
+                    <b-form-datepicker name="expirationDate" v-model="advertisementItem.expirationDate" class="mb-2"></b-form-datepicker>
                 </b-form-group>
 
                 <div class="float-right">
@@ -94,7 +94,6 @@ import * as advertisementStoreTypes from '../../advertisement-list/stores/advert
 import * as storeTypes from '../stores/personal-advertisements.types';
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import {ValidationObserver, ValidationProvider} from "vee-validate";
-import {AdvertisementCreateItemStructure} from "../../advertisement-list/structures/advertisement-create-item.structure";
 import Swal from 'sweetalert2';
 
 export default {
@@ -103,9 +102,6 @@ export default {
         ValidationProvider,
         ValidationObserver
     },
-    data: () => ({
-        newAdvertisementItem: new AdvertisementCreateItemStructure,
-    }),
     methods: {
         ...mapActions('personalAdvertisements', {
             saveAdvertisement: storeTypes.ACTION_SAVE_ADVERTISEMENT,
@@ -119,7 +115,7 @@ export default {
         },
         async save() {
             try {
-                const response = await this.saveAdvertisement(this.newAdvertisementItem);
+                const response = await this.saveAdvertisement(this.advertisementItem);
                 if (response) {
                     await Swal.fire('Advertisement created successfully');
                     await this.getPersonalAdvertisements();
@@ -134,10 +130,11 @@ export default {
     },
     computed: {
         isAdditionalFormValidationPassed() {
-            return this.newAdvertisementItem.category !== null && this.newAdvertisementItem.expirationDate !== '';
+            return this.advertisementItem.category !== null && this.advertisementItem.expirationDate !== '';
         },
         ...mapGetters('personalAdvertisements', {
             showModal: storeTypes.GET_SHOW_MODAL,
+            advertisementItem: storeTypes.GET_CURRENT_ADVERTISEMENT,
         }),
         ...mapGetters('advertisements', {
             categories: advertisementStoreTypes.GET_CATEGORIES,

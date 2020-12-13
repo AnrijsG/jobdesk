@@ -3,6 +3,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AdvertisementModel extends Model
 {
+    use HasFactory;
+
     protected $table = 'advertisements';
 
     public function toRpc(): array
@@ -46,7 +49,15 @@ class AdvertisementModel extends Model
 
     public static function fromArray(array $attributes): AdvertisementModel
     {
-        $advertisement = new AdvertisementModel;
+        // Hack for saving personal advertisements
+        if (!empty($attributes['advertisementId'])) {
+            $advertisement = AdvertisementModel::all()->where('id', $attributes['advertisementId'])->first();
+        }
+
+        if (!isset($advertisement)) {
+            $advertisement = new AdvertisementModel;
+        }
+
         if (!empty($attributes['id'])) {
             $advertisement->id = $attributes['id'];
         }

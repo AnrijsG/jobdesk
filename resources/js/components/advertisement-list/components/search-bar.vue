@@ -26,18 +26,33 @@ import {AdvertisementQueryItemStructure} from "../structures/advertisement-query
 
 export default {
     name: 'search-bar',
-    data () {
-        return {
-            inputTitle: '',
-            inputCategory: '',
-            isLoading: false,
+    props: {
+        initialInputTitle: {
+            type: String,
+            required: false,
+            default: '',
         }
+    },
+    data: () => ({
+        inputTitle: '',
+        inputCategory: '',
+        isLoading: false,
+    }),
+    mounted() {
+        this.inputTitle = this.initialInputTitle;
     },
     methods: {
         async search() {
             this.isLoading = true;
 
-            await this.$router.push({name: 'homepage', query: {title: this.inputTitle}});
+            try {
+                await this.$router.push({name: 'homepage', query: {title: this.inputTitle}});
+            } catch {
+                this.isLoading = false;
+
+                return;
+            }
+
             const searchItem = new AdvertisementQueryItemStructure(this.inputTitle, this.inputCategory, 10);
 
             await this.getAdvertisements(searchItem);

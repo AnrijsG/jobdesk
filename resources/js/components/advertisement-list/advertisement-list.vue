@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="w-100" style="position: absolute; margin-top: -130px">
-            <search-bar class="position: relative;" />
+            <search-bar class="position: relative;" :initial-input-title="$router.currentRoute.query.title || ''" />
         </div>
         <div class="main main__content mt-4" style="position: relative">
             <advertisement-item v-for="advertisement in advertisements" :key="advertisement.advertisementId" :advertisement="advertisement" />
@@ -14,7 +14,6 @@
     import AdvertisementItem from "./components/advertisement-item";
     import * as storeTypes from './stores/advertisement.types';
     import {mapActions, mapGetters, mapMutations} from "vuex";
-    import {AdvertisementQueryItemStructure} from "./structures/advertisement-query-item.structure";
 
     export default {
         name: 'advertisement-list',

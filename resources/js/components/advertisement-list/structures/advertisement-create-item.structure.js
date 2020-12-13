@@ -1,4 +1,6 @@
 export class AdvertisementCreateItemStructure {
+    /** @type {Number} */
+    advertisementId = -1;
     /** @type {String|null} */
     category = null;
     /** @type {String} */
