@@ -12,3 +12,12 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 !/composer.lock
+/public/0.js
+/public/1.js
+/public/2.js
+/public/css/app.css
+/public/js/app.js
+/public/js/app.js.LICENSE.txt
+/css
+/public/mix-manifest.json
+/config/sanctum.php
