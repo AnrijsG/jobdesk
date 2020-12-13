@@ -117,7 +117,7 @@ export default {
             try {
                 const response = await this.saveAdvertisement(this.advertisementItem);
                 if (response) {
-                    await Swal.fire('Advertisement created successfully');
+                    await Swal.fire('Advertisement saved successfully');
                     await this.getPersonalAdvertisements();
                     this.$bvModal.hide('createAdvertisementModal');
 

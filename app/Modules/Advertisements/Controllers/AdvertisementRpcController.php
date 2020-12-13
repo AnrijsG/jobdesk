@@ -47,7 +47,9 @@ class AdvertisementRpcController extends Controller
         $environmentId = $request->user()->environment->id;
         $advertisementData['environmentId'] = $environmentId;
 
-        return $this->service->create($advertisementData);
+        $user = $request->user();
+
+        return $this->service->create($advertisementData, $user);
     }
 
     public function getJobCategories()
