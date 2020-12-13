@@ -15,13 +15,18 @@ class AdvertisementRepository extends BaseRepository
         return 'advertisements';
     }
 
+    protected function model(): string
+    {
+        return AdvertisementModel::class;
+    }
+
     /**
      * @param AdvertisementQueryItem $item
      * @return AdvertisementModel[]
      */
     public function find(AdvertisementQueryItem $item): array
     {
-        $query = $this->all();
+        $query = $this->buildFindQuery();
         if ($item->category) {
             $query->where(['category' => $item->category]);
         }
@@ -43,6 +48,15 @@ class AdvertisementRepository extends BaseRepository
         }
 
         return $query->orderBy('id', 'desc')->get()->all();
+    }
+
+    /**
+     * @param int $id
+     * @return AdvertisementModel|null
+     */
+    public function getById(int $id): ?AdvertisementModel
+    {
+        return $this->all()->where('id', $id)->first();
     }
 
     public function save(AdvertisementModel $advertisementModel)

@@ -33,9 +33,14 @@ class AdvertisementService
      * @return AdvertisementModel
      * @throws AdvertisementSaveException
      */
-    public function create(array $newItemData, User $user): AdvertisementModel
+    public function save(array $newItemData, User $user): AdvertisementModel
     {
-        $newItem = AdvertisementModel::fromArray($newItemData);
+        $advertisement = null;
+        if (isset($newItemData['advertisementId'])) {
+            $advertisement = $this->repository->getById($newItemData['advertisementId']);
+        }
+
+        $newItem = AdvertisementModel::fromArray($newItemData, $advertisement);
         if ($newItem->id) {
             $this->failIfUserNotAdvertisementOwner($newItem, $user);
         }

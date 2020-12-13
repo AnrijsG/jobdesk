@@ -47,14 +47,9 @@ class AdvertisementModel extends Model
         ];
     }
 
-    public static function fromArray(array $attributes): AdvertisementModel
+    public static function fromArray(array $attributes, ?AdvertisementModel $advertisement = null): AdvertisementModel
     {
-        // Hack for saving personal advertisements
-        if (!empty($attributes['advertisementId'])) {
-            $advertisement = AdvertisementModel::all()->where('id', $attributes['advertisementId'])->first();
-        }
-
-        if (!isset($advertisement)) {
+        if (!$advertisement) {
             $advertisement = new AdvertisementModel;
         }
 

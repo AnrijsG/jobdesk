@@ -8,6 +8,7 @@ use App\Modules\Advertisements\Repositories\JobCategoryRepository;
 use App\Modules\Advertisements\Service\AdvertisementService;
 use App\Modules\Advertisements\Structures\AdvertisementQueryItem;
 use Illuminate\Http\Request;
+use \App\Modules\Advertisements\Exceptions\AdvertisementSaveException;
 
 class AdvertisementRpcController extends Controller
 {
@@ -40,6 +41,11 @@ class AdvertisementRpcController extends Controller
         return $advertisements;
     }
 
+    /**
+     * @param Request $request
+     * @return AdvertisementModel
+     * @throws AdvertisementSaveException
+     */
     public function saveAdvertisement(Request $request)
     {
         $advertisementData = $request->input('advertisementData');
@@ -49,7 +55,7 @@ class AdvertisementRpcController extends Controller
 
         $user = $request->user();
 
-        return $this->service->create($advertisementData, $user);
+        return $this->service->save($advertisementData, $user);
     }
 
     public function getJobCategories()
