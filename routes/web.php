@@ -25,3 +25,4 @@ Route::post('/auth/get-user', [AuthController::class, 'getUser']);
 Route::post('/auth/get-environment-users', [AuthController::class, 'getEnvironmentUsers']);
 Route::post('/auth/reset-registration-hash', [AuthController::class, 'resetRegistrationHash']);
 Route::post('/auth/get-registration-hash', [AuthController::class, 'getRegistrationHash']);
+Route::post('/auth/delete-registration-hash', [AuthController::class, 'deleteRegistrationHash']);

@@ -15,4 +15,10 @@ class EnvironmentService
 
         return $newHash;
     }
+
+    public function deleteRegistrationHash(Environment $environment): bool
+    {
+        $environment->registration_hash = null;
+        return $environment->update();
+    }
 }

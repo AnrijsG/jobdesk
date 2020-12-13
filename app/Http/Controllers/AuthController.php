@@ -71,6 +71,13 @@ class AuthController extends Controller
         return $this->environmentService->resetRegistrationHash($user->environment);
     }
 
+    public function deleteRegistrationHash(Request $request)
+    {
+        $user = $request->user();
+
+        return $this->environmentService->deleteRegistrationHash($user->environment);
+    }
+
     public function getRegistrationHash(Request $request)
     {
         $user = $request->user();

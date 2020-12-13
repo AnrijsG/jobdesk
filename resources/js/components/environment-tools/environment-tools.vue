@@ -20,9 +20,15 @@
                 </span>
             </button>
 
-            <button @click="resetRegistrationHash" class="btn btn-danger mr-2">
+            <button @click="onResetRegistrationHash" class="btn btn-warning mr-2">
                 <span class="material-icons">
                     autorenew
+                </span>
+            </button>
+
+            <button @click="onDeleteRegistrationHash" class="btn btn-danger">
+                <span class="material-icons">
+                    delete
                 </span>
             </button>
         </div>
@@ -66,6 +72,7 @@ import {mapActions, mapGetters} from "vuex";
             ...mapActions('auth', {
                 resetRegistrationHash: storeTypes.ACTION_RESET_REGISTRATION_HASH,
                 getRegistrationHash: storeTypes.ACTION_GET_REGISTRATION_HASH,
+                deleteRegistrationHash: storeTypes.ACTION_DELETE_REGISTRATION_HASH,
             }),
             copyHash() {
                 const registerHashInputField = document.getElementById('registerHash');
@@ -78,7 +85,25 @@ import {mapActions, mapGetters} from "vuex";
                     title: 'Notification',
                     variant: 'secondary',
                     solid: true
-                })
+                });
+            },
+            onResetRegistrationHash() {
+                this.resetRegistrationHash();
+
+                this.$bvToast.toast('Registration hash successfully reset!', {
+                    title: 'Notification',
+                    variant: 'secondary',
+                    solid: true
+                });
+            },
+            onDeleteRegistrationHash() {
+                this.deleteRegistrationHash();
+
+                this.$bvToast.toast('Registration hash successfully deleted!', {
+                    title: 'Notification',
+                    variant: 'secondary',
+                    solid: true
+                });
             },
         },
     }

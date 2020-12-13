@@ -45,6 +45,11 @@ const auth = {
 
             commit(authTypes.SET_REGISTRATION_HASH, response.data);
         },
+        async [authTypes.ACTION_DELETE_REGISTRATION_HASH]({dispatch}) {
+            await axios.post('/auth/delete-registration-hash');
+
+            dispatch(authTypes.ACTION_GET_REGISTRATION_HASH);
+        },
         /**
          * @param store
          * @param credentials

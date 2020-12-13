@@ -1,26 +1,24 @@
 .main {
     &__top {
-        height: 100%;
-        max-height: 420px;
         display: flex;
         flex-direction: column;
 
         &__blue {
             transition: 300ms ease-out;
             background-color: #02203c;
-            max-height: 420px;
+            padding-bottom: 340px;
         }
 
         &__red {
             transition: 300ms ease-out;
             background-color: #3c0207;
-            max-height: 80px;
+            padding-bottom: 24px;
         }
 
         &__purple {
             transition: 300ms ease-out;
             background-color: #31023c;
-            max-height: 80px;
+            padding-bottom: 24px;
         }
     }
 
