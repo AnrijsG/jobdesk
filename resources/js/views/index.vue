@@ -4,7 +4,7 @@
             <div class="main__content d-flex my-4" style="align-items: center">
                 <router-link class="home-button" :to="{name: 'homepage'}">
                     <div>
-                        <p class="d-inline text-dark m-0" style="font-size: 24px"><strong>Job</strong>Desk</p>
+                        <p @click="scrollToTop" class="d-inline text-dark m-0" style="font-size: 24px"><strong>Job</strong>Desk</p>
                     </div>
                 </router-link>
 
@@ -40,7 +40,10 @@ export default {
             } else {
                 $('#header').removeClass('shadow');
             }
-        }
+        },
+        scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        },
     },
     computed: {
         ...mapGetters('auth', {
