@@ -1,23 +1,29 @@
 <template>
     <router-link type="button" class="w-100" :to="`/advertisement/${advertisement.advertisementId}`">
-        <div class="card mb-4 shadow advertisement-item">
+        <div class="card mb-4 advertisement-item">
             <div class="card-body">
-                <div class="card-title d-flex">
-                    <h5 class="flex-grow-1">{{ advertisement.title }}</h5>
+                <div class="card-title row">
+                    <div class="col-8 col-xl-10 border-right">
+                        <h5>{{ advertisement.title }}</h5>
 
-                    <div class="border-left pr-4"></div>
-                    <div>
+                        <h6 class="mb-2" style="text-decoration: none">
+                            {{ advertisement.category }}
+                        </h6>
+                    </div>
+
+                    <div class="col-4 col-xl-2">
                         <span class="badge badge-success">{{ advertisement.environment.companyName }}</span><br>
                         <span><strong>Location:</strong> {{ advertisement.location }}</span>
                         <span v-if="advertisement.salaryFrom && advertisement.salaryTo">
                             <br>
                             <strong>Salary:</strong> {{ advertisement.salaryFrom }}€ - {{ advertisement.salaryTo }}€ / month
                         </span>
+                        <span>
+                            <br>
+                            <strong>Ends on: </strong> {{ advertisement.expirationDate }}
+                        </span>
                     </div>
                 </div>
-                <h6 class="card-subtitle mb-2 text-muted" style="text-decoration: none">
-                    {{ advertisement.category }}
-                </h6>
             </div>
         </div>
     </router-link>
@@ -46,6 +52,9 @@ a:hover {
     color: black;
 }
 .advertisement-item:hover {
-    background-color: #f7fafc;
+    background-color: #5f42ff;
+    color: white !important;
+    box-shadow: 0 0.5rem 1rem #5f42ff !important;
+    transition: 75ms ease-in-out;
 }
 </style>

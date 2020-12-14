@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="bg-light">
+        <div class="bg-white">
             <advertisement-list />
         </div>
     </div>

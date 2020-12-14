@@ -57,6 +57,7 @@ const advertisements = {
         [storeTypes.SET_CURRENT_ADVERTISEMENT]: (state, currentAdvertisement) => state.currentAdvertisement = currentAdvertisement,
         [storeTypes.SET_SEARCH_TITLE]: (state, title) => state.advertisementQueryItem.title = title,
         [storeTypes.SET_SEARCH_CATEGORY]: (state, category) => state.advertisementQueryItem.category = category,
+        [storeTypes.SET_SEARCH_LOCATION]: (state, location) => state.advertisementQueryItem.location = location,
         [storeTypes.SET_SEARCH_LIMIT]: (state, limit) => state.advertisementQueryItem.limit = limit,
         [storeTypes.SET_SEARCH_OFFSET]: (state, offset) => state.advertisementQueryItem.offset = offset,
         [storeTypes.ADD_ADVERTISEMENTS]: (state, advertisements) => state.advertisements.push(...advertisements),

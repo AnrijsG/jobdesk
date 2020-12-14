@@ -31,8 +31,8 @@
 
         <a @click="showModal"
            type="button"
-           style="background-color: #3c0207!important;"
-           class="btn text-white shadow w-100 w-lg-auto">
+           style="background-color: white"
+           class="btn button border-dark w-100 w-lg-auto">
             Create new
         </a>
     </div>
@@ -79,3 +79,12 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.button:hover {
+    background-color: rgb(95, 66, 255) !important;
+    box-shadow: 0 0.5rem 1rem #5f42ff !important;
+    color: white;
+    border: 12px rgb(95, 66, 255);
+}
+</style>

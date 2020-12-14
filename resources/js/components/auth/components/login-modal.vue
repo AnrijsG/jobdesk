@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="modal fade" tabindex="-1" id="loginModal">
+        <div class="modal fade" tabindex="-1" id="loginModal" data-backdrop="false">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

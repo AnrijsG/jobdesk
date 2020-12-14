@@ -1,9 +1,14 @@
 <template>
     <div>
-        <div class="w-100" style="position: absolute; margin-top: -130px">
-            <search-bar :initial-input-title="$router.currentRoute.query.title || ''" />
+        <div class="w-100 py-4 bg-light" style="padding-left: 16px; padding-right: 16px;">
+            <search-bar
+                :initial-input-title="$router.currentRoute.query.title || ''"
+                :initial-input-location="$router.currentRoute.query.location || ''"
+                :initial-input-category="$router.currentRoute.query.category || ''"
+            />
         </div>
-        <div class="main main__content mt-4" style="position: relative">
+        <hr class="m-0 mb-4">
+        <div class="main main__content" style="position: relative">
             <advertisement-item v-for="advertisement in advertisements" :key="advertisement.advertisementId" :advertisement="advertisement" />
         </div>
     </div>
@@ -22,6 +27,7 @@
             isPageBottomReached: false,
         }),
         mounted() {
+            this.getCategories();
             this.loadItems();
 
             window.addEventListener('scroll', this.setLeftToScroll);
@@ -30,10 +36,12 @@
             ...mapActions('advertisements', {
                 getAdvertisements: storeTypes.ACTION_GET_ADVERTISEMENTS,
                 increaseLimit: storeTypes.ACTION_INCREASE_LIMIT,
+                getCategories: storeTypes.ACTION_GET_CATEGORIES,
             }),
             ...mapMutations('advertisements', {
                 setSearchTitle: storeTypes.SET_SEARCH_TITLE,
                 setSearchCategory: storeTypes.SET_SEARCH_CATEGORY,
+                setSearchLocation: storeTypes.SET_SEARCH_LOCATION,
                 setSearchLimit: storeTypes.SET_SEARCH_LIMIT,
             }),
             setLeftToScroll() {
@@ -50,6 +58,9 @@
                             break;
                         case 'category':
                             this.setSearchCategory(queryParams.category);
+                            break;
+                        case 'location':
+                            this.setSearchLocation(queryParams.location);
                             break;
                     }
                 });

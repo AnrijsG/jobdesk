@@ -17,6 +17,8 @@ export class AdvertisementModel {
     salaryFrom = null;
     /** @type {Number|null} */
     salaryTo = null;
+    /** @type {String|null} */
+    expirationDate = null;
     /** @type {EnvironmentModel} */
     environment = new EnvironmentModel;
 

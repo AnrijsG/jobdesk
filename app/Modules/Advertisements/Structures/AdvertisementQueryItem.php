@@ -8,6 +8,8 @@ class AdvertisementQueryItem
 
     public string $title = '';
 
+    public string $location = '';
+
     public int $environmentId = 0;
 
     public int $limit = 0;
@@ -23,6 +25,7 @@ class AdvertisementQueryItem
         $newSearchItem = new self;
         $newSearchItem->category = $searchItem['category'] ?? '';
         $newSearchItem->title = $searchItem['title'] ?? '';
+        $newSearchItem->location = $searchItem['location'] ?? '';
         $newSearchItem->limit = $searchItem['limit'] ?? 0;
         $newSearchItem->offset = $searchItem['offset'] ?? 0;
 

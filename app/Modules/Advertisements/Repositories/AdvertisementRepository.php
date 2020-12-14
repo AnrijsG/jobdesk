@@ -32,7 +32,11 @@ class AdvertisementRepository extends BaseRepository
         }
 
         if ($item->title) {
-            $query->where('title', 'like', "%$item->title%");
+            $query->where('title', 'like', "%{$item->title}%");
+        }
+
+        if ($item->location) {
+            $query->where('location', 'like', "%{$item->location}%");
         }
 
         if ($item->environmentId) {

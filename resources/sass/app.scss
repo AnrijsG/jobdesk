@@ -1,12 +1,13 @@
 .main {
+    font-family: 'Nunito', sans-serif;
+
     &__top {
         display: flex;
         flex-direction: column;
 
         &__blue {
             transition: 300ms ease-out;
-            background-color: #02203c;
-            padding-bottom: 340px;
+            padding-bottom: 24px;
         }
 
         &__red {
@@ -30,9 +31,5 @@
         padding-right: 16px;
         padding-left: 16px;
         display: inherit;
-    }
-
-    &__background {
-        height: 100%;
     }
 };

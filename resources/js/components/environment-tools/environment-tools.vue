@@ -33,14 +33,14 @@
             </button>
         </div>
         <div v-else class="mb-2">
-            <div class="alert alert-info d-flex" style="align-items: center;">
+            <div class="text-white alert d-flex" style="align-items: center; background-color: rgb(95, 66, 255);">
                 <div class="mr-3">
                     <i class="material-icons" style="font-size: 36px;">
                         help_outline
                     </i>
                 </div>
                 <div>
-                    You currently do not have a registration hash generated, if you wish to invite new users to your environment, click <a href="#" @click="resetRegistrationHash"><strong>here.</strong></a>
+                    You currently do not have a registration hash generated, if you wish to invite new users to your environment, click <a href="#" class="text-dark" @click="resetRegistrationHash"><strong>here.</strong></a>
                 </div>
             </div>
         </div>

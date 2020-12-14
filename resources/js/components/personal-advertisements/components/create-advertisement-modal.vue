@@ -78,7 +78,7 @@
                 <div class="float-right">
                     <b-button @click="$bvModal.hide('createAdvertisementModal')">Cancel</b-button>
                     <b-button @click="save"
-                              style="background-color: rgb(60, 2, 7) !important"
+                              style="background-color: rgb(95, 66, 255)"
                               :disabled="invalid || !isAdditionalFormValidationPassed"
                     >
                         Save

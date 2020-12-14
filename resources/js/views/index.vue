@@ -1,15 +1,16 @@
 <template>
-    <div class="main__background h-100 bg-light">
-        <div class="main__top" :class="backgroundClassColour">
-            <div class="main__content d-flex mt-4" style="align-items: center">
-                <router-link v-if="($route.name !== 'homepage')" class="text-white mr-2" :to="{name: 'homepage'}">
-                    <i class="material-icons" style="font-size: 32px">
-                        first_page
-                    </i>
+    <div class="main__background bg-light">
+        <div class="main__top bg-white" style="position: sticky; top: 0; z-index: 100; flex: 1" id="header">
+            <div class="main__content d-flex my-4" style="align-items: center">
+                <router-link class="home-button" :to="{name: 'homepage'}">
+                    <div>
+                        <p class="d-inline text-dark m-0" style="font-size: 24px"><strong>Job</strong>Desk</p>
+                    </div>
                 </router-link>
-                <router-link v-if="canAccessDashboard && $route.name !== 'dashboard'" class="text-white" :to="{name: 'dashboard'}">Dashboard</router-link>
+
                 <auth-buttons></auth-buttons>
             </div>
+            <hr class="m-0">
         </div>
 
         <router-view></router-view>
@@ -27,11 +28,19 @@ export default {
     components: {AuthButtons},
     mounted() {
         this.getCurrentUser();
+        window.addEventListener('scroll', this.toggleHeaderShadow);
     },
     methods: {
         ...mapActions('auth', {
             getCurrentUser: authTypes.ACTION_GET_CURRENT_USER,
         }),
+        toggleHeaderShadow() {
+            if ($(window).scrollTop() !== 0) {
+                $('#header').addClass('shadow');
+            } else {
+                $('#header').removeClass('shadow');
+            }
+        }
     },
     computed: {
         ...mapGetters('auth', {
@@ -63,3 +72,8 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+.home-button:hover {
+    text-decoration: none;
+}
+</style>

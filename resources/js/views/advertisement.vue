@@ -1,20 +1,22 @@
 <template>
-    <div class="main main__content mt-4 shadow p-4">
-        <b-skeleton-wrapper :loading="isLoading">
-            <template #loading>
-                <b-skeleton class="mb-2" width="30%"></b-skeleton>
-                <b-skeleton class="mb-4" width="25%"></b-skeleton>
-                <b-skeleton width="100%"></b-skeleton>
-                <b-skeleton width="98%"></b-skeleton>
-                <b-skeleton width="100%"></b-skeleton>
-                <b-skeleton width="93%"></b-skeleton>
-                <b-skeleton width="86%"></b-skeleton>
-                <b-skeleton width="100%"></b-skeleton>
-                <b-skeleton width="96%"></b-skeleton>
-            </template>
+    <div class="bg-light pt-4">
+        <div class="bg-white main main__content shadow p-4">
+            <b-skeleton-wrapper :loading="isLoading">
+                <template #loading>
+                    <b-skeleton class="mb-2" width="30%"></b-skeleton>
+                    <b-skeleton class="mb-4" width="25%"></b-skeleton>
+                    <b-skeleton width="100%"></b-skeleton>
+                    <b-skeleton width="98%"></b-skeleton>
+                    <b-skeleton width="100%"></b-skeleton>
+                    <b-skeleton width="93%"></b-skeleton>
+                    <b-skeleton width="86%"></b-skeleton>
+                    <b-skeleton width="100%"></b-skeleton>
+                    <b-skeleton width="96%"></b-skeleton>
+                </template>
 
-            <advertisement-view />
-        </b-skeleton-wrapper>
+                <advertisement-view />
+            </b-skeleton-wrapper>
+        </div>
     </div>
 </template>
 
