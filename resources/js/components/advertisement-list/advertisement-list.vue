@@ -9,11 +9,27 @@
         </div>
         <hr class="m-0 mb-4">
         <div class="main main__content" style="position: relative">
-            <advertisement-item v-for="advertisement in advertisements" :key="advertisement.advertisementId" :advertisement="advertisement" />
+            <div v-if="advertisements.length">
+                <advertisement-item v-for="advertisement in advertisements" :key="advertisement.advertisementId" :advertisement="advertisement" />
 
-            <div class="d-flex" v-if="!isInfiniteScrollEnabled">
-                <button class="btn btn-outline-purple w-100 mr-2" @click="increaseLimit(10)">Load more</button>
-                <button class="btn btn-outline-dark w-100" @click="initializeInfiniteScroll">Turn on infinite scrolling</button>
+                <div class="d-flex" v-if="!isInfiniteScrollEnabled">
+                    <button class="btn btn-outline-purple w-100 mr-2" @click="increaseLimit(10)">Load more</button>
+                    <button class="btn btn-outline-dark w-100" @click="initializeInfiniteScroll">Turn on infinite scrolling</button>
+                </div>
+            </div>
+            <div v-else>
+                <div class="row" style="align-items: center;">
+                    <div class="border-right col text-center">
+                        <i class="material-icons" style="font-size: 64px;">
+                            search_off
+                        </i>
+                    </div>
+                    <div class="col">
+                        <p class="m-0">
+                            <strong>Oops!</strong> <br>Looks like there are no results for your search
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
