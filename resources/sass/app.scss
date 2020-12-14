@@ -1,23 +1,27 @@
+$purple: rgb(95, 66, 255) !important;
+
 .main {
     font-family: 'Nunito', sans-serif;
 
     &__top {
         display: flex;
         flex-direction: column;
+        transition: 300ms ease-out;
+
+        &__welcome-text-hide {
+            display: none;
+        }
 
         &__blue {
-            transition: 300ms ease-out;
             padding-bottom: 24px;
         }
 
         &__red {
-            transition: 300ms ease-out;
             background-color: #3c0207;
             padding-bottom: 24px;
         }
 
         &__purple {
-            transition: 300ms ease-out;
             background-color: #31023c;
             padding-bottom: 24px;
         }
@@ -33,3 +37,46 @@
         display: inherit;
     }
 };
+
+.btn {
+    &-purple {
+        color: white !important;
+        background-color: $purple;
+    }
+
+    &-outline-purple {
+        color: $purple;
+        border-color: $purple;
+    }
+
+    &-outline-purple:hover {
+        color: white !important;
+        background-color: $purple;
+        border-color: $purple;
+        box-shadow: 0 0.25rem 0.5rem $purple !important;
+    }
+}
+
+.alert {
+    &-purple {
+        background-color: rgb(95, 66, 255) !important;
+    }
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: $purple;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem $purple;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    text-decoration: none;
+    background-color: $purple;
+}
+
+.custom-select:focus {
+    border-color: $purple;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem $purple;
+}

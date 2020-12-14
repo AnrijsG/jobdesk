@@ -16,17 +16,17 @@
             <register-modal></register-modal>
         </div>
         <div v-else>
-            <p class="m-0 mb-2 text-dark">Welcome, {{ currentUser.name }}!</p>
+            <p class="m-0 mb-2 text-dark" id="welcomeText">Welcome, {{ currentUser.name }}!</p>
 
             <b-dropdown text="Account" right block variant="outline-purple" class="float-right">
                 <b-dropdown-item v-if="canAccessDashboard && $route.name !== 'dashboard'" href="#">
-                    <router-link class="text-dark" :to="{name: 'dashboard'}">
+                    <router-link class="text-dark dropdown-selection" :to="{name: 'dashboard'}">
                         <p class="m-0">Dashboard</p>
                     </router-link>
                 </b-dropdown-item>
                 <b-dropdown-item href="#">
                     <p class="m-0">
-                        <a type="button" @click="onLogout" class="w-100 text-dark">
+                        <a type="button" @click="onLogout" class="w-100 text-dark dropdown-selection">
                             Logout
                         </a>
                     </p>
@@ -77,20 +77,13 @@ export default {
     },
 }
 </script>
-<style lang="scss">
-.purple {
-    color: rgb(95, 66, 255);
+<style lang="scss" scoped>
+.dropdown-selection:active {
+    text-decoration: none;
+    color: white !important;
 }
 
-.btn-outline-purple {
-    color: rgb(95, 66, 255);
-    border-color: rgb(95, 66, 255);
-}
-
-.btn-outline-purple:hover {
-    color: white;
-    background-color: rgb(95, 66, 255);
-    border-color: rgb(95, 66, 255);
-    box-shadow: 0 0.25rem 0.5rem #5f42ff !important;
+.dropdown-selection:hover {
+    text-decoration: none;
 }
 </style>

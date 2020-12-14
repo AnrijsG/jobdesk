@@ -26,7 +26,7 @@
                                 <input @keydown.enter="onLogin" v-model="password" class="form-control" type="password">
                             </div>
 
-                            <button @click="onLogin" class="btn btn-danger float-right" :disabled="invalid || !canSubmit">
+                            <button @click="onLogin" class="btn btn-purple float-right" :disabled="invalid || !canSubmit">
                                 Login
                             </button>
                         </ValidationObserver>

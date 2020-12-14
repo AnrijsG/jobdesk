@@ -12,7 +12,7 @@
                     </div>
 
                     <div class="col-4 col-xl-2">
-                        <span class="badge badge-success">{{ advertisement.environment.companyName }}</span><br>
+                        <span class="badge badge-warning">{{ advertisement.environment.companyName }}</span><br>
                         <span><strong>Location:</strong> {{ advertisement.location }}</span>
                         <span v-if="advertisement.salaryFrom && advertisement.salaryTo">
                             <br>

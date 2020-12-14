@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pb-4">
         <div class="w-100 py-4 bg-light" style="padding-left: 16px; padding-right: 16px;">
             <search-bar
                 :initial-input-title="$router.currentRoute.query.title || ''"
@@ -10,6 +10,11 @@
         <hr class="m-0 mb-4">
         <div class="main main__content" style="position: relative">
             <advertisement-item v-for="advertisement in advertisements" :key="advertisement.advertisementId" :advertisement="advertisement" />
+
+            <div class="d-flex" v-if="!isInfiniteScrollEnabled">
+                <button class="btn btn-outline-purple w-100 mr-2" @click="increaseLimit(10)">Load more</button>
+                <button class="btn btn-outline-warning w-100" @click="initializeInfiniteScroll">Turn on infinite scrolling</button>
+            </div>
         </div>
     </div>
 </template>
@@ -25,12 +30,11 @@
         components: {AdvertisementItem, SearchBar},
         data: () => ({
             isPageBottomReached: false,
+            isInfiniteScrollEnabled: false,
         }),
         mounted() {
             this.getCategories();
             this.loadItems();
-
-            window.addEventListener('scroll', this.setLeftToScroll);
         },
         methods: {
             ...mapActions('advertisements', {
@@ -46,6 +50,11 @@
             }),
             setLeftToScroll() {
                 this.isPageBottomReached = $(window).scrollTop() + $(window).height() === $(document).height();
+            },
+            initializeInfiniteScroll() {
+                window.addEventListener('scroll', this.setLeftToScroll);
+                this.isPageBottomReached = true;
+                this.isInfiniteScrollEnabled = true;
             },
             loadItems() {
                 this.setSearchLimit(10);

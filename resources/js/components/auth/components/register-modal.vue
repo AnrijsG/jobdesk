@@ -86,7 +86,7 @@
                                 </ValidationProvider>
                             </span>
 
-                            <button class="btn btn-danger float-right" :disabled="invalid || !validated" @click="onRegister">Register</button>
+                            <button class="btn btn-purple float-right" :disabled="invalid || !validated" @click="onRegister">Register</button>
                         </ValidationObserver>
                     </div>
                 </div>

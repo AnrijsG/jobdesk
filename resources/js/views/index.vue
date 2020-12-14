@@ -37,8 +37,10 @@ export default {
         toggleHeaderShadow() {
             if ($(window).scrollTop() !== 0) {
                 $('#header').addClass('shadow');
+                $('#welcomeText').addClass('main__top__welcome-text-hide')
             } else {
                 $('#header').removeClass('shadow');
+                $('#welcomeText').removeClass('main__top__welcome-text-hide')
             }
         },
         scrollToTop() {
@@ -75,6 +77,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss" scoped>
 .home-button:hover {
     text-decoration: none;
