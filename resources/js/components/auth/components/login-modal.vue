@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="modal fade" tabindex="-1" id="loginModal" data-backdrop="false">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="z-index: 1051">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Login</h5>
