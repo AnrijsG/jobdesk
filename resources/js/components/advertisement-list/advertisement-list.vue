@@ -13,7 +13,7 @@
 
             <div class="d-flex" v-if="!isInfiniteScrollEnabled">
                 <button class="btn btn-outline-purple w-100 mr-2" @click="increaseLimit(10)">Load more</button>
-                <button class="btn btn-outline-warning w-100" @click="initializeInfiniteScroll">Turn on infinite scrolling</button>
+                <button class="btn btn-outline-dark w-100" @click="initializeInfiniteScroll">Turn on infinite scrolling</button>
             </div>
         </div>
     </div>

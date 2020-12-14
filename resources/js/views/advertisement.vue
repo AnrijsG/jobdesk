@@ -1,6 +1,6 @@
 <template>
     <div class="bg-light pt-4">
-        <div class="bg-white main main__content shadow p-4">
+        <div class="bg-white main main__content p-4">
             <b-skeleton-wrapper :loading="isLoading">
                 <template #loading>
                     <b-skeleton class="mb-2" width="30%"></b-skeleton>

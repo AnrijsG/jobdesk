@@ -2,12 +2,12 @@
     <div id="header" class="w-100 d-flex" style="justify-content: flex-end">
         <div class="m-0" v-if="!currentUser">
             <p class="d-inline m-0">
-                <a type="button" class="text-dark mr-2" data-toggle="modal" data-target="#loginModal">
+                <a type="button" class="btn btn-outline-purple mr-2" data-toggle="modal" data-target="#loginModal">
                     Login
                 </a>
             </p>
             <p class="d-inline m-0">
-                <a type="button" class="text-dark" data-toggle="modal" data-target="#registerModal">
+                <a type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#registerModal">
                     Register
                 </a>
             </p>
