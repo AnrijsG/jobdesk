@@ -25,6 +25,7 @@
                            id="advertisementCategory"
                            class="form-control mr-2"
                            style="max-width: -webkit-fill-available;"
+                           :disabled="isLoading"
             >
                 <template #first>
                     <b-form-select-option :value="''">-- Select a category --</b-form-select-option>
