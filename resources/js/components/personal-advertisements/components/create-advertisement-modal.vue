@@ -40,31 +40,31 @@
 
                 <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Should add salary information" label-for="advertisementSalaryCheckbox">
                     <b-form-checkbox
-                        v-model="advertisementItem.shouldDefineSalary"
+                        v-model="shouldDefineSalary"
                         id="advertisementSalaryCheckbox"
                         switch
                     ></b-form-checkbox>
                 </b-form-group>
 
-                <div v-if="advertisementItem.shouldDefineSalary">
-                    <ValidationProvider name="advertisementSalaryRangeFrom" v-slot="{dirty, errors}" rules="required|max_value:@advertisementSalaryRangeTo">
+                <div v-if="shouldDefineSalary">
+                    <ValidationProvider name="advertisementSalaryRangeFrom" v-slot="{valid, errors}" rules="required|max_value:@advertisementSalaryRangeTo">
                         <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Salary from (Euros)" label-for="advertisementSalaryRangeFrom">
                             <b-form-input id="advertisementSalaryRangeFrom"
                                           v-model="advertisementItem.salaryFrom"
                                           type="number"
                                           min="0"
-                                          :state="dirty && !errors.length"
+                                          :state="valid"
                             />
                         </b-form-group>
                         <p class="text-danger">{{ errors[0] }}</p>
                     </ValidationProvider>
-                    <ValidationProvider name="advertisementSalaryRangeTo" v-slot="{dirty, errors}" rules="required|min_value:@advertisementSalaryRangeFrom">
+                    <ValidationProvider name="advertisementSalaryRangeTo" v-slot="{valid, errors}" rules="required|min_value:@advertisementSalaryRangeFrom">
                         <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Salary to (Euros)" label-for="advertisementSalaryRangeTo">
                             <b-form-input id="advertisementSalaryRangeTo"
                                           v-model="advertisementItem.salaryTo"
                                           type="number"
                                           :min="advertisementItem.salaryFrom"
-                                          :state="dirty && !errors.length"
+                                          :state="valid"
                             />
                         </b-form-group>
                         <p class="text-danger">{{ errors[0] }}</p>
@@ -102,6 +102,9 @@ export default {
         ValidationProvider,
         ValidationObserver
     },
+    data: () => ({
+        shouldDefineSalary: false,
+    }),
     methods: {
         ...mapActions('personalAdvertisements', {
             saveAdvertisement: storeTypes.ACTION_SAVE_ADVERTISEMENT,
@@ -139,6 +142,11 @@ export default {
         ...mapGetters('advertisements', {
             categories: advertisementStoreTypes.GET_CATEGORIES,
         }),
+    },
+    watch: {
+        advertisementItem() {
+            this.shouldDefineSalary = !!(this.advertisementItem.salaryFrom || this.advertisementItem.salaryTo);
+        },
     }
 }
 </script>

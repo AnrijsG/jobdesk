@@ -11,8 +11,6 @@ export class AdvertisementCreateItemStructure {
     location = '';
     /** @type {String|null} */
     applyUrl = null;
-    /** @type {Boolean} */
-    shouldDefineSalary = false;
     /** @type {Number|null} */
     salaryFrom = null;
     /** @type {Number|null} */
