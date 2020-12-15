@@ -15,14 +15,20 @@ const advertisements = {
         advertisementQueryItem: new AdvertisementQueryItemStructure,
         advertisements: [],
         categories: [],
+        isBottomReached: false,
     },
     actions: {
-        [storeTypes.ACTION_GET_ADVERTISEMENTS](store, searchItem = new AdvertisementQueryItemStructure()) {
-            return axios.post('/api/get-advertisements', {searchItem: searchItem}).then(response => {
-                const advertisements = response.data.map(item => AdvertisementModel.fromArray(item));
+        async [storeTypes.ACTION_GET_ADVERTISEMENTS](store, searchItem = new AdvertisementQueryItemStructure()) {
+            const response = await axios.post('/api/get-advertisements', {searchItem: searchItem});
 
-                store.commit(storeTypes.SET_ADVERTISEMENTS, advertisements || []);
-            });
+            const advertisements = response.data.map(item => AdvertisementModel.fromArray(item));
+            if (!advertisements.length || advertisements.length < searchItem.limit) {
+                store.commit(storeTypes.SET_IS_BOTTOM_REACHED, true);
+            } else {
+                store.commit(storeTypes.SET_IS_BOTTOM_REACHED, false);
+            }
+
+            store.commit(storeTypes.SET_ADVERTISEMENTS, advertisements || []);
         },
         async [storeTypes.ACTION_GET_CATEGORIES](store) {
             try {
@@ -45,7 +51,12 @@ const advertisements = {
             commit(storeTypes.SET_SEARCH_OFFSET, state.advertisementQueryItem.offset + limit);
 
             axios.post('/api/get-advertisements', {searchItem: state.advertisementQueryItem}).then(response => {
-                const advertisements = response.data.map(item => AdvertisementModel.fromArray(item));
+                const advertisements = response.data.map(item => AdvertisementModel.fromArray(item)) || [];
+                if (!advertisements.length || advertisements.length < limit) {
+                    commit(storeTypes.SET_IS_BOTTOM_REACHED, true);
+                } else {
+                    commit(storeTypes.SET_IS_BOTTOM_REACHED, false);
+                }
 
                 commit(storeTypes.ADD_ADVERTISEMENTS, advertisements || []);
             });
@@ -61,12 +72,14 @@ const advertisements = {
         [storeTypes.SET_SEARCH_LIMIT]: (state, limit) => state.advertisementQueryItem.limit = limit,
         [storeTypes.SET_SEARCH_OFFSET]: (state, offset) => state.advertisementQueryItem.offset = offset,
         [storeTypes.ADD_ADVERTISEMENTS]: (state, advertisements) => state.advertisements.push(...advertisements),
+        [storeTypes.SET_IS_BOTTOM_REACHED]: (state, isBottomReached) => state.isBottomReached = isBottomReached,
     },
     getters: {
         [storeTypes.GET_ADVERTISEMENTS]: (state) => state.advertisements,
         [storeTypes.GET_CATEGORIES]: (state) => state.categories,
         [storeTypes.GET_CURRENT_ADVERTISEMENT]: (state) => state.currentAdvertisement,
         [storeTypes.GET_CURRENT_SEARCH_ITEM]: (state) => state.advertisementQueryItem,
+        [storeTypes.GET_IS_BOTTOM_REACHED]: (state) => state.isBottomReached,
     },
 };
 

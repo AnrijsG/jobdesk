@@ -1,5 +1,5 @@
 <template>
-    <div class="card p-4 shadow">
+    <div class="card p-4 mb-4">
         <div v-if="isLoading">
             <h5 class="text-center">Personal advertisements</h5>
             <hr>

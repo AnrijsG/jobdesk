@@ -16,7 +16,7 @@
             <register-modal></register-modal>
         </div>
         <div v-else>
-            <p class="m-0 mb-2 text-dark" id="welcomeText">Welcome, {{ currentUser.name }}!</p>
+            <p class="m-0 mb-2 text-dark" id="welcomeText"><strong>Welcome, </strong>{{ currentUser.name }}!</p>
 
             <b-dropdown text="Account" right block variant="outline-purple" class="float-right">
                 <b-dropdown-item v-if="canAccessDashboard && $route.name !== 'dashboard'" href="#">

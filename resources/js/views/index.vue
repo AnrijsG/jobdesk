@@ -14,6 +14,14 @@
         </div>
 
         <router-view></router-view>
+
+        <hr class="m-0">
+
+        <div class="bg-white">
+            <div class="main main__content py-4">
+                <p class="text-right mb-0"><strong>JobDesk</strong> 2020</p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -52,17 +60,6 @@ export default {
             /** @type {UserModel|*} */
             currentUser: authTypes.GET_CURRENT_USER,
         }),
-        backgroundClassColour() {
-            if (this.$route.path === '/dashboard') {
-                return 'main__top__red';
-            }
-
-            if (this.$route.name === 'advertisement') {
-                return 'main__top__purple';
-            }
-
-            return 'main__top__blue';
-        },
         /**
          * @return {Boolean}
          */

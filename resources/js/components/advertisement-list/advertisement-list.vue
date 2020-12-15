@@ -12,7 +12,7 @@
             <div v-if="advertisements.length">
                 <advertisement-item v-for="advertisement in advertisements" :key="advertisement.advertisementId" :advertisement="advertisement" />
 
-                <div class="d-flex" v-if="!isInfiniteScrollEnabled">
+                <div class="d-flex" v-if="!isInfiniteScrollEnabled && !isBottomReached">
                     <button class="btn btn-outline-purple w-100 mr-2" @click="increaseLimit(10)">Load more</button>
                     <button class="btn btn-outline-dark w-100" @click="initializeInfiniteScroll">Turn on infinite scrolling</button>
                 </div>
@@ -97,6 +97,7 @@
             ...mapGetters('advertisements', {
                 advertisements: storeTypes.GET_ADVERTISEMENTS,
                 searchItem: storeTypes.GET_CURRENT_SEARCH_ITEM,
+                isBottomReached: storeTypes.GET_IS_BOTTOM_REACHED,
             }),
         },
         watch: {

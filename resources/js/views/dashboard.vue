@@ -1,11 +1,11 @@
 <template>
-    <div class="main main__content">
+    <div class="main main__content my-4">
         <div class="row">
-            <div class="col-12 col-lg mt-4">
+            <div class="col-12 col-lg">
                 <personal-advertisements-editor />
             </div>
-            <div class="col-12 col-lg mt-4">
-                <div class="card p-4 shadow">
+            <div class="col-12 col-lg">
+                <div class="card p-4">
                     <environment-tools />
                 </div>
             </div>

@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="bg-light h-100" id="app">
+<div class="h-100" id="app">
     @yield('content')
 </div>
 

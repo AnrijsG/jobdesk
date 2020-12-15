@@ -12,6 +12,8 @@ class AdvertisementQueryItem
 
     public int $environmentId = 0;
 
+    public bool $onlyActive = true;
+
     public int $limit = 0;
 
     public int $offset = 0;
@@ -26,6 +28,7 @@ class AdvertisementQueryItem
         $newSearchItem->category = $searchItem['category'] ?? '';
         $newSearchItem->title = $searchItem['title'] ?? '';
         $newSearchItem->location = $searchItem['location'] ?? '';
+        $newSearchItem->onlyActive = $searchItem['onlyActive'] ?? true;
         $newSearchItem->limit = $searchItem['limit'] ?? 0;
         $newSearchItem->offset = $searchItem['offset'] ?? 0;
 

@@ -2,6 +2,7 @@ export class AdvertisementQueryItemStructure {
     title = '';
     category = '';
     location = '';
+    onlyActive = true;
     limit = 0;
     offset = 0;
     withCurrentEnvironmentId = false;
@@ -17,6 +18,7 @@ export class AdvertisementQueryItemStructure {
         this.title = title;
         this.category = category;
         this.location = location;
+        this.onlyActive = true;
         this.limit = limit;
         this.offset = offset;
     }

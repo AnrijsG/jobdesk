@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $salary_from
  * @property int $salary_to
  * @property string $expiration_date
+ * @property bool $is_active
  * @property string created_at
  * @property string $updated_at
  *
@@ -43,6 +44,7 @@ class AdvertisementModel extends Model
             'salaryFrom' => $this->salary_from,
             'salaryTo' => $this->salary_to,
             'expirationDate' => $this->expiration_date,
+            'isActive' => $this->is_active,
             'environment' => $this->environment->toRpc(),
         ];
     }
@@ -66,6 +68,7 @@ class AdvertisementModel extends Model
         $advertisement->salary_from = $attributes['salary_from'] ?? $attributes['salaryFrom'] ?? null;
         $advertisement->salary_to = $attributes['salary_to'] ?? $attributes['salaryTo'] ?? null;
         $advertisement->expiration_date = $attributes['expiration_date'] ?? $attributes['expirationDate'] ?? now();
+        $advertisement->is_active = $attributes['is_active'] ?? $attributes['isActive'] ?? true;
         $advertisement->created_at = $attributes['created_at'] ?? $attributes['createdAt'] ?? now();
         $advertisement->updated_at = $attributes['updated_at'] ?? $attributes['updatedAt'] ?? now();
 

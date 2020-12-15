@@ -57,6 +57,10 @@ $purple: rgb(95, 66, 255) !important;
     }
 }
 
+.bg-purple {
+    background-color: $purple;
+}
+
 .alert {
     &-purple {
         background-color: rgb(95, 66, 255) !important;
@@ -67,7 +71,7 @@ $purple: rgb(95, 66, 255) !important;
     background-color: #fff;
     border-color: $purple;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem $purple;
+    box-shadow: 0 0 0 0.1rem $purple;
 }
 
 .dropdown-item.active, .dropdown-item:active {
@@ -78,7 +82,7 @@ $purple: rgb(95, 66, 255) !important;
 .custom-select:focus {
     border-color: $purple;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem $purple;
+    box-shadow: 0 0 0 0.1rem $purple;
 }
 
 #loginModal {

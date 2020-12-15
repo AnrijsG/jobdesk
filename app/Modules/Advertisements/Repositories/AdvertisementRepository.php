@@ -43,6 +43,10 @@ class AdvertisementRepository extends BaseRepository
             $query->where(['environment_id' => $item->environmentId]);
         }
 
+        if ($item->onlyActive) {
+            $query->where(['is_active' => true]);
+        }
+
         if ($item->limit) {
             $query->limit($item->limit);
         }
@@ -70,5 +74,13 @@ class AdvertisementRepository extends BaseRepository
         }
 
         return $advertisementModel->save();
+    }
+
+    /**
+     * @return AdvertisementModel[]
+     */
+    public function getActive(): array
+    {
+        return $this->all()->where('is_active', true)->all();
     }
 }

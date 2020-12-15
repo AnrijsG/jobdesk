@@ -1,17 +1,28 @@
 <template>
-    <div class="bg-light pt-4">
-        <div class="bg-white main main__content p-4">
+    <div class="bg-light py-4 mx-4">
+        <div class="bg-white shadow main main__content">
             <b-skeleton-wrapper :loading="isLoading">
                 <template #loading>
-                    <b-skeleton class="mb-2" width="30%"></b-skeleton>
-                    <b-skeleton class="mb-4" width="25%"></b-skeleton>
-                    <b-skeleton width="100%"></b-skeleton>
-                    <b-skeleton width="98%"></b-skeleton>
-                    <b-skeleton width="100%"></b-skeleton>
-                    <b-skeleton width="93%"></b-skeleton>
-                    <b-skeleton width="86%"></b-skeleton>
-                    <b-skeleton width="100%"></b-skeleton>
-                    <b-skeleton width="96%"></b-skeleton>
+                    <div class="row mb-2 shadow p-4">
+                        <div class="col-8 col-xl-10">
+                            <b-skeleton class="mb-2" width="30%"></b-skeleton>
+                            <b-skeleton class="mb-4" width="25%"></b-skeleton>
+                        </div>
+                        <div class="col-4 col-xl-2">
+                            <b-skeleton class="mb-2" width="50%"></b-skeleton>
+                            <b-skeleton class="mb-2" width="30%"></b-skeleton>
+                            <b-skeleton class="mb-2" width="40%"></b-skeleton>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <b-skeleton width="100%"></b-skeleton>
+                        <b-skeleton width="98%"></b-skeleton>
+                        <b-skeleton width="100%"></b-skeleton>
+                        <b-skeleton width="93%"></b-skeleton>
+                        <b-skeleton width="86%"></b-skeleton>
+                        <b-skeleton width="100%"></b-skeleton>
+                        <b-skeleton width="96%"></b-skeleton>
+                    </div>
                 </template>
 
                 <advertisement-view />

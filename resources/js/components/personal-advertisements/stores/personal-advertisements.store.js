@@ -18,6 +18,7 @@ const personalAdvertisements = {
         async [storeTypes.ACTION_GET_ENVIRONMENT_ADVERTISEMENTS](store) {
             const searchItem = new AdvertisementQueryItemStructure();
             searchItem.withCurrentEnvironmentId = true;
+            searchItem.onlyActive = false;
 
             const response = await axios.post('/api/personal-advertisements', {searchItem});
             const advertisements = response.data.map(item => AdvertisementModel.fromArray(item));

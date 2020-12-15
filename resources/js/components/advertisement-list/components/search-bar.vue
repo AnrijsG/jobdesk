@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 import * as storeTypes from '../stores/advertisement.types';
 import {AdvertisementQueryItemStructure} from "../structures/advertisement-query-item.structure";
 import * as advertisementStoreTypes from "../stores/advertisement.types";
@@ -84,6 +84,12 @@ export default {
         this.inputCategory = this.initialInputCategory;
     },
     methods: {
+        ...mapMutations('advertisements', {
+            setSearchTitle: storeTypes.SET_SEARCH_TITLE,
+            setSearchCategory: storeTypes.SET_SEARCH_CATEGORY,
+            setSearchLocation: storeTypes.SET_SEARCH_LOCATION,
+            setSearchLimit: storeTypes.SET_SEARCH_LIMIT,
+        }),
         async search() {
             this.isLoading = true;
 
@@ -103,6 +109,10 @@ export default {
             }
 
             const searchItem = new AdvertisementQueryItemStructure(this.inputTitle, this.inputCategory, this.inputLocation, 10);
+
+            this.setSearchTitle(this.inputTitle);
+            this.setSearchCategory(this.inputCategory);
+            this.setSearchLocation(this.inputLocation);
 
             await this.getAdvertisements(searchItem);
             this.isLoading = false;
