@@ -19,6 +19,11 @@
             <p class="m-0 mb-2 text-dark" id="welcomeText"><strong>Welcome, </strong>{{ currentUser.name }}!</p>
 
             <b-dropdown text="Account" right block variant="outline-purple" class="float-right">
+                <b-dropdown-item v-if="canAccessPortfolio && $route.name !== 'portfolio'" href="#">
+                    <router-link class="text-dark dropdown-selection" :to="{name: 'portfolio'}">
+                        <p class="m-0">Portfolio</p>
+                    </router-link>
+                </b-dropdown-item>
                 <b-dropdown-item v-if="canAccessDashboard && $route.name !== 'dashboard'" href="#">
                     <router-link class="text-dark dropdown-selection" :to="{name: 'dashboard'}">
                         <p class="m-0">Dashboard</p>
@@ -66,6 +71,7 @@ export default {
         ...mapGetters('auth', {
             currentUser: storeTypes.GET_CURRENT_USER,
         }),
+        /** @return {Boolean} */
         canAccessDashboard() {
             const userRole = this.currentUser?.environment.role;
             if (!userRole) {
@@ -73,6 +79,15 @@ export default {
             }
 
             return userRole === EnvironmentModel.ROLE_ADVERTISER || userRole === EnvironmentModel.ROLE_ADMIN;
+        },
+        /** @return {Boolean} */
+        canAccessPortfolio() {
+            const userRole = this.currentUser?.environment.role;
+            if (!userRole) {
+                return false;
+            }
+
+            return userRole === EnvironmentModel.ROLE_APPLIER;
         },
     },
 }

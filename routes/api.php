@@ -1,6 +1,7 @@
 <?php
 
 use App\Modules\Advertisements\Controllers\AdvertisementRpcController;
+use App\Modules\FileUpload\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +28,25 @@ Route::middleware('auth:sanctum')->post(
 // Advertisements
 Route::post('/get-advertisements', [AdvertisementRpcController::class, 'getAdvertisements']);
 Route::get('/get-categories', [AdvertisementRpcController::class, 'getJobCategories']);
+
+
+// CVs
+Route::middleware('auth:sanctum')->post(
+    '/upload-cv',
+    [FileController::class, 'saveCv']
+);
+
+Route::middleware('auth:sanctum')->get(
+    '/get-personal-cv-url',
+    [FileController::class, 'getPersonalCvDownloadUrl']
+);
+
+Route::middleware('auth:sanctum')->get(
+    '/get-personal-cv-modified-at',
+    [FileController::class, 'getPersonalCvModifiedAt']
+);
+
+Route::middleware('auth:sanctum')->post(
+    '/delete-cv',
+    [FileController::class, 'deleteCv']
+);

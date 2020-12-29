@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any}', [JobDeskController::class, 'index'])->where('any', '.*');;
+Route::get('/{any}', [JobDeskController::class, 'index'])->where('any', '.*');
 
 // AUTH
 Route::post('/auth/register', [AuthController::class, 'register']);

@@ -63,7 +63,9 @@ class RegisterService
 
         $newUser->refresh();
 
-        $this->afterRegister($environment, $registrationHash);
+        if ($registrationHash) {
+            $this->afterRegister($environment, $registrationHash);
+        }
 
         return $newUser;
     }
