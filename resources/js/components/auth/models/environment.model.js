@@ -16,6 +16,8 @@ export class EnvironmentModel {
     role = '';
     /** @type {String} */
     companyName = '';
+    /** @type {String|null} */
+    logoUrl = null;
 
     static fromArray(obj) {
         const clonedObj = _.cloneDeep(obj);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Arr;
 
 /**
  * Class Environment
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $updated_at
  *
  * @property-read User[] $users
+ * @property-read EnvironmentMeta[] $meta
  */
 class Environment extends Model
 {
@@ -34,13 +36,32 @@ class Environment extends Model
         return $this->hasMany(User::class);
     }
 
-    public function toRpc()
+    public function meta()
+    {
+        return $this->hasMany(EnvironmentMeta::class);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLogoUrl(): ?string
+    {
+        $metaEntry = Arr::first(
+            $this->meta,
+            fn(EnvironmentMeta $meta) => $meta->key = EnvironmentMeta::KEY_COMPANY_LOGO_FILE
+        );
+
+        return isset($metaEntry->value) ? "/logo/{$metaEntry->value}" : null;
+    }
+
+    public function toRpc(): array
     {
         return [
             'environmentId' => $this->id,
             'registrationHash' => $this->registration_hash,
             'role' => $this->role,
             'companyName' => $this->company_name,
+            'logoUrl' => $this->getLogoUrl(),
         ];
     }
 }

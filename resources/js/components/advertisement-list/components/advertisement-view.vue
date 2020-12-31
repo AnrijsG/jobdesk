@@ -5,6 +5,13 @@
                 <h3><strong>{{ advertisement.title }}</strong></h3>
                 <p class="m-0">
                     {{ advertisement.environment.companyName || '' }}
+
+                    <span v-if="advertisement.environment.logoUrl">
+                        <img style="max-height: 50px;"
+                             :src="advertisement.environment.logoUrl"
+                             :alt="advertisement.environment.companyName + ' logo'"
+                        >
+                    </span>
                 </p>
             </div>
             <div class="col-4 col-xl-2">

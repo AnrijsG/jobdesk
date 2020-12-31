@@ -50,3 +50,14 @@ Route::middleware('auth:sanctum')->post(
     '/delete-cv',
     [FileController::class, 'deleteCv']
 );
+
+// Company logos
+Route::middleware('auth:sanctum')->post(
+    '/upload-logo',
+    [FileController::class, 'saveLogo']
+);
+
+Route::middleware('auth:sanctum')->post(
+    '/delete-logo',
+    [FileController::class, 'deleteLogo']
+);

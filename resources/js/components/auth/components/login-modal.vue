@@ -26,6 +26,12 @@
                                 <input @keydown.enter="onLogin" v-model="password" class="form-control" type="password">
                             </div>
 
+                            <div v-if="hasLoginAttemptFailed">
+                                <p class="m-0 text-danger">
+                                    Wrong email or password
+                                </p>
+                            </div>
+
                             <button @click="onLogin" class="btn btn-purple float-right" :disabled="invalid || !canSubmit">
                                 Login
                             </button>
@@ -52,15 +58,20 @@ export default {
         email: '',
         password: '',
         canSubmit: true,
+        hasLoginAttemptFailed: false,
     }),
     methods: {
         async onLogin() {
             try {
+                this.hasLoginAttemptFailed = false;
+
                 this.canSubmit = false;
                 await this.login({email: this.email, password: this.password});
 
                 $('#loginModal').modal('hide');
-            } catch {}
+            } catch {
+                this.hasLoginAttemptFailed = true;
+            }
 
             this.canSubmit = true;
         },

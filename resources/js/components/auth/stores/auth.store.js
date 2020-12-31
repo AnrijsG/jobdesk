@@ -56,14 +56,10 @@ const auth = {
          * @returns {Promise<void>}
          */
         async [authTypes.ACTION_LOGIN](store, credentials) {
-            try {
-                await axios.get('/sanctum/csrf-cookie');
-                await axios.post('/auth/login', {email: credentials.email, password: credentials.password});
+            await axios.get('/sanctum/csrf-cookie');
+            await axios.post('/auth/login', {email: credentials.email, password: credentials.password});
 
-                store.dispatch(authTypes.ACTION_GET_CURRENT_USER);
-            } catch(e) {
-                console.error('Something went wrong');
-            }
+            store.dispatch(authTypes.ACTION_GET_CURRENT_USER);
         },
     },
     mutations: {

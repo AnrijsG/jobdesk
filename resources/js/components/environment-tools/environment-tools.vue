@@ -1,9 +1,54 @@
 <template>
     <div v-if="currentUser">
-        <h5 class="text-center">Environment Tools</h5>
+        <h5 class="text-center">Company overview</h5>
         <hr>
 
-        <div class="mb-3"><strong>Company:</strong> {{ currentUser.environment.companyName }}</div>
+        <div class="mb-3">
+            <div><strong>Company:</strong> {{ currentUser.environment.companyName }}</div>
+
+            <div>
+                <p class="m-0">
+                    <strong>
+                        Logo:
+                    </strong>
+
+                    <span class="text-muted" v-if="!currentUser.environment.logoUrl && !isShowUploadClicked">
+                        <i>
+                            You currently do not have a logo uploaded, click <a @click="isShowUploadClicked = true" style="cursor: pointer"><strong>here</strong></a> to upload one.
+                        </i>
+                    </span>
+                </p>
+
+                <div v-if="currentUser.environment.logoUrl" class="mb-2">
+                    <img style="max-width: 200px"
+                         :src="currentUser.environment.logoUrl"
+                         :alt="currentUser.environment.companyName + ' logo'"
+                    >
+
+                    <br>
+
+                    <a class="btn btn-warning d-inline-block"
+                       v-if="!isShowUploadClicked"
+                       style="cursor: pointer"
+                       @click="isShowUploadClicked = true"
+                    >
+                        Replace logo
+                    </a>
+                    <a class="btn btn-danger d-inline-block"
+                       style="cursor: pointer"
+                       @click="deleteLogo"
+                    >
+                        Delete logo
+                    </a>
+                </div>
+
+                <input v-if="this.isShowUploadClicked"
+                       type="file"
+                       @change="selectFile"
+                       accept="image/jpeg, image/png"
+                >
+            </div>
+        </div>
 
         <div v-if="registrationHash" class="d-flex mb-3" style="align-items: center">
             <span class="mr-2"><strong>Registration hash:</strong></span>
@@ -57,13 +102,17 @@ import {mapActions, mapGetters} from "vuex";
     export default {
         name: 'environment-tools',
         components: {UserManagement},
+        data: () => ({
+            logoFile: null,
+            isShowUploadClicked: false,
+        }),
         computed: {
             ...mapGetters('auth', {
                 /** @type {UserModel|*} */
                 currentUser: storeTypes.GET_CURRENT_USER,
                 /** @type {String|*} */
                 registrationHash: storeTypes.GET_REGISTRATION_HASH,
-            }),
+            })
         },
         mounted() {
             this.getRegistrationHash();
@@ -73,6 +122,7 @@ import {mapActions, mapGetters} from "vuex";
                 resetRegistrationHash: storeTypes.ACTION_RESET_REGISTRATION_HASH,
                 getRegistrationHash: storeTypes.ACTION_GET_REGISTRATION_HASH,
                 deleteRegistrationHash: storeTypes.ACTION_DELETE_REGISTRATION_HASH,
+                getCurrentUser: storeTypes.ACTION_GET_CURRENT_USER,
             }),
             copyHash() {
                 const registerHashInputField = document.getElementById('registerHash');
@@ -100,6 +150,62 @@ import {mapActions, mapGetters} from "vuex";
                 this.deleteRegistrationHash();
 
                 this.$bvToast.toast('Registration hash successfully deleted!', {
+                    title: 'Notification',
+                    variant: 'secondary',
+                    solid: true
+                });
+            },
+            selectFile(event) {
+                this.logoFile = event.target.files[0];
+            },
+            async deleteLogo() {
+                try {
+                    await axios.post('/api/delete-logo');
+                } catch {
+                    this.$bvToast.toast('There was an error with your request, please try again later', {
+                        title: 'Notification',
+                        variant: 'danger',
+                        solid: true
+                    });
+
+                    return;
+                }
+
+                this.getCurrentUser();
+
+                this.$bvToast.toast('Logo successfully deleted', {
+                    title: 'Notification',
+                    variant: 'secondary',
+                    solid: true
+                });
+            },
+        },
+        watch: {
+            async logoFile(newValue) {
+                if (!newValue) {
+                    return;
+                }
+
+                const data = new FormData();
+                data.append('logoFile', this.logoFile);
+
+                try {
+                    await axios.post("/api/upload-logo", data);
+                } catch {
+                    this.$bvToast.toast('There was an error with your request, please try again later', {
+                        title: 'Notification',
+                        variant: 'danger',
+                        solid: true
+                    });
+
+                    return;
+                }
+
+                this.getCurrentUser();
+
+                this.isShowUploadClicked = false;
+
+                this.$bvToast.toast('Logo successfully uploaded', {
                     title: 'Notification',
                     variant: 'secondary',
                     solid: true

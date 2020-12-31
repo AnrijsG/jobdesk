@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 class EnvironmentMeta extends Model
 {
     public const KEY_CV_FILENAME = 'CV_FILENAME';
+    public const KEY_COMPANY_LOGO_FILE = 'KEY_COMPANY_LOGO_FILE';
 
     protected $table = 'environment_meta';
 

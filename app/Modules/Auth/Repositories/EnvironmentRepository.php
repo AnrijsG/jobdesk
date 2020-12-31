@@ -6,6 +6,7 @@ use App\Models\Environment;
 use App\Models\EnvironmentMeta;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use \Illuminate\Database\Query\Builder;
 
 class EnvironmentRepository extends BaseRepository
 {
@@ -24,13 +25,23 @@ class EnvironmentRepository extends BaseRepository
         return $this->all()->where('registration_hash', $registrationHash)->first();
     }
 
-    public function getCv(int $environmentId)
+    public function getById(int $environmentId): ?Environment
+    {
+        return $this->all()->where('id', $environmentId)->first();
+    }
+
+    /**
+     * @param int $environmentId
+     * @param string $key
+     * @return Builder
+     */
+    public function getMetaRow(int $environmentId, string $key): Builder
     {
         return DB::table(EnvironmentMeta::tableName())
             ->where(
                 [
                     'environment_id' => $environmentId,
-                    'key' => EnvironmentMeta::KEY_CV_FILENAME,
+                    'key' => $key,
                 ]
             );
     }
