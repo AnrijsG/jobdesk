@@ -71,6 +71,14 @@
                     </ValidationProvider>
                 </div>
 
+                <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Should allow internal applications" label-for="advertisementInternalApplications">
+                    <b-form-checkbox
+                        v-model="advertisementItem.areInternalApplicationsEnabled"
+                        id="advertisementInternalApplications"
+                        switch
+                    ></b-form-checkbox>
+                </b-form-group>
+
                 <b-form-group label-cols="4" label-cols-lg="2" label-size="md" label="Expiration date" label-for="expirationDate">
                     <b-form-datepicker name="expirationDate" v-model="advertisementItem.expirationDate" class="mb-2"></b-form-datepicker>
                 </b-form-group>

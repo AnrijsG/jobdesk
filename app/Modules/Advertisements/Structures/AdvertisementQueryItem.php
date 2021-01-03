@@ -14,6 +14,8 @@ class AdvertisementQueryItem
 
     public bool $onlyActive = true;
 
+    public bool $onlyAppliableAdvertisements = false;
+
     public int $limit = 0;
 
     public int $offset = 0;
@@ -29,6 +31,7 @@ class AdvertisementQueryItem
         $newSearchItem->title = $searchItem['title'] ?? '';
         $newSearchItem->location = $searchItem['location'] ?? '';
         $newSearchItem->onlyActive = $searchItem['onlyActive'] ?? true;
+        $newSearchItem->onlyAppliableAdvertisements = $searchItem['onlyAppliableAdvertisements'] ?? false;
         $newSearchItem->limit = $searchItem['limit'] ?? 0;
         $newSearchItem->offset = $searchItem['offset'] ?? 0;
 

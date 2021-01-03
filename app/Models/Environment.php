@@ -14,6 +14,7 @@ use Illuminate\Support\Arr;
  * @property string $registration_hash
  * @property string $role
  * @property string $company_name
+ * @property string $company_website
  * @property string $created_at
  * @property string $updated_at
  *
@@ -61,6 +62,7 @@ class Environment extends Model
             'registrationHash' => $this->registration_hash,
             'role' => $this->role,
             'companyName' => $this->company_name,
+            'companyWebsite' => $this->company_website,
             'logoUrl' => $this->getLogoUrl(),
         ];
     }

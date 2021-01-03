@@ -47,6 +47,10 @@ class AdvertisementRepository extends BaseRepository
             $query->where(['is_active' => true]);
         }
 
+        if ($item->onlyAppliableAdvertisements) {
+            $query->where(['are_internal_applications_enabled' => true]);
+        }
+
         if ($item->limit) {
             $query->limit($item->limit);
         }

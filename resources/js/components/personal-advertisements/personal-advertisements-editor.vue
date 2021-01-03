@@ -17,9 +17,9 @@
             </div>
             <div v-else>
                 <h3 class="text-center">
-            <span class="material-icons">
-                history
-            </span>
+                    <span class="material-icons">
+                        history
+                    </span>
                 </h3>
                 <p class="text-center">
                     No advertisements found, use this panel to start creating

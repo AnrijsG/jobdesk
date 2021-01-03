@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Modules\Advertisements\Controllers\AdvertisementRpcController;
 use App\Modules\FileUpload\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
@@ -60,4 +61,26 @@ Route::middleware('auth:sanctum')->post(
 Route::middleware('auth:sanctum')->post(
     '/delete-logo',
     [FileController::class, 'deleteLogo']
+);
+
+// Job application submissions
+Route::middleware('auth:sanctum')->post(
+    '/submit-application',
+    [AdvertisementRpcController::class, 'submitApplication']
+);
+
+Route::middleware('auth:sanctum')->post(
+    '/get-appliable-advertisements',
+    [AdvertisementRpcController::class, 'getAppliableAdvertisements']
+);
+
+Route::middleware('auth:sanctum')->post(
+    '/get-applicants',
+    [AdvertisementRpcController::class, 'getApplicants']
+);
+
+// Environment stuff
+Route::middleware('auth:sanctum')->post(
+    '/set-company-website',
+    [AuthController::class, 'setCompanyWebsite']
 );

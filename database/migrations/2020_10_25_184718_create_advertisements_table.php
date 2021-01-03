@@ -21,10 +21,10 @@ class CreateAdvertisementsTable extends Migration
             $table->string('title');
             $table->string('content', 10000);
             $table->string('location');
-            $table->string('apply_url', 200);
             $table->integer('salary_from')->nullable();
             $table->integer('salary_to')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->boolean('are_internal_applications_enabled')->default(false);
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

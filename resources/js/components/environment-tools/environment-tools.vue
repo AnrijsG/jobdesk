@@ -50,6 +50,26 @@
             </div>
         </div>
 
+        <div class="mb-2 d-flex" style="align-items: center;">
+            <p class="m-0 mr-2">
+                <strong>Company website:</strong>
+            </p>
+
+            <input type="text" class="form-control mr-2" v-model="companyWebsite">
+
+            <button @click="setCompanyWebsite" class="btn btn-success mr-2">
+                <span class="material-icons">
+                    save
+                </span>
+            </button>
+
+            <button @click="setCompanyWebsite($event,true)" class="btn btn-danger">
+                <span class="material-icons">
+                    delete
+                </span>
+            </button>
+        </div>
+
         <div v-if="registrationHash" class="d-flex mb-3" style="align-items: center">
             <span class="mr-2"><strong>Registration hash:</strong></span>
             <input id="registerHash"
@@ -105,6 +125,7 @@ import {mapActions, mapGetters} from "vuex";
         data: () => ({
             logoFile: null,
             isShowUploadClicked: false,
+            companyWebsite: '',
         }),
         computed: {
             ...mapGetters('auth', {
@@ -162,11 +183,7 @@ import {mapActions, mapGetters} from "vuex";
                 try {
                     await axios.post('/api/delete-logo');
                 } catch {
-                    this.$bvToast.toast('There was an error with your request, please try again later', {
-                        title: 'Notification',
-                        variant: 'danger',
-                        solid: true
-                    });
+                    this.throwErrorNotification();
 
                     return;
                 }
@@ -179,6 +196,36 @@ import {mapActions, mapGetters} from "vuex";
                     solid: true
                 });
             },
+            async setCompanyWebsite(e, shouldDelete = false) {
+                try {
+                    let newCompanyWebsite = this.companyWebsite;
+                    if (shouldDelete) {
+                        newCompanyWebsite = '';
+                    }
+                    await axios.post('/api/set-company-website', {
+                        'companyWebsite': newCompanyWebsite,
+                    });
+
+                    this.getCurrentUser();
+
+                    this.companyWebsite = this.currentUser.environment.companyWebsite;
+
+                    this.$bvToast.toast('Company website successfully changed', {
+                        title: 'Notification',
+                        variant: 'secondary',
+                        solid: true
+                    });
+                } catch {
+                    this.throwErrorNotification();
+                }
+            },
+            throwErrorNotification() {
+                this.$bvToast.toast('There was an error with your request, please try again later', {
+                    title: 'Notification',
+                    variant: 'danger',
+                    solid: true
+                });
+            }
         },
         watch: {
             async logoFile(newValue) {
@@ -192,11 +239,7 @@ import {mapActions, mapGetters} from "vuex";
                 try {
                     await axios.post("/api/upload-logo", data);
                 } catch {
-                    this.$bvToast.toast('There was an error with your request, please try again later', {
-                        title: 'Notification',
-                        variant: 'danger',
-                        solid: true
-                    });
+                    this.throwErrorNotification();
 
                     return;
                 }
@@ -211,6 +254,9 @@ import {mapActions, mapGetters} from "vuex";
                     solid: true
                 });
             },
+            currentUser(newValue) {
+                this.companyWebsite = newValue.environment.companyWebsite;
+            }
         },
     }
 </script>

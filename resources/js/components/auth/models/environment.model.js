@@ -16,8 +16,18 @@ export class EnvironmentModel {
     role = '';
     /** @type {String} */
     companyName = '';
+    /** @type {String} */
+    companyWebsite = '';
     /** @type {String|null} */
     logoUrl = null;
+
+    isApplier() {
+        return this.role === EnvironmentModel.ROLE_APPLIER;
+    }
+
+    isAdvertiser() {
+        return this.role === EnvironmentModel.ROLE_ADVERTISER;
+    }
 
     static fromArray(obj) {
         const clonedObj = _.cloneDeep(obj);

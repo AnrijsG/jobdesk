@@ -19,6 +19,23 @@ class EnvironmentService
     public function deleteRegistrationHash(Environment $environment): bool
     {
         $environment->registration_hash = null;
+
+        return $environment->update();
+    }
+
+    /**
+     * @param Environment $environment
+     * @param string $website
+     * @return bool
+     */
+    public function setCompanyWebsite(Environment $environment, string $website): bool
+    {
+        if (!$website) {
+            $environment->company_website = null;
+        } else {
+            $environment->company_website = e($website);
+        }
+
         return $environment->update();
     }
 }

@@ -17,12 +17,14 @@ async function canAccessDashboard(to, from, next) {
         next({
             name: 'homepage',
         });
+
+        return;
     }
 
     const user = UserModel.fromArray(userData);
     const userRole = user.environment.role;
 
-    if (userRole === EnvironmentModel.ROLE_ADVERTISER || userRole === EnvironmentModel.ROLE_ADMIN) {
+    if (user.environment.isAdvertiser() || userRole === EnvironmentModel.ROLE_ADMIN) {
         next(true);
     } else {
         next({
@@ -37,12 +39,13 @@ async function canAccessPortfolio(to, from, next) {
         next({
             name: 'homepage',
         });
+
+        return;
     }
 
     const user = UserModel.fromArray(userData);
-    const userRole = user.environment.role;
 
-    if (userRole === EnvironmentModel.ROLE_APPLIER) {
+    if (user.environment.isAdvertiser()) {
         next(true);
     } else {
         next({

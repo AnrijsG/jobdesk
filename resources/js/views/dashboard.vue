@@ -1,6 +1,9 @@
 <template>
     <div class="main main__content my-4">
-        <div class="row">
+        <div class="mb-4">
+            <advertisement-replies />
+        </div>
+        <div class="row mb-4">
             <div class="col-12 col-lg">
                 <personal-advertisements-editor />
             </div>
@@ -16,9 +19,10 @@
 <script>
 import PersonalAdvertisementsEditor from "../components/personal-advertisements/personal-advertisements-editor";
 import EnvironmentTools from "../components/environment-tools/environment-tools";
+import AdvertisementReplies from "../components/advertisement-applications/advertisement-replies";
 export default {
     name: 'dashboard',
-    components: {EnvironmentTools, PersonalAdvertisementsEditor}
+    components: {AdvertisementReplies, EnvironmentTools, PersonalAdvertisementsEditor},
 }
 </script>
 

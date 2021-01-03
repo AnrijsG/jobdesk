@@ -11,14 +11,16 @@ export class AdvertisementModel {
     content = '';
     /** @type {String} */
     location = '';
-    /** @type {String|null} */
-    applyUrl = null;
     /** @type {Number|null} */
     salaryFrom = null;
     /** @type {Number|null} */
     salaryTo = null;
     /** @type {String|null} */
     expirationDate = null;
+    /** @type {Boolean} */
+    isActive = true;
+    /** @type {Boolean} */
+    areInternalApplicationsEnabled = false;
     /** @type {EnvironmentModel} */
     environment = new EnvironmentModel;
 
@@ -26,6 +28,7 @@ export class AdvertisementModel {
         const clonedObj = _.cloneDeep(obj);
 
         clonedObj.environment = EnvironmentModel.fromArray(clonedObj.environment);
+        clonedObj.areInternalApplicationsEnabled = !!clonedObj.areInternalApplicationsEnabled;
 
         return Object.assign(new this, clonedObj || {});
     }

@@ -84,4 +84,16 @@ class AuthController extends Controller
 
         return $user->environment->registration_hash;
     }
+
+    public function setCompanyWebsite(Request $request)
+    {
+        $user = $request->user();
+        if (!$user) {
+            return;
+        }
+
+        $environment = $user->environment;
+
+        $this->environmentService->setCompanyWebsite($environment, $request->input('companyWebsite') ?? '');
+    }
 }

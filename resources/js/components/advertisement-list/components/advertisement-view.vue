@@ -40,26 +40,125 @@
                 {{ text }}
             </p>
 
-            <div v-if="advertisement.applyUrl" class="text-right mt-4">
-                <a class="btn btn-purple w-25" :href="advertisement.applyUrl" rel="nofollow noopener" target="_blank">
-                    Apply now
+            <div v-if="!shouldAllowInternalSubmission" class="text-right">
+                <div v-if="advertisement.areInternalApplicationsEnabled && !currentUser">
+                    <div class="alert alert-warning d-flex" style="align-items: center;">
+                        <div class="mr-3">
+                            <i class="material-icons" style="font-size: 36px;">
+                                info
+                            </i>
+                        </div>
+                        <div>
+                            To apply for this position you must be a registered user.
+                        </div>
+                    </div>
+                </div>
+
+                <a v-if="advertisement.environment.companyWebsite"
+                   class="btn btn-purple w-25"
+                   :href="advertisement.environment.companyWebsite"
+                   rel="nofollow noopener"
+                   target="_blank"
+                >
+                    Visit advertiser
                 </a>
+            </div>
+            <div v-if="shouldAllowInternalSubmission" class="w-100">
+                <div class="text-right mt-2">
+                    <a v-if="advertisement.environment.companyWebsite"
+                       class="btn btn-warning w-25"
+                       :href="advertisement.environment.companyWebsite"
+                       rel="nofollow noopener"
+                       target="_blank"
+                    >
+                        Visit advertiser
+                    </a>
+                </div>
+
+                <hr class="my-4">
+
+                <h5 class="mb-2">Cover letter</h5>
+                <ValidationObserver v-slot="{ invalid, validated }">
+                    <ValidationProvider name="cover letter" rules="required">
+                        <div slot-scope="{ errors }">
+                            <b-form-textarea
+                                id="cover-letter-input"
+                                v-model="coverLetterInput"
+                                rows="8"
+                            ></b-form-textarea>
+
+                            <p v-if="errors[0]" class="text-danger">{{ errors[0] }}</p>
+                        </div>
+                    </ValidationProvider>
+
+                    <br>
+
+                    <div class="text-right">
+                        <button class="btn btn-purple w-25" :disabled="invalid || !validated" @click="submitApplication">
+                            Apply now
+                        </button>
+                    </div>
+                </ValidationObserver>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import {mapGetters} from "vuex";
 import * as storeTypes from "../stores/advertisement.types";
+import * as authTypes from '../../auth/stores/auth.types';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'advertisement-view',
+    data: () => ({
+        coverLetterInput: '',
+        isLoading: false,
+    }),
+    methods: {
+        async submitApplication() {
+            this.isLoading = true;
+
+            try {
+                await axios.post('/api/submit-application', {
+                    coverLetter: this.coverLetterInput,
+                    advertisementId: this.advertisement.advertisementId,
+                });
+            } catch {
+                await Swal.fire({
+                    'title': 'Something went wrong, please try again later',
+                    'icon': 'error',
+                });
+                this.isLoading = false;
+
+                return;
+            }
+
+
+            await Swal.fire('Application submitted successfully!');
+
+            this.isLoading = false;
+        },
+    },
+    components: {
+        ValidationProvider,
+        ValidationObserver,
+    },
     computed: {
         ...mapGetters('advertisements', {
             /** @type {AdvertisementModel|*} */
             advertisement: storeTypes.GET_CURRENT_ADVERTISEMENT,
         }),
+        ...mapGetters('auth', {
+            /** @type {UserModel|*} */
+            currentUser: authTypes.GET_CURRENT_USER,
+        }),
+        shouldAllowInternalSubmission() {
+            return this.currentUser?.environment.isApplier()
+                && this.advertisement.areInternalApplicationsEnabled;
+        }
     }
 }
 </script>

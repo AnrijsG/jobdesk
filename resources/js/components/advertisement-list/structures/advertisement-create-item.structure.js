@@ -9,8 +9,6 @@ export class AdvertisementCreateItemStructure {
     content = '';
     /** @type {String} */
     location = '';
-    /** @type {String|null} */
-    applyUrl = null;
     /** @type {Number|null} */
     salaryFrom = null;
     /** @type {Number|null} */

@@ -11,6 +11,7 @@ import routes from './configs/routes.config.js';
 import auth from './components/auth/stores/auth.store';
 import advertisements from "./components/advertisement-list/stores/advertisement.store";
 import personalAdvertisements from "./components/personal-advertisements/stores/personal-advertisements.store";
+import appliableAdvertisements from "./components/advertisement-applications/stores/appliable-advertisement.store";
 import {extend} from 'vee-validate';
 
 Vue.use(VueRouter);
@@ -25,6 +26,7 @@ const store = new Vuex.Store({
         auth,
         advertisements,
         personalAdvertisements,
+        appliableAdvertisements,
     }
 });
 

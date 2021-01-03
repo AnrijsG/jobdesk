@@ -18,6 +18,7 @@ class CreateEnvironmentsTable extends Migration
             $table->string('registration_hash')->nullable()->unique();
             $table->enum('role', ['applier', 'advertiser', 'admin']);
             $table->string('company_name')->nullable();
+            $table->string('company_website')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

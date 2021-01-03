@@ -4,11 +4,15 @@ namespace App\Modules\Advertisements\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdvertisementModel;
+use App\Models\AdvertisementReply;
+use App\Models\Environment;
+use App\Modules\Advertisements\Exceptions\AdvertisementApplicationSubmissionException;
 use App\Modules\Advertisements\Repositories\JobCategoryRepository;
 use App\Modules\Advertisements\Service\AdvertisementService;
 use App\Modules\Advertisements\Structures\AdvertisementQueryItem;
 use Illuminate\Http\Request;
 use \App\Modules\Advertisements\Exceptions\AdvertisementSaveException;
+use Illuminate\Validation\UnauthorizedException;
 
 class AdvertisementRpcController extends Controller
 {
@@ -56,6 +60,60 @@ class AdvertisementRpcController extends Controller
         $user = $request->user();
 
         return $this->service->save($advertisementData, $user);
+    }
+
+    /**
+     * @param Request $request
+     * @throws AdvertisementApplicationSubmissionException
+     */
+    public function submitApplication(Request $request)
+    {
+        $user = $request->user();
+
+        $advertisementId = $request->input('advertisementId');
+        $coverLetter = $request->input('coverLetter');
+
+        $this->service->submitApplication($advertisementId, $user, $coverLetter);
+    }
+
+    public function getAppliableAdvertisements(Request $request)
+    {
+        $environment = $request->user()->environment;
+
+        $advertisementQueryItem = new AdvertisementQueryItem;
+        $advertisementQueryItem->environmentId = $environment->id;
+        $advertisementQueryItem->onlyAppliableAdvertisements = true;
+        $advertisementQueryItem->onlyActive = false;
+
+        $advertisements = $this->service->search($advertisementQueryItem);
+        if ($advertisements) {
+            $advertisements = array_map(
+                fn($advertisement) => AdvertisementModel::fromArray(get_object_vars($advertisement))->toRpc(),
+                $advertisements
+            );
+        }
+
+        return $advertisements ?? [];
+    }
+
+    public function getApplicants(Request $request)
+    {
+        /**
+         * Environment of user creating request
+         * @var Environment|null $environment
+         */
+        $environment = $request->user()->environment;
+        if (!$environment) {
+            throw new UnauthorizedException();
+        }
+
+        // Make sure array key numbering starts at 0
+        return array_values(
+            array_map(
+                fn(AdvertisementReply $advertisementReply) => $advertisementReply->toRpc(),
+                $this->service->getApplicants($request->input('advertisementId'), $environment->id)
+            )
+        );
     }
 
     public function getJobCategories()
