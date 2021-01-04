@@ -45,7 +45,7 @@ async function canAccessPortfolio(to, from, next) {
 
     const user = UserModel.fromArray(userData);
 
-    if (user.environment.isAdvertiser()) {
+    if (user.environment.isApplier()) {
         next(true);
     } else {
         next({

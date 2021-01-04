@@ -100,6 +100,7 @@
 <script>
 import * as advertisementStoreTypes from '../../advertisement-list/stores/advertisement.types';
 import * as storeTypes from '../stores/personal-advertisements.types';
+import * as applicationTypes from '../../advertisement-applications/stores/appliable-advertisements.types';
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import {ValidationObserver, ValidationProvider} from "vee-validate";
 import Swal from 'sweetalert2';
@@ -114,6 +115,9 @@ export default {
         shouldDefineSalary: false,
     }),
     methods: {
+        ...mapActions('appliableAdvertisements', {
+            getActiveAdvertisements: applicationTypes.ACTION_GET_APPLIABLE_ADVERTISEMENTS,
+        }),
         ...mapActions('personalAdvertisements', {
             saveAdvertisement: storeTypes.ACTION_SAVE_ADVERTISEMENT,
             getPersonalAdvertisements: storeTypes.ACTION_GET_ENVIRONMENT_ADVERTISEMENTS,
@@ -131,6 +135,8 @@ export default {
                     await Swal.fire('Advertisement saved successfully');
                     await this.getPersonalAdvertisements();
                     this.$bvModal.hide('createAdvertisementModal');
+
+                    this.getActiveAdvertisements();
 
                     return;
                 }
