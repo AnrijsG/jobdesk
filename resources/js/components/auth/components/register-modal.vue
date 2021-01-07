@@ -29,10 +29,15 @@
                                 <p class="text-danger">{{ errors[0] }}</p>
                             </ValidationProvider>
 
-                            <ValidationProvider :bails="false" rules="required|min:8" v-slot="{errors}">
+                            <ValidationProvider rules="required" v-slot="{errors}">
                                 <div class="form-group">
                                     <label>Password:</label>
-                                    <input v-model="password" class="form-control" name="password" type="password">
+
+                                    <input v-model="password"
+                                           minlength="8"
+                                           class="form-control"
+                                           name="password"
+                                           type="password">
                                 </div>
 
                                 <p class="text-danger">{{ errors[0] }}</p>
