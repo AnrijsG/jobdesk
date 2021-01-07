@@ -137,6 +137,10 @@ import {mapActions, mapGetters} from "vuex";
         },
         mounted() {
             this.getRegistrationHash();
+
+            if (this.currentUser) {
+                this.companyWebsite = this.currentUser.environment.companyWebsite;
+            }
         },
         methods: {
             ...mapActions('auth', {
