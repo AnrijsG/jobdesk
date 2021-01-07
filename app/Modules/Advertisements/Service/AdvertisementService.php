@@ -101,13 +101,13 @@ class AdvertisementService
         }
 
         if (!$coverLetter) {
-            throw new EmptyCoverLetterException('Missing cover letter');
+            throw new EmptyCoverLetterException('Cover letter cannot be empty');
         }
 
         /** @var EnvironmentMeta|null $cvFile */
         $cvFile = $this->environmentRepository->getMetaRow($environmentId, EnvironmentMeta::KEY_CV_FILENAME);
         if (!$cvFile) {
-            throw new MissingCvException('User missing CV');
+            throw new MissingCvException('You currently do not have a CV uploaded, this can be done in your portfolio page');
         }
 
         $hasUserSubmittedToSameAdvertisementBefore = $this->advertisementReplyRepository->getByUserAndAdvertisement($userId, $advertisementId);

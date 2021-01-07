@@ -125,6 +125,18 @@ export default {
         ...mapGetters('advertisements', {
             categories: advertisementStoreTypes.GET_CATEGORIES,
         }),
-    }
+        queryParams() {
+            return this.$route.query;
+        },
+    },
+    watch: {
+        queryParams(value) {
+            if (Object.keys(value).length === 0) {
+                this.inputTitle = '';
+                this.inputLocation = '';
+                this.inputCategory = '';
+            }
+        }
+    },
 }
 </script>

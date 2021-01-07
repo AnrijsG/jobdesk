@@ -75,17 +75,26 @@
             loadItems() {
                 this.setSearchLimit(10);
 
-                const queryParams = this.$router.currentRoute.query;
-                Object.keys(queryParams).map((key) => {
+                if (Object.keys(this.queryParams).length === 0) {
+                    this.setSearchTitle('');
+                    this.setSearchCategory('');
+                    this.setSearchLocation('');
+
+                    this.getAdvertisements(this.searchItem);
+
+                    return;
+                }
+
+                Object.keys(this.queryParams).map((key) => {
                     switch (key) {
                         case 'title':
-                            this.setSearchTitle(queryParams.title);
+                            this.setSearchTitle(this.queryParams.title);
                             break;
                         case 'category':
-                            this.setSearchCategory(queryParams.category);
+                            this.setSearchCategory(this.queryParams.category);
                             break;
                         case 'location':
-                            this.setSearchLocation(queryParams.location);
+                            this.setSearchLocation(this.queryParams.location);
                             break;
                     }
                 });
@@ -99,13 +108,19 @@
                 searchItem: storeTypes.GET_CURRENT_SEARCH_ITEM,
                 isBottomReached: storeTypes.GET_IS_BOTTOM_REACHED,
             }),
+            queryParams() {
+                return this.$route.query;
+            }
         },
         watch: {
             isPageBottomReached(value) {
                 if (value) {
                     this.increaseLimit(10);
                 }
-            }
+            },
+            queryParams(value) {
+                this.loadItems();
+            },
         }
     }
 </script>
