@@ -13,6 +13,7 @@ use App\Modules\Advertisements\Structures\AdvertisementQueryItem;
 use Illuminate\Http\Request;
 use \App\Modules\Advertisements\Exceptions\AdvertisementSaveException;
 use Illuminate\Validation\UnauthorizedException;
+use Throwable;
 
 class AdvertisementRpcController extends Controller
 {
@@ -24,7 +25,7 @@ class AdvertisementRpcController extends Controller
     }
 
     public function getAdvertisements(Request $request)
-    {
+    {;
         $filters = $request->only('searchItem');
 
         $searchCriteria = AdvertisementQueryItem::fromArray($filters['searchItem']);
@@ -64,7 +65,6 @@ class AdvertisementRpcController extends Controller
 
     /**
      * @param Request $request
-     * @throws AdvertisementApplicationSubmissionException
      */
     public function submitApplication(Request $request)
     {
@@ -73,7 +73,23 @@ class AdvertisementRpcController extends Controller
         $advertisementId = $request->input('advertisementId');
         $coverLetter = $request->input('coverLetter');
 
-        $this->service->submitApplication($advertisementId, $user, $coverLetter);
+        try {
+            $this->service->submitApplication(
+                $advertisementId,
+                $user->environment_id,
+                $user->environment->role,
+                $user->id,
+                $coverLetter
+            );
+        } catch (AdvertisementApplicationSubmissionException $e) {
+            report($e);
+
+            abort(500, $e->getMessage());
+        } catch (Throwable $e) {
+            report($e);
+
+            abort(500, 'Something went wrong, please try again later');
+        }
     }
 
     public function getAppliableAdvertisements(Request $request)

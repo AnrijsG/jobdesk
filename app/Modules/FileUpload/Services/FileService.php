@@ -78,7 +78,7 @@ class FileService
     public function getCvDownloadUrl(int $environmentId)
     {
         /** @var stdClass|null $row */
-        $row = $this->environmentRepository->getMetaRow($environmentId, EnvironmentMeta::KEY_CV_FILENAME)->first()
+        $row = $this->environmentRepository->getMetaRow($environmentId, EnvironmentMeta::KEY_CV_FILENAME)
             ?? null;
         if (!isset($row->value)) {
             return null;
@@ -94,7 +94,7 @@ class FileService
     public function getCvLastModifiedAt(int $environmentId)
     {
         /** @var stdClass|null $row */
-        $row = $this->environmentRepository->getMetaRow($environmentId, EnvironmentMeta::KEY_CV_FILENAME)->first()
+        $row = $this->environmentRepository->getMetaRow($environmentId, EnvironmentMeta::KEY_CV_FILENAME)
             ?? null;
         if (!isset($row->value)) {
             return null;
@@ -118,7 +118,7 @@ class FileService
      */
     public function deleteCv(int $environmentId)
     {
-        $row = $this->environmentRepository->getMetaRow($environmentId, EnvironmentMeta::KEY_CV_FILENAME)->first()
+        $row = $this->environmentRepository->getMetaRow($environmentId, EnvironmentMeta::KEY_CV_FILENAME)
             ?? null;
         if (!isset($row->value)) {
             return null;
@@ -139,7 +139,7 @@ class FileService
         $row = $this->environmentRepository->getMetaRow(
             $environmentId,
             EnvironmentMeta::KEY_COMPANY_LOGO_FILE
-        )->first();
+        );
         if (!isset($row->value)) {
             return;
         }

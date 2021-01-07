@@ -5,8 +5,6 @@ namespace App\Modules\Auth\Repositories;
 use App\Models\Environment;
 use App\Models\EnvironmentMeta;
 use App\Repositories\BaseRepository;
-use Illuminate\Support\Facades\DB;
-use \Illuminate\Database\Query\Builder;
 
 class EnvironmentRepository extends BaseRepository
 {
@@ -33,16 +31,17 @@ class EnvironmentRepository extends BaseRepository
     /**
      * @param int $environmentId
      * @param string $key
-     * @return Builder
+     * @return EnvironmentMeta|null
      */
-    public function getMetaRow(int $environmentId, string $key): Builder
+    public function getMetaRow(int $environmentId, string $key): ?EnvironmentMeta
     {
-        return DB::table(EnvironmentMeta::tableName())
+        return EnvironmentMeta::query()
             ->where(
                 [
                     'environment_id' => $environmentId,
                     'key' => $key,
                 ]
-            );
+            )
+            ->first();
     }
 }

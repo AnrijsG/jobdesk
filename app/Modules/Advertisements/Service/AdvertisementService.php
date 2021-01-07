@@ -9,6 +9,11 @@ use App\Models\EnvironmentMeta;
 use App\Models\User;
 use App\Modules\Advertisements\Exceptions\AdvertisementApplicationSubmissionException;
 use App\Modules\Advertisements\Exceptions\AdvertisementSaveException;
+use App\Modules\Advertisements\Exceptions\DuplicateSubmissionException;
+use App\Modules\Advertisements\Exceptions\EmptyCoverLetterException;
+use App\Modules\Advertisements\Exceptions\InsufficientEnvironmentRoleException;
+use App\Modules\Advertisements\Exceptions\MissingCvException;
+use App\Modules\Advertisements\Factories\AdvertisementFactory;
 use App\Modules\Advertisements\Repositories\AdvertisementReplyRepository;
 use App\Modules\Advertisements\Repositories\AdvertisementRepository;
 use App\Modules\Advertisements\Structures\AdvertisementQueryItem;
@@ -20,14 +25,18 @@ class AdvertisementService
     private EnvironmentRepository $environmentRepository;
     private AdvertisementReplyRepository $advertisementReplyRepository;
 
+    private AdvertisementFactory $factory;
+
     public function __construct(
         AdvertisementRepository $repository,
         EnvironmentRepository $environmentRepository,
-        AdvertisementReplyRepository $advertisementReplyRepository
+        AdvertisementReplyRepository $advertisementReplyRepository,
+        AdvertisementFactory $factory
     ) {
         $this->repository = $repository;
         $this->environmentRepository = $environmentRepository;
         $this->advertisementReplyRepository = $advertisementReplyRepository;
+        $this->factory = $factory;
     }
 
     /**
@@ -52,7 +61,7 @@ class AdvertisementService
             $advertisement = $this->repository->getById($newItemData['advertisementId']);
         }
 
-        $newItem = AdvertisementModel::fromArray($newItemData, $advertisement);
+        $newItem = $this->factory->fromArray($newItemData, $advertisement);
         if ($newItem->id) {
             $this->failIfUserNotAdvertisementOwner($newItem, $user);
         }
@@ -64,7 +73,6 @@ class AdvertisementService
 
     public function failIfUserNotAdvertisementOwner(AdvertisementModel $advertisement, User $user)
     {
-        // TODO: Unit test
         if ($advertisement->environment_id !== $user->environment_id) {
             throw new AdvertisementSaveException('Unauthorised action');
         }
@@ -72,30 +80,39 @@ class AdvertisementService
 
     /**
      * @param int $advertisementId
-     * @param User $user
+     * @param int $environmentId
+     * @param string $environmentRole
+     * @param int $userId
      * @param string $coverLetter
+     * @return bool
      * @throws AdvertisementApplicationSubmissionException
      */
-    public function submitApplication(int $advertisementId, User $user, string $coverLetter)
+    public function submitApplication(
+        int $advertisementId,
+        int $environmentId,
+        string $environmentRole,
+        int $userId,
+        string $coverLetter
+    )
     {
         // Validation
-        if ($user->environment->role !== Environment::ROLE_APPLIER) {
-            throw new AdvertisementApplicationSubmissionException('Invalid request');
+        if ($environmentRole !== Environment::ROLE_APPLIER) {
+            throw new InsufficientEnvironmentRoleException('Invalid request');
         }
 
         if (!$coverLetter) {
-            throw new AdvertisementApplicationSubmissionException('Missing cover letter');
+            throw new EmptyCoverLetterException('Missing cover letter');
         }
 
         /** @var EnvironmentMeta|null $cvFile */
-        $cvFile = $this->environmentRepository->getMetaRow($user->environment_id, EnvironmentMeta::KEY_CV_FILENAME)->first();
+        $cvFile = $this->environmentRepository->getMetaRow($environmentId, EnvironmentMeta::KEY_CV_FILENAME);
         if (!$cvFile) {
-            throw new AdvertisementApplicationSubmissionException('User missing CV');
+            throw new MissingCvException('User missing CV');
         }
 
-        $hasUserSubmittedToSameAdvertisementBefore = $this->advertisementReplyRepository->getByUserAndAdvertisement($user->id, $advertisementId);
+        $hasUserSubmittedToSameAdvertisementBefore = $this->advertisementReplyRepository->getByUserAndAdvertisement($userId, $advertisementId);
         if ($hasUserSubmittedToSameAdvertisementBefore) {
-            throw new AdvertisementApplicationSubmissionException('You have already applied for this position in the past');
+            throw new DuplicateSubmissionException('You have already applied for this position in the past');
         }
 
         // Save application
@@ -103,9 +120,9 @@ class AdvertisementService
         $application->cv_download_url = e($cvFile->value);
         $application->cover_letter = e($coverLetter);
         $application->advertisement_id = $advertisementId;
-        $application->user_id = $user->id;
+        $application->user_id = $userId;
 
-        $application->save();
+        return $this->advertisementReplyRepository->saveObject($application);
     }
 
     /**

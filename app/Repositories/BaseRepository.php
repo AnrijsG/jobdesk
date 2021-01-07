@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 abstract class BaseRepository
@@ -22,5 +23,10 @@ abstract class BaseRepository
     protected function all()
     {
         return $this->model()::all();
+    }
+
+    public function saveObject(Model $obj)
+    {
+        return $obj->save();
     }
 }

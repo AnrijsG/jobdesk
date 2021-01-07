@@ -126,9 +126,9 @@ export default {
                     coverLetter: this.coverLetterInput,
                     advertisementId: this.advertisement.advertisementId,
                 });
-            } catch {
+            } catch (e) {
                 await Swal.fire({
-                    'title': 'Something went wrong, please try again later',
+                    'title': e.response.data.message,
                     'icon': 'error',
                 });
                 this.isLoading = false;

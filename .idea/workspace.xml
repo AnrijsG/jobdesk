@@ -4,12 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cba8a450-294a-428c-9eb1-3809762e84fc" name="Default Changelist" comment="">
+    <list default="true" id="cba8a450-294a-428c-9eb1-3809762e84fc" name="Default Changelist" comment="System for applying to advertisements; Removed apply_url in environments table -&gt; added company_website column; Some CSRF fixes">
+      <change afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Exceptions/DuplicateSubmissionException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Exceptions/EmptyCoverLetterException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Exceptions/InsufficientEnvironmentRoleException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Exceptions/MissingCvException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Factories/AdvertisementFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Unit/AdvertisementServiceTest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Repositories/AdvertisementRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Repositories/AdvertisementRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/advertisement-list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/advertisement-list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.store.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.types.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/stores/advertisement.types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Controllers/AdvertisementRpcController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Controllers/AdvertisementRpcController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Advertisements/Service/AdvertisementService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Advertisements/Service/AdvertisementService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/Auth/Repositories/EnvironmentRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/Auth/Repositories/EnvironmentRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Modules/FileUpload/Services/FileService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Modules/FileUpload/Services/FileService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/BaseRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/advertisement-view.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/advertisement-list/components/advertisement-view.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +172,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="DatabaseDriversLRU" value="mysql&#10;postgresql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components/auth" />
@@ -182,11 +190,40 @@
       <recent name="D:\jobdesk\resources\js\components\auth\components" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="PHPUnit.AdvertisementServiceTest">
+    <configuration name="AdvertisementServiceTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Unit\AdvertisementServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Unit/AdvertisementServiceTest.php" scope="Class" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AdvertisementServiceTest.testSave_withInvalidEnvironment_expectException" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Unit\AdvertisementServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Unit/AdvertisementServiceTest.php" method="testSave_withInvalidEnvironment_expectException" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AdvertisementServiceTest.testSave_withValidData_shouldSucceed" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Unit\AdvertisementServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Unit/AdvertisementServiceTest.php" method="testSave_withValidData_shouldSucceed" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AdvertisementServiceTest.testSubmitApplication_withDuplicateSubmission_expectException" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Unit\AdvertisementServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Unit/AdvertisementServiceTest.php" method="testSubmitApplication_withDuplicateSubmission_expectException" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AdvertisementServiceTest.testSubmitApplication_withMissingCv_expectException" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="Tests\Unit\AdvertisementServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml" file="$PROJECT_DIR$/tests/Unit/AdvertisementServiceTest.php" method="testSubmitApplication_withMissingCv_expectException" scope="Method" />
+      <method v="2" />
+    </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHPUnit.AdvertisementServiceTest" />
+        <item itemvalue="PHPUnit.AdvertisementServiceTest.testSave_withValidData_shouldSucceed" />
+        <item itemvalue="PHPUnit.AdvertisementServiceTest.testSave_withInvalidEnvironment_expectException" />
+        <item itemvalue="PHPUnit.AdvertisementServiceTest.testSubmitApplication_withDuplicateSubmission_expectException" />
+        <item itemvalue="PHPUnit.AdvertisementServiceTest.testSubmitApplication_withMissingCv_expectException" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -218,6 +255,11 @@
       <workItem from="1604422074564" duration="2000" />
       <workItem from="1604511914094" duration="118000" />
       <workItem from="1605121510437" duration="10462000" />
+      <workItem from="1609708103219" duration="4541000" />
+      <workItem from="1609772882408" duration="2220000" />
+      <workItem from="1609792462099" duration="159000" />
+      <workItem from="1609904596948" duration="3774000" />
+      <workItem from="1609996656890" duration="2771000" />
     </task>
     <task id="LOCAL-00001" summary="Initial auth&#10;SPA logic&#10;Some vue components&#10;Vuex stores">
       <created>1603663528550</created>
@@ -240,7 +282,70 @@
       <option name="project" value="LOCAL" />
       <updated>1605128693646</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="try seting up heroku">
+      <created>1609708220894</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1609708220894</updated>
+    </task>
+    <task id="LOCAL-00005" summary="heroku fix">
+      <created>1609708539456</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1609708539456</updated>
+    </task>
+    <task id="LOCAL-00006" summary="heroku stuff">
+      <created>1609709253427</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1609709253427</updated>
+    </task>
+    <task id="LOCAL-00007" summary="heroku stuff">
+      <created>1609709468046</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1609709468046</updated>
+    </task>
+    <task id="LOCAL-00008" summary="more heroku stuff...">
+      <created>1609709564434</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1609709564434</updated>
+    </task>
+    <task id="LOCAL-00009" summary="heroku stuff">
+      <created>1609710422849</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1609710422849</updated>
+    </task>
+    <task id="LOCAL-00010" summary="update packages">
+      <created>1609710589388</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1609710589388</updated>
+    </task>
+    <task id="LOCAL-00011" summary="heroku stuff">
+      <created>1609712304291</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1609712304291</updated>
+    </task>
+    <task id="LOCAL-00012" summary="bug fixes">
+      <created>1609778132135</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1609778132135</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,13 +355,23 @@
     <MESSAGE value="Initial auth&#10;SPA logic&#10;Some vue components&#10;Vuex stores" />
     <MESSAGE value="Dashboard / Safer auth" />
     <MESSAGE value="Refactoring &amp; More Advertisement logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring &amp; More Advertisement logic" />
+    <MESSAGE value="try seting up heroku" />
+    <MESSAGE value="heroku fix" />
+    <MESSAGE value="more heroku stuff..." />
+    <MESSAGE value="update packages" />
+    <MESSAGE value="heroku stuff" />
+    <MESSAGE value="bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="bug fixes" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="918" y="373" width="878" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603051387028">
+    <state x="918" y="373" width="878" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1609792546019">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="918" y="373" width="878" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603051387028" />
+    <state x="918" y="373" width="878" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1609792546019" />
+    <state x="1045" y="506" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609708180057">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1045" y="506" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1410@0.0.2560.1410" timestamp="1609708180057" />
     <state x="773" y="217" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1603735363648">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -265,14 +380,14 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1010" y="451" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603643196517" />
-    <state x="1010" y="459" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603631956013">
+    <state x="1010" y="459" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1609999119878">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="1010" y="459" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603631956013" />
-    <state x="889" y="273" key="CommitChangelistDialog2" timestamp="1605128689255">
+    <state x="1010" y="459" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1609999119878" />
+    <state x="889" y="273" key="CommitChangelistDialog2" timestamp="1609778130400">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="889" y="273" key="CommitChangelistDialog2/0.0.2560.1410@0.0.2560.1410" timestamp="1605128689255" />
+    <state x="889" y="273" key="CommitChangelistDialog2/0.0.2560.1410@0.0.2560.1410" timestamp="1609778130400" />
     <state x="232" y="123" key="DiffContextDialog" timestamp="1605128573207">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -285,10 +400,42 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1060" y="459" key="FileChooserDialogImpl/0.0.2560.1410@0.0.2560.1410" timestamp="1605124136767" />
-    <state x="1090" y="427" key="NewPhpClassDialog" timestamp="1603821230607">
+    <state width="2517" height="258" key="GridCell.Tab.0.bottom" timestamp="1609999432437">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="1090" y="427" key="NewPhpClassDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1603821230607" />
+    <state width="2517" height="258" key="GridCell.Tab.0.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1609999432437" />
+    <state width="2517" height="258" key="GridCell.Tab.0.center" timestamp="1609999432437">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="258" key="GridCell.Tab.0.center/0.0.2560.1410@0.0.2560.1410" timestamp="1609999432437" />
+    <state width="2517" height="258" key="GridCell.Tab.0.left" timestamp="1609999432437">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="258" key="GridCell.Tab.0.left/0.0.2560.1410@0.0.2560.1410" timestamp="1609999432437" />
+    <state width="2517" height="258" key="GridCell.Tab.0.right" timestamp="1609999432437">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="258" key="GridCell.Tab.0.right/0.0.2560.1410@0.0.2560.1410" timestamp="1609999432437" />
+    <state width="2517" height="496" key="GridCell.Tab.1.bottom" timestamp="1609909084918">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1609909084918" />
+    <state width="2517" height="496" key="GridCell.Tab.1.center" timestamp="1609909084918">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.center/0.0.2560.1410@0.0.2560.1410" timestamp="1609909084918" />
+    <state width="2517" height="496" key="GridCell.Tab.1.left" timestamp="1609909084918">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.left/0.0.2560.1410@0.0.2560.1410" timestamp="1609909084918" />
+    <state width="2517" height="496" key="GridCell.Tab.1.right" timestamp="1609909084918">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.right/0.0.2560.1410@0.0.2560.1410" timestamp="1609909084918" />
+    <state x="1090" y="427" key="NewPhpClassDialog" timestamp="1609998684873">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1090" y="427" key="NewPhpClassDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1609998684873" />
     <state x="1115" y="628" key="NewPhpFileDialog" timestamp="1603387715146">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -305,26 +452,26 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="1045" y="378" key="VCS.ChangeListViewerDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1604265709049" />
-    <state x="872" y="437" key="Vcs.Push.Dialog.v2" timestamp="1605128717797">
+    <state x="872" y="437" key="Vcs.Push.Dialog.v2" timestamp="1609778133107">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="872" y="437" key="Vcs.Push.Dialog.v2/0.0.2560.1410@0.0.2560.1410" timestamp="1605128717797" />
+    <state x="872" y="437" key="Vcs.Push.Dialog.v2/0.0.2560.1410@0.0.2560.1410" timestamp="1609778133107" />
     <state x="534" y="595" width="316" height="245" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1603053133019">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="534" y="595" width="316" height="245" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.2560.1410@0.0.2560.1410" timestamp="1603053133019" />
-    <state x="786" y="445" width="905" height="679" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1604264306490">
+    <state x="786" y="445" width="905" height="679" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1609904843959">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="786" y="445" width="905" height="679" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1604264306490" />
+    <state x="786" y="445" width="905" height="679" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1609904843959" />
     <state x="92" y="92" width="2376" height="1226" key="dock-window-1" timestamp="1603386319775">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="92" y="92" width="2376" height="1226" key="dock-window-1/0.0.2560.1410@0.0.2560.1410" timestamp="1603386319775" />
-    <state x="987" y="304" width="585" height="801" key="find.popup" timestamp="1605131703606">
+    <state x="987" y="304" width="585" height="801" key="find.popup" timestamp="1609997817092">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="987" y="304" width="585" height="801" key="find.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1605131703606" />
+    <state x="987" y="304" width="585" height="801" key="find.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1609997817092" />
     <state x="1080" y="606" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1603023892940">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
@@ -333,9 +480,20 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="936" y="333" key="run.anything.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1603747685149" />
-    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup" timestamp="1605131696853">
+    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup" timestamp="1609997760454">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
-    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1605131696853" />
+    <state x="1344" y="416" width="672" height="678" key="search.everywhere.popup/0.0.2560.1410@0.0.2560.1410" timestamp="1609997760454" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/Modules/Advertisements/Service/AdvertisementService.php</url>
+          <line>99</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
