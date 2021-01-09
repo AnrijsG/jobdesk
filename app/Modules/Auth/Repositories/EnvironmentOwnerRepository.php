@@ -16,4 +16,9 @@ class EnvironmentOwnerRepository extends BaseRepository
     {
         return EnvironmentOwner::class;
     }
+
+    public function getByUserId(int $userId): ?EnvironmentOwner
+    {
+        return $this->all()->where('user_id', $userId)->first();
+    }
 }

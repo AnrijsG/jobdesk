@@ -38,7 +38,7 @@
                     {{ user.email }}
                 </div>
                 <div class="w-100">
-                    <button class="btn btn-purple m-1">
+                    <button @click="toggleOwnership(user.userId)" class="btn btn-purple m-1">
                         Toggle ownership
                     </button>
                     <button class="btn m-1"
@@ -94,7 +94,34 @@
                 });
 
                 this.getEnvironmentUsers();
-            }
+            },
+            async toggleOwnership(id) {
+                try {
+                    const response = await axios.post('/api/toggle-ownership', {userId: id});
+                    if (!response) {
+                        await Swal.fire({
+                            'title': 'Something went wrong, please try again later',
+                            'icon': 'error',
+                        });
+
+                        return;
+                    }
+                } catch (e) {
+                    await Swal.fire({
+                        'title': 'Something went wrong, please try again later',
+                        'icon': 'error',
+                    });
+
+                    return;
+                }
+
+                await Swal.fire({
+                    'title': 'User status changed',
+                    'icon': 'success',
+                });
+
+                this.getEnvironmentUsers();
+            },
         },
         computed: {
             ...mapGetters('auth', {

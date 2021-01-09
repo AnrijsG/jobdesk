@@ -3,17 +3,22 @@
 namespace App\Modules\Auth\Services;
 
 use App\Models\Environment;
+use App\Models\EnvironmentOwner;
 use App\Models\User;
 use App\Modules\Advertisements\Exceptions\UserActivationException;
+use App\Modules\Advertisements\Exceptions\UserOwnershipTransferException;
+use App\Modules\Auth\Repositories\EnvironmentOwnerRepository;
 use App\Modules\Auth\Repositories\UserRepository;
 
 class EnvironmentService
 {
     public UserRepository $userRepository;
+    public EnvironmentOwnerRepository $ownerRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, EnvironmentOwnerRepository $ownerRepository)
     {
         $this->userRepository = $userRepository;
+        $this->ownerRepository = $ownerRepository;
     }
 
     public function resetRegistrationHash(Environment $environment): string
@@ -70,5 +75,34 @@ class EnvironmentService
         $userToToggle->is_active = !$userToToggle->is_active;
 
         return $userToToggle->update();
+    }
+
+    /**
+     * @param int $userId user that will have action inflicted
+     * @param User $user user requesting toggle
+     * @return bool
+     * @throws UserOwnershipTransferException
+     */
+    public function toggleOwnership(int $userId, User $user): bool
+    {
+        if (!$user->isEnvironmentOwner()) {
+            throw new UserOwnershipTransferException('Access denied');
+        }
+
+        // Get user
+        $userToToggle = $this->userRepository->getById($userId);
+        if (!$userToToggle) {
+            throw new UserOwnershipTransferException('User not found');
+        }
+
+        if ($userToToggle->isEnvironmentOwner()) {
+            return $this->ownerRepository->getByUserId($userId)->delete();
+        }
+
+        $newOwner = new EnvironmentOwner();
+        $newOwner->user_id = $userId;
+        $newOwner->environment_id = $user->environment_id;
+
+        return $newOwner->save();
     }
 }

@@ -94,3 +94,8 @@ Route::middleware('auth:sanctum')->post(
     '/toggle-active',
     [AuthController::class, 'toggleActive']
 );
+
+Route::middleware('auth:sanctum')->post(
+    '/toggle-ownership',
+    [AuthController::class, 'toggleOwnership']
+);

@@ -101,4 +101,9 @@ class AuthController extends Controller
     {
         return $this->environmentService->toggleActive($request->input('userId'), $request->user());
     }
+
+    public function toggleOwnership(Request $request)
+    {
+        return $this->environmentService->toggleOwnership($request->input('userId'), $request->user());
+    }
 }

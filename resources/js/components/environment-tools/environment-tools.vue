@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <user-management />
+        <user-management v-if="currentUser.isEnvironmentOwner" />
     </div>
 </template>
 
