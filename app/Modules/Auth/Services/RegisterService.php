@@ -12,6 +12,7 @@ use App\Modules\Auth\Factories\EnvironmentFactory;
 use App\Modules\Auth\Repositories\EnvironmentRepository;
 use App\Modules\Auth\Repositories\UserRepository;
 use App\Modules\Auth\Structures\NewUserStructure;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class RegisterService
@@ -39,12 +40,15 @@ class RegisterService
             $registrationHash = $user->additionalData['registrationHash'] ?? null;
             if ($registrationHash) {
                 $environment = $this->environmentRepository->getByRegistrationHash($registrationHash);
+
+                if (!$environment) {
+                    throw new InvalidNewUserPropertiesException('Invalid registration hash');
+                }
             }
 
             if (!$environment) {
                 $environment = $this->generateNewEnvironment($user);
             }
-
 
             $newUser = new User;
             $newUser->name = $user->name;
@@ -52,8 +56,8 @@ class RegisterService
             $newUser->password = $user->password;
             $newUser->environment_id = $environment->id;
 
-            $newUser->save();
-        } catch (\Exception $e) {
+            $this->userRepository->saveObject($newUser);
+        } catch (Exception $e) {
             DB::rollBack();
 
             throw $e;
@@ -88,18 +92,19 @@ class RegisterService
     /**
      * @param NewUserStructure $user
      * @return Environment
+     * @throws InvalidNewUserPropertiesException
      */
     private function generateNewEnvironment(NewUserStructure $user): Environment
     {
         switch ($user->role) {
             case Environment::ROLE_ADVERTISER:
-                $environment = EnvironmentFactory::getEnvironment($user->role, $user->additionalData['companyName']);
+                $environment = EnvironmentFactory::getEnvironment($user->role, $user->additionalData['companyName'] ?? null);
                 break;
             default:
                 $environment = EnvironmentFactory::getEnvironment($user->role);
         }
 
-        $environment->save();
+        $this->environmentRepository->saveObject($environment);
 
         return $environment;
     }
