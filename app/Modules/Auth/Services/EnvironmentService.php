@@ -63,7 +63,7 @@ class EnvironmentService
             throw new UserActivationException('User not found');
         }
 
-        if ($userToToggle->environment_id !== $user->environment_id) {
+        if (!$user->isEnvironmentOwner() || $userToToggle->isEnvironmentOwner()) {
             throw new UserActivationException('Access denied');
         }
 

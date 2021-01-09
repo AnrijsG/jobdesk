@@ -67,7 +67,6 @@ class Environment extends Model
             'environmentId' => $this->id,
             'registrationHash' => $this->registration_hash,
             'role' => $this->role,
-            'ownerIds' => array_map(fn(User $user) => $user->id, $this->owners->all()),
             'companyName' => $this->company_name,
             'companyWebsite' => $this->company_website,
             'logoUrl' => $this->getLogoUrl(),

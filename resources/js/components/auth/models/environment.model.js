@@ -14,8 +14,6 @@ export class EnvironmentModel {
     registrationHash = null;
     /** @type {String} */
     role = '';
-    /** @type {Array} */
-    ownerIds = [];
     /** @type {String} */
     companyName = '';
     /** @type {String} */

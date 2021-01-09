@@ -30,7 +30,7 @@
                 <div class="w-100">
                     {{ user.name }}
 
-                    <span v-if="isUserEnvironmentOwner(user.userId)" class="badge badge-info">
+                    <span v-if="user.isEnvironmentOwner" class="badge badge-info">
                     Admin
                 </span>
                 </div>
@@ -43,7 +43,7 @@
                     </button>
                     <button class="btn m-1"
                             :class="user.isActive ? 'btn-danger' : 'btn-success'"
-                            v-if="!isUserEnvironmentOwner(user.userId)"
+                            v-if="!user.isEnvironmentOwner"
                             @click="toggleActive(user.userId)"
                     >
                         {{ user.isActive ? 'Deactivate' : 'Activate' }}
@@ -68,9 +68,6 @@
             ...mapActions('auth', {
                 getEnvironmentUsers: storeTypes.ACTION_GET_ENVIRONMENT_USERS,
             }),
-            isUserEnvironmentOwner(id) {
-                return this.user.environment.ownerIds.some(ownerId => ownerId === id);
-            },
             async toggleActive(id) {
                 try {
                     const response = await axios.post('/api/toggle-active', {userId: id});

@@ -6,6 +6,7 @@ use App\Exceptions\InvalidEnvironmentRoleException;
 use App\Exceptions\InvalidNewUserPropertiesException;
 use App\Models\Environment;
 use App\Models\User;
+use App\Modules\Auth\Repositories\EnvironmentOwnerRepository;
 use App\Modules\Auth\Repositories\EnvironmentRepository;
 use App\Modules\Auth\Repositories\UserRepository;
 use App\Modules\Auth\Services\RegisterService;
@@ -18,6 +19,7 @@ class RegisterServiceTest extends TestCase
 {
     private UserRepository $userRepository;
     private EnvironmentRepository $environmentRepository;
+    private EnvironmentOwnerRepository $environmentOwnerRepository;
 
     public RegisterService $service;
 
@@ -27,8 +29,13 @@ class RegisterServiceTest extends TestCase
 
         $this->userRepository = Mockery::mock(UserRepository::class);
         $this->environmentRepository = Mockery::mock(EnvironmentRepository::class);
+        $this->environmentOwnerRepository = Mockery::mock(EnvironmentOwnerRepository::class);
 
-        $this->service = new RegisterService($this->userRepository, $this->environmentRepository);
+        $this->service = new RegisterService(
+            $this->userRepository,
+            $this->environmentRepository,
+            $this->environmentOwnerRepository
+        );
     }
 
     public function testRegister_withExistingEmail_expectException()
@@ -125,6 +132,8 @@ class RegisterServiceTest extends TestCase
         $this->environmentRepository->shouldReceive('saveObject')->andReturn(true)->once();
 
         $this->userRepository->shouldReceive('saveObject')->andReturn(true)->once();
+
+        $this->environmentOwnerRepository->shouldReceive('saveObject')->andReturn(true)->once();
 
         DB::shouldReceive('commit');
 

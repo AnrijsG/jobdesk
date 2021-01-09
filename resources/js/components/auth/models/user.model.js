@@ -9,6 +9,8 @@ export class UserModel {
     email = '';
     /** @type {Boolean} */
     isActive = true;
+    /** @type {Boolean} */
+    isEnvironmentOwner = false;
     /** @type {EnvironmentModel} */
     environment = new EnvironmentModel;
 

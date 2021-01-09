@@ -7,8 +7,10 @@ namespace App\Modules\Auth\Services;
 use App\Exceptions\InvalidEnvironmentRoleException;
 use App\Exceptions\InvalidNewUserPropertiesException;
 use App\Models\Environment;
+use App\Models\EnvironmentOwner;
 use App\Models\User;
 use App\Modules\Auth\Factories\EnvironmentFactory;
+use App\Modules\Auth\Repositories\EnvironmentOwnerRepository;
 use App\Modules\Auth\Repositories\EnvironmentRepository;
 use App\Modules\Auth\Repositories\UserRepository;
 use App\Modules\Auth\Structures\NewUserStructure;
@@ -19,11 +21,17 @@ class RegisterService
 {
     private UserRepository $userRepository;
     private EnvironmentRepository $environmentRepository;
+    private EnvironmentOwnerRepository $environmentOwnerRepository;
 
-    public function __construct(UserRepository $userRepository, EnvironmentRepository $environmentRepository)
+    public function __construct(
+        UserRepository $userRepository,
+        EnvironmentRepository $environmentRepository,
+        EnvironmentOwnerRepository $environmentOwnerRepository
+    )
     {
         $this->userRepository = $userRepository;
         $this->environmentRepository = $environmentRepository;
+        $this->environmentOwnerRepository = $environmentOwnerRepository;
     }
 
     public function register(NewUserStructure $user): User
@@ -57,6 +65,15 @@ class RegisterService
             $newUser->environment_id = $environment->id;
 
             $this->userRepository->saveObject($newUser);
+
+            if (!$registrationHash && $environment->role === Environment::ROLE_ADVERTISER) {
+                $owner = new EnvironmentOwner();
+                $owner->environment_id = $environment->id;
+                $owner->user_id = $newUser->id;
+
+                $this->environmentOwnerRepository->saveObject($owner);
+            }
+
         } catch (Exception $e) {
             DB::rollBack();
 

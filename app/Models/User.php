@@ -72,6 +72,7 @@ class User extends Authenticatable
             'name' => $this->name,
             'email' => $this->email,
             'isActive' => $this->is_active,
+            'isEnvironmentOwner' => $this->isEnvironmentOwner(),
             'environment' => $this->environment->toRpc(),
         ];
     }
@@ -79,5 +80,10 @@ class User extends Authenticatable
     public function environment()
     {
         return $this->belongsTo(Environment::class);
+    }
+
+    public function isEnvironmentOwner(): bool
+    {
+        return in_array($this->id, array_map(fn(User $user) => $user->id, $this->environment->owners->all()));
     }
 }
