@@ -22,7 +22,7 @@ class AdvertisementCleanupService
             if ($advertisement->expiration_date <= $currentDate) {
                 $advertisement->is_active = false;
 
-                $advertisement->save();
+                $this->repository->saveObject($advertisement);
             }
         }
     }

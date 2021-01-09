@@ -55,6 +55,25 @@ class RegisterServiceTest extends TestCase
         $this->service->register($newUserItem);
     }
 
+    public function testRegister_withInvalidRole_expectException()
+    {
+        // Set up
+        $newUserItem = new NewUserStructure();
+        $newUserItem->name = 'Name Surname';
+        $newUserItem->email = 'name@user.com';
+        $newUserItem->password = 'password';
+        $newUserItem->role = 'Invalid Role';
+
+        // Assertions
+        DB::shouldReceive('beginTransaction');
+
+        $this->expectException(InvalidEnvironmentRoleException::class);
+
+        DB::shouldReceive('rollBack');
+
+        $this->service->register($newUserItem);
+    }
+
     /** @doesNotPerformAssertions  */
     public function testRegister_withApplierData_shouldSucceed()
     {
@@ -78,25 +97,6 @@ class RegisterServiceTest extends TestCase
         $this->userRepository->shouldReceive('saveObject')->andReturn(true)->once();
 
         DB::shouldReceive('commit');
-
-        $this->service->register($newUserItem);
-    }
-
-    public function testRegister_withInvalidRole_expectException()
-    {
-        // Set up
-        $newUserItem = new NewUserStructure();
-        $newUserItem->name = 'Name Surname';
-        $newUserItem->email = 'name@user.com';
-        $newUserItem->password = 'password';
-        $newUserItem->role = 'Invalid Role';
-
-        // Assertions
-        DB::shouldReceive('beginTransaction');
-
-        $this->expectException(InvalidEnvironmentRoleException::class);
-
-        DB::shouldReceive('rollBack');
 
         $this->service->register($newUserItem);
     }
