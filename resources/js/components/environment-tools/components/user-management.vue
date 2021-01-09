@@ -38,7 +38,7 @@
                     {{ user.email }}
                 </div>
                 <div class="w-100">
-                    <button @click="toggleOwnership(user.userId)" class="btn btn-purple m-1">
+                    <button @click="toggleOwnership(user.userId)" class="btn btn-purple m-1" v-if="user.userId !== currentUser.userId">
                         Toggle ownership
                     </button>
                     <button class="btn m-1"
@@ -127,7 +127,7 @@
             ...mapGetters('auth', {
                 /** @type Array<UserModel>|* */
                 environmentUsers: storeTypes.GET_ENVIRONMENT_USERS,
-                user: storeTypes.GET_CURRENT_USER,
+                currentUser: storeTypes.GET_CURRENT_USER,
             }),
         },
     }

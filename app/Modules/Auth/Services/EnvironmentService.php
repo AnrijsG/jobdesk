@@ -85,6 +85,10 @@ class EnvironmentService
      */
     public function toggleOwnership(int $userId, User $user): bool
     {
+        if ($userId === $user->id) {
+            throw new UserOwnershipTransferException('Access denied');
+        }
+
         if (!$user->isEnvironmentOwner()) {
             throw new UserOwnershipTransferException('Access denied');
         }
