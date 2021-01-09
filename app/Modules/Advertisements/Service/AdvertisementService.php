@@ -8,6 +8,7 @@ use App\Models\Environment;
 use App\Models\EnvironmentMeta;
 use App\Models\User;
 use App\Modules\Advertisements\Exceptions\AdvertisementApplicationSubmissionException;
+use App\Modules\Advertisements\Exceptions\AdvertisementDeleteException;
 use App\Modules\Advertisements\Exceptions\AdvertisementSaveException;
 use App\Modules\Advertisements\Exceptions\DuplicateSubmissionException;
 use App\Modules\Advertisements\Exceptions\EmptyCoverLetterException;
@@ -140,5 +141,21 @@ class AdvertisementService
         }
 
         return $this->advertisementReplyRepository->getByAdvertisement($advertisementId);
+    }
+
+    /**
+     * @param int $advertisementId
+     * @param User $user
+     * @return bool
+     * @throws AdvertisementDeleteException
+     */
+    public function delete(int $advertisementId, User $user): bool
+    {
+        $advertisement = $this->repository->getById($advertisementId);
+        if ($advertisement->environment_id !== $user->environment_id) {
+            throw new AdvertisementDeleteException('Access denied');
+        }
+
+        return $advertisement->delete();
     }
 }

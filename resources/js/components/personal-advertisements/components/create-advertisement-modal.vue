@@ -85,6 +85,7 @@
 
                 <div class="float-right">
                     <b-button @click="$bvModal.hide('createAdvertisementModal')">Cancel</b-button>
+                    <b-button @click="deleteAdvertisement" class="btn-danger">Delete</b-button>
                     <b-button @click="save"
                               class="btn btn-purple"
                               :disabled="invalid || !isAdditionalFormValidationPassed"
@@ -144,6 +145,37 @@ export default {
                 await Swal.fire('Advertisement saving failed!');
             } catch {}
         },
+        async deleteAdvertisement() {
+            try {
+                const response = await axios.post('/api/delete-advertisement', {
+                    advertisementId: this.advertisementItem.advertisementId
+                });
+
+                if (!response) {
+                    await Swal.fire({
+                        'title': 'Something went wrong, please contact support',
+                        'icon': 'error',
+                    });
+
+                    return;
+                }
+            } catch (e) {
+                await Swal.fire({
+                    'title': e.response.data.message,
+                    'icon': 'error',
+                });
+
+                return;
+            }
+
+            this.getPersonalAdvertisements();
+            this.$bvModal.hide('createAdvertisementModal')
+
+            await Swal.fire({
+                'title': 'Advertisement deleted successfully',
+                'icon': 'success',
+            });
+        }
     },
     computed: {
         isAdditionalFormValidationPassed() {

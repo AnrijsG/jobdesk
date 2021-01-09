@@ -7,6 +7,7 @@ use App\Models\AdvertisementModel;
 use App\Models\AdvertisementReply;
 use App\Models\Environment;
 use App\Modules\Advertisements\Exceptions\AdvertisementApplicationSubmissionException;
+use App\Modules\Advertisements\Exceptions\AdvertisementDeleteException;
 use App\Modules\Advertisements\Repositories\JobCategoryRepository;
 use App\Modules\Advertisements\Service\AdvertisementService;
 use App\Modules\Advertisements\Structures\AdvertisementQueryItem;
@@ -61,6 +62,17 @@ class AdvertisementRpcController extends Controller
         $user = $request->user();
 
         return $this->service->save($advertisementData, $user);
+    }
+
+    public function deleteAdvertisement(Request $request)
+    {
+        try {
+            return $this->service->delete($request->input('advertisementId'), $request->user());
+        } catch (AdvertisementDeleteException $e) {
+            throw $e;
+        } catch (Throwable $e) {
+            abort(500, 'Something went wrong, please try again later');
+        }
     }
 
     /**

@@ -26,6 +26,11 @@ Route::middleware('auth:sanctum')->post(
     [AdvertisementRpcController::class, 'saveAdvertisement']
 );
 
+Route::middleware('auth:sanctum')->post(
+    '/delete-advertisement',
+    [AdvertisementRpcController::class, 'deleteAdvertisement']
+);
+
 // Advertisements
 Route::post('/get-advertisements', [AdvertisementRpcController::class, 'getAdvertisements']);
 Route::get('/get-categories', [AdvertisementRpcController::class, 'getJobCategories']);
