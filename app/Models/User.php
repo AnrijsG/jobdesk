@@ -18,6 +18,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $name
  * @property string $password
  * @property int $environment_id
+ * @property boolean $is_active
  *
  * @property-read Environment $environment
  */
@@ -70,6 +71,7 @@ class User extends Authenticatable
             'userId' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'isActive' => $this->is_active,
             'environment' => $this->environment->toRpc(),
         ];
     }

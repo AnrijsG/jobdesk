@@ -17,6 +17,11 @@ class UserRepository extends BaseRepository
         return $this->buildFindQuery()->where(['email' => $email])->get()->all()[0] ?? null;
     }
 
+    public function getById(int $userId): ?User
+    {
+        return $this->all()->where('id', $userId)->first();
+    }
+
     protected function model(): string
     {
         return User::class;

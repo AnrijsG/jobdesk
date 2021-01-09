@@ -25,7 +25,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt(array_merge($credentials, ['is_active' => true]))) {
             return true;
         }
 
@@ -95,5 +95,10 @@ class AuthController extends Controller
         $environment = $user->environment;
 
         $this->environmentService->setCompanyWebsite($environment, $request->input('companyWebsite') ?? '');
+    }
+
+    public function toggleActive(Request $request)
+    {
+        return $this->environmentService->toggleActive($request->input('userId'), $request->user());
     }
 }

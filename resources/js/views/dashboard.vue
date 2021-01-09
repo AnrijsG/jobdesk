@@ -4,10 +4,10 @@
             <advertisement-replies />
         </div>
         <div class="row mb-4">
-            <div class="col-12 col-lg">
+            <div class="col-12 col-xl">
                 <personal-advertisements-editor />
             </div>
-            <div class="col-12 col-lg">
+            <div class="col-12 col-xl">
                 <div class="card p-4">
                     <environment-tools />
                 </div>

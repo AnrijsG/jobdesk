@@ -7,6 +7,8 @@ export class UserModel {
     name = '';
     /** @type {String} */
     email = '';
+    /** @type {Boolean} */
+    isActive = true;
     /** @type {EnvironmentModel} */
     environment = new EnvironmentModel;
 

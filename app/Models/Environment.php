@@ -20,6 +20,7 @@ use Illuminate\Support\Arr;
  *
  * @property-read User[] $users
  * @property-read EnvironmentMeta[] $meta
+ * @property-read User[] $owners
  */
 class Environment extends Model
 {
@@ -42,6 +43,11 @@ class Environment extends Model
         return $this->hasMany(EnvironmentMeta::class);
     }
 
+    public function owners()
+    {
+        return $this->hasManyThrough(User::class, EnvironmentOwner::class, 'environment_id', 'id', 'id', 'user_id');
+    }
+
     /**
      * @return string|null
      */
@@ -61,6 +67,7 @@ class Environment extends Model
             'environmentId' => $this->id,
             'registrationHash' => $this->registration_hash,
             'role' => $this->role,
+            'ownerIds' => array_map(fn(User $user) => $user->id, $this->owners->all()),
             'companyName' => $this->company_name,
             'companyWebsite' => $this->company_website,
             'logoUrl' => $this->getLogoUrl(),

@@ -89,3 +89,8 @@ Route::middleware('auth:sanctum')->post(
     '/set-company-website',
     [AuthController::class, 'setCompanyWebsite']
 );
+
+Route::middleware('auth:sanctum')->post(
+    '/toggle-active',
+    [AuthController::class, 'toggleActive']
+);
