@@ -85,7 +85,12 @@
 
                 <div class="float-right">
                     <b-button @click="$bvModal.hide('createAdvertisementModal')">Cancel</b-button>
-                    <b-button @click="deleteAdvertisement" class="btn-danger">Delete</b-button>
+                    <b-button v-if="advertisementItem.advertisementId !== -1"
+                              @click="deleteAdvertisement"
+                              class="btn-danger"
+                    >
+                        Delete
+                    </b-button>
                     <b-button @click="save"
                               class="btn btn-purple"
                               :disabled="invalid || !isAdditionalFormValidationPassed"
