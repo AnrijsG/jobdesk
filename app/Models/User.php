@@ -28,8 +28,10 @@ class User extends Authenticatable
 
     public function save(array $options = [])
     {
-        // hash password
-        $this->password = Hash::make($this->password);
+        if (!$this->id) {
+            // hash password
+            $this->password = Hash::make($this->password);
+        }
 
         return parent::save($options);
     }
