@@ -93,6 +93,10 @@
 
                             <button class="btn btn-purple float-right" :disabled="invalid || !validated" @click="onRegister">Register</button>
                         </ValidationObserver>
+
+                        <p v-if="error" class="text-danger">
+                            {{ error }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -120,6 +124,7 @@ export default {
         additionalData: {},
         roles: EnvironmentModel.PUBLIC_ROLES,
         isExistingEnvironment: false,
+        error: '',
     }),
     methods: {
         async onRegister() {
@@ -128,7 +133,9 @@ export default {
                 await axios.post('/auth/register', {email: this.email, password: this.password, name: this.name, role: this.role, additionalData: this.additionalData});
 
                 this.getUser();
-            } catch {}
+            } catch (err) {
+                this.error = err.response.data.message;
+            }
         },
         getRoleDisplayText(role) {
             switch (role) {
