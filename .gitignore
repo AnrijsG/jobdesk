@@ -21,3 +21,4 @@ yarn-error.log
 /css
 /public/mix-manifest.json
 /config/sanctum.php
+database/jobdesk.sqlite
