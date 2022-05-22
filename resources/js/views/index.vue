@@ -19,7 +19,7 @@
 
         <div class="bg-white">
             <div class="main main__content py-4">
-                <p class="text-right mb-0"><strong>JobDesk</strong> 2020</p>
+                <p class="text-right mb-0"><strong>JobDesk</strong> 2022</p>
             </div>
         </div>
     </div>
